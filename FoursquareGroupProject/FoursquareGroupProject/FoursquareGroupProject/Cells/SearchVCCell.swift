@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SearchVCCell.swift
 //  FoursquareGroupProject
 //
 //  Created by Melinda Diaz on 2/21/20.
@@ -8,13 +8,6 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-      
-    }
-
-
+class SearchVCCell: UICollectionViewCell {
+    
 }
-

@@ -3,16 +3,26 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		4DE63016240066B800A3781D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE63015240066B800A3781D /* AppDelegate.swift */; };
 		4DE63018240066B800A3781D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE63017240066B800A3781D /* SceneDelegate.swift */; };
-		4DE6301A240066B800A3781D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE63019240066B800A3781D /* ViewController.swift */; };
+		4DE6301A240066B800A3781D /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE63019240066B800A3781D /* SearchViewController.swift */; };
 		4DE6301F240066BA00A3781D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DE6301E240066BA00A3781D /* Assets.xcassets */; };
 		4DE63022240066BA00A3781D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DE63020240066BA00A3781D /* LaunchScreen.storyboard */; };
 		4DE6302D240066BB00A3781D /* FoursquareGroupProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6302C240066BB00A3781D /* FoursquareGroupProjectTests.swift */; };
+		4DE6303F240069AA00A3781D /* ImageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4DE6303E240069AA00A3781D /* ImageKit */; };
+		4DE63041240069EE00A3781D /* FoursquareTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE63040240069EE00A3781D /* FoursquareTabBarController.swift */; };
+		4DE6304324006A1300A3781D /* FoursquareAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304224006A1300A3781D /* FoursquareAPIClient.swift */; };
+		4DE6304524006A5400A3781D /* FoursquareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304424006A5400A3781D /* FoursquareModel.swift */; };
+		4DE6304724006B3D00A3781D /* SaveCollectionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304624006B3D00A3781D /* SaveCollectionsVC.swift */; };
+		4DE6304924006B5D00A3781D /* SaveCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304824006B5D00A3781D /* SaveCollectionCell.swift */; };
+		4DE6304B24006B8200A3781D /* SaveCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304A24006B8200A3781D /* SaveCollectionView.swift */; };
+		4DE6304D24006B9D00A3781D /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304C24006B9D00A3781D /* SearchView.swift */; };
+		4DE6304F24006CA000A3781D /* SearchVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304E24006CA000A3781D /* SearchVCCell.swift */; };
+		4DE6305124006D0C00A3781D /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6305024006D0C00A3781D /* ShowAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +39,22 @@
 		4DE63012240066B800A3781D /* FoursquareGroupProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoursquareGroupProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DE63015240066B800A3781D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DE63017240066B800A3781D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4DE63019240066B800A3781D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4DE63019240066B800A3781D /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4DE6301E240066BA00A3781D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4DE63021240066BA00A3781D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4DE63023240066BA00A3781D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DE63028240066BA00A3781D /* FoursquareGroupProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoursquareGroupProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DE6302C240066BB00A3781D /* FoursquareGroupProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareGroupProjectTests.swift; sourceTree = "<group>"; };
 		4DE6302E240066BB00A3781D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DE63040240069EE00A3781D /* FoursquareTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareTabBarController.swift; sourceTree = "<group>"; };
+		4DE6304224006A1300A3781D /* FoursquareAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareAPIClient.swift; sourceTree = "<group>"; };
+		4DE6304424006A5400A3781D /* FoursquareModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FoursquareModel.swift; path = FoursquareGroupProject/Controllers/FoursquareModel.swift; sourceTree = SOURCE_ROOT; };
+		4DE6304624006B3D00A3781D /* SaveCollectionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveCollectionsVC.swift; path = FoursquareGroupProject/Models/SaveCollectionsVC.swift; sourceTree = SOURCE_ROOT; };
+		4DE6304824006B5D00A3781D /* SaveCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveCollectionCell.swift; path = FoursquareGroupProject/Controllers/SaveCollectionCell.swift; sourceTree = SOURCE_ROOT; };
+		4DE6304A24006B8200A3781D /* SaveCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveCollectionView.swift; path = FoursquareGroupProject/Cells/SaveCollectionView.swift; sourceTree = SOURCE_ROOT; };
+		4DE6304C24006B9D00A3781D /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		4DE6304E24006CA000A3781D /* SearchVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCCell.swift; sourceTree = "<group>"; };
+		4DE6305024006D0C00A3781D /* ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DE6303F240069AA00A3781D /* ImageKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,7 +99,12 @@
 			children = (
 				4DE63015240066B800A3781D /* AppDelegate.swift */,
 				4DE63017240066B800A3781D /* SceneDelegate.swift */,
-				4DE63019240066B800A3781D /* ViewController.swift */,
+				4DE63038240068C700A3781D /* Models */,
+				4DE63037240068B400A3781D /* Controllers */,
+				4DE6303B240068F600A3781D /* Views */,
+				4DE6303A240068DA00A3781D /* Cells */,
+				4DE63039240068CD00A3781D /* Extensions */,
+				4DE6303C2400692500A3781D /* Network */,
 				4DE6301E240066BA00A3781D /* Assets.xcassets */,
 				4DE63020240066BA00A3781D /* LaunchScreen.storyboard */,
 				4DE63023240066BA00A3781D /* Info.plist */,
@@ -94,6 +119,58 @@
 				4DE6302E240066BB00A3781D /* Info.plist */,
 			);
 			path = FoursquareGroupProjectTests;
+			sourceTree = "<group>";
+		};
+		4DE63037240068B400A3781D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4DE6304624006B3D00A3781D /* SaveCollectionsVC.swift */,
+				4DE63019240066B800A3781D /* SearchViewController.swift */,
+				4DE63040240069EE00A3781D /* FoursquareTabBarController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4DE63038240068C700A3781D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4DE6304424006A5400A3781D /* FoursquareModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4DE63039240068CD00A3781D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4DE6305024006D0C00A3781D /* ShowAlert.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4DE6303A240068DA00A3781D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4DE6304E24006CA000A3781D /* SearchVCCell.swift */,
+				4DE6304824006B5D00A3781D /* SaveCollectionCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		4DE6303B240068F600A3781D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4DE6304A24006B8200A3781D /* SaveCollectionView.swift */,
+				4DE6304C24006B9D00A3781D /* SearchView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4DE6303C2400692500A3781D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				4DE6304224006A1300A3781D /* FoursquareAPIClient.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +189,9 @@
 			dependencies = (
 			);
 			name = FoursquareGroupProject;
+			packageProductDependencies = (
+				4DE6303E240069AA00A3781D /* ImageKit */,
+			);
 			productName = FoursquareGroupProject;
 			productReference = 4DE63012240066B800A3781D /* FoursquareGroupProject.app */;
 			productType = "com.apple.product-type.application";
@@ -162,6 +242,9 @@
 				Base,
 			);
 			mainGroup = 4DE63009240066B800A3781D;
+			packageReferences = (
+				4DE6303D240069AA00A3781D /* XCRemoteSwiftPackageReference "ImageKit" */,
+			);
 			productRefGroup = 4DE63013240066B800A3781D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -196,9 +279,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DE6301A240066B800A3781D /* ViewController.swift in Sources */,
+				4DE6304D24006B9D00A3781D /* SearchView.swift in Sources */,
+				4DE6304524006A5400A3781D /* FoursquareModel.swift in Sources */,
+				4DE6304F24006CA000A3781D /* SearchVCCell.swift in Sources */,
+				4DE63041240069EE00A3781D /* FoursquareTabBarController.swift in Sources */,
+				4DE6301A240066B800A3781D /* SearchViewController.swift in Sources */,
+				4DE6304324006A1300A3781D /* FoursquareAPIClient.swift in Sources */,
+				4DE6304B24006B8200A3781D /* SaveCollectionView.swift in Sources */,
+				4DE6305124006D0C00A3781D /* ShowAlert.swift in Sources */,
 				4DE63016240066B800A3781D /* AppDelegate.swift in Sources */,
 				4DE63018240066B800A3781D /* SceneDelegate.swift in Sources */,
+				4DE6304924006B5D00A3781D /* SaveCollectionCell.swift in Sources */,
+				4DE6304724006B3D00A3781D /* SaveCollectionsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +549,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4DE6303D240069AA00A3781D /* XCRemoteSwiftPackageReference "ImageKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alexpaul/ImageKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4DE6303E240069AA00A3781D /* ImageKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DE6303D240069AA00A3781D /* XCRemoteSwiftPackageReference "ImageKit" */;
+			productName = ImageKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4DE6300A240066B800A3781D /* Project object */;
 }
