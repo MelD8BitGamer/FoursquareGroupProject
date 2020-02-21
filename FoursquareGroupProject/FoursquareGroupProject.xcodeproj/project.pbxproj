@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DC9D0EB24008F7800658EF7 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9D0EA24008F7800658EF7 /* Secret.swift */; };
 		4DE63016240066B800A3781D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE63015240066B800A3781D /* AppDelegate.swift */; };
 		4DE63018240066B800A3781D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE63017240066B800A3781D /* SceneDelegate.swift */; };
 		4DE6301A240066B800A3781D /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE63019240066B800A3781D /* SearchViewController.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4DC9D0EA24008F7800658EF7 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		4DE63012240066B800A3781D /* FoursquareGroupProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoursquareGroupProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DE63015240066B800A3781D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DE63017240066B800A3781D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4DC9D0E924008F1F00658EF7 /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				4DC9D0EA24008F7800658EF7 /* Secret.swift */,
+			);
+			path = Secrets;
+			sourceTree = "<group>";
+		};
 		4DE63009240066B800A3781D = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +107,7 @@
 		4DE63014240066B800A3781D /* FoursquareGroupProject */ = {
 			isa = PBXGroup;
 			children = (
+				4DC9D0E924008F1F00658EF7 /* Secrets */,
 				4DE63015240066B800A3781D /* AppDelegate.swift */,
 				4DE63017240066B800A3781D /* SceneDelegate.swift */,
 				4DE63038240068C700A3781D /* Models */,
@@ -288,6 +299,7 @@
 				4DE6304B24006B8200A3781D /* SaveCollectionView.swift in Sources */,
 				4DE6305124006D0C00A3781D /* ShowAlert.swift in Sources */,
 				4DE63016240066B800A3781D /* AppDelegate.swift in Sources */,
+				4DC9D0EB24008F7800658EF7 /* Secret.swift in Sources */,
 				4DE63018240066B800A3781D /* SceneDelegate.swift in Sources */,
 				4DE6304924006B5D00A3781D /* SaveCollectionCell.swift in Sources */,
 				4DE6304724006B3D00A3781D /* SaveCollectionsVC.swift in Sources */,
