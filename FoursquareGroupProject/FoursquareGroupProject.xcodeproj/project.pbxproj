@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D1AF45F24009B1D00E42628 /* SaveCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1AF45E24009B1D00E42628 /* SaveCollectionView.swift */; };
 		4DC9D0EB24008F7800658EF7 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9D0EA24008F7800658EF7 /* Secret.swift */; };
 		4DC9D0ED240093C200658EF7 /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC9D0EC240093C200658EF7 /* ShowAlert.swift */; };
 		4DE63016240066B800A3781D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE63015240066B800A3781D /* AppDelegate.swift */; };
@@ -21,7 +22,6 @@
 		4DE6304524006A5400A3781D /* FoursquareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304424006A5400A3781D /* FoursquareModel.swift */; };
 		4DE6304724006B3D00A3781D /* SaveCollectionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304624006B3D00A3781D /* SaveCollectionsVC.swift */; };
 		4DE6304924006B5D00A3781D /* SaveCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304824006B5D00A3781D /* SaveCollectionCell.swift */; };
-		4DE6304B24006B8200A3781D /* SaveCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304A24006B8200A3781D /* SaveCollectionView.swift */; };
 		4DE6304D24006B9D00A3781D /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304C24006B9D00A3781D /* SearchView.swift */; };
 		4DE6304F24006CA000A3781D /* SearchVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304E24006CA000A3781D /* SearchVCCell.swift */; };
 /* End PBXBuildFile section */
@@ -37,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D1AF45E24009B1D00E42628 /* SaveCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCollectionView.swift; sourceTree = "<group>"; };
 		4DC9D0EA24008F7800658EF7 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		4DC9D0EC240093C200658EF7 /* ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
 		4DE63012240066B800A3781D /* FoursquareGroupProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoursquareGroupProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,7 +55,6 @@
 		4DE6304424006A5400A3781D /* FoursquareModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FoursquareModel.swift; path = FoursquareGroupProject/Controllers/FoursquareModel.swift; sourceTree = SOURCE_ROOT; };
 		4DE6304624006B3D00A3781D /* SaveCollectionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveCollectionsVC.swift; path = FoursquareGroupProject/Models/SaveCollectionsVC.swift; sourceTree = SOURCE_ROOT; };
 		4DE6304824006B5D00A3781D /* SaveCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveCollectionCell.swift; path = FoursquareGroupProject/Controllers/SaveCollectionCell.swift; sourceTree = SOURCE_ROOT; };
-		4DE6304A24006B8200A3781D /* SaveCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveCollectionView.swift; path = FoursquareGroupProject/Cells/SaveCollectionView.swift; sourceTree = SOURCE_ROOT; };
 		4DE6304C24006B9D00A3781D /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		4DE6304E24006CA000A3781D /* SearchVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -170,8 +170,8 @@
 		4DE6303B240068F600A3781D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4DE6304A24006B8200A3781D /* SaveCollectionView.swift */,
 				4DE6304C24006B9D00A3781D /* SearchView.swift */,
+				4D1AF45E24009B1D00E42628 /* SaveCollectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -296,9 +296,9 @@
 				4DE63041240069EE00A3781D /* FoursquareTabBarController.swift in Sources */,
 				4DE6301A240066B800A3781D /* SearchViewController.swift in Sources */,
 				4DE6304324006A1300A3781D /* FoursquareAPIClient.swift in Sources */,
-				4DE6304B24006B8200A3781D /* SaveCollectionView.swift in Sources */,
 				4DE63016240066B800A3781D /* AppDelegate.swift in Sources */,
 				4DC9D0EB24008F7800658EF7 /* Secret.swift in Sources */,
+				4D1AF45F24009B1D00E42628 /* SaveCollectionView.swift in Sources */,
 				4DE63018240066B800A3781D /* SceneDelegate.swift in Sources */,
 				4DC9D0ED240093C200658EF7 /* ShowAlert.swift in Sources */,
 				4DE6304924006B5D00A3781D /* SaveCollectionCell.swift in Sources */,
