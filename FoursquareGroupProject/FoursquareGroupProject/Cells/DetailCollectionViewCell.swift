@@ -10,4 +10,10 @@ import UIKit
 
 class DetailCollectionViewCell: UICollectionViewCell {
     
+    public lazy var imageView: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "turtoise")
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
 }
