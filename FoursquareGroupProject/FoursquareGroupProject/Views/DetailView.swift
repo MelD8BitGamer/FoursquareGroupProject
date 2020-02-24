@@ -37,6 +37,43 @@ class DetailView: UIView {
         return label
     }()
     
+    public lazy var rating: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    public lazy var directionsButton: UIButton = {
+        let button = UIButton()
+        // segue to mapViewController
+        return button
+    }()
+    
+    public lazy var hyperlink: UILabel = {
+       let label = UILabel()
+        // create safari hyperlink to venue website.
+        return label
+    }()
+    
+    public lazy var menuButton: UIButton = {
+        let button = UIButton()
+        return button
+    }()
+    
+    public lazy var saveButton: UIButton = {
+        let button = UIButton()
+        return button
+    }()
+    
+    public lazy var shareButton: UIButton = {
+        let button = UIButton()
+        return button
+    }()
+    
+    public lazy var rateButton: UIButton = {
+        let button = UIButton()
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -48,6 +85,30 @@ class DetailView: UIView {
     }
     
     private func commonInit() {
+        
+    }
+    
+    private func setUpScrollView() {
+        
+    }
+    
+    private func setupCollectionView() {
+        
+    }
+    
+    private func setupVenueName() {
+        
+    }
+    
+    private func setupPriceRange() {
+        
+    }
+    
+    private func setupVenueAddress() {
+        
+    }
+    
+    private func setupRating() {
         
     }
 }
