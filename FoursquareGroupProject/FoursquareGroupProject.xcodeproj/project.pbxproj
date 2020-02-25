@@ -24,6 +24,10 @@
 		4DE6304924006B5D00A3781D /* SaveCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304824006B5D00A3781D /* SaveCollectionCell.swift */; };
 		4DE6304D24006B9D00A3781D /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304C24006B9D00A3781D /* SearchView.swift */; };
 		4DE6304F24006CA000A3781D /* SearchVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304E24006CA000A3781D /* SearchVCCell.swift */; };
+
+		D47926AD197E05AFAE8F76FD /* Pods_FoursquareGroupProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFAF351E7AFFC902975F9B07 /* Pods_FoursquareGroupProjectTests.framework */; };
+		EF721373E875C0E8F3AA8249 /* Pods_FoursquareGroupProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E004134554D40C45C768B829 /* Pods_FoursquareGroupProject.framework */; };
+
 		52690FFE24046ABA00D354A7 /* FourSquareImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52690FFD24046ABA00D354A7 /* FourSquareImage.swift */; };
 		526910002404783800D354A7 /* FourSquareDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52690FFF2404783800D354A7 /* FourSquareDetail.swift */; };
 		529616F0240463B60071B552 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529616EF240463B60071B552 /* Secret.swift */; };
@@ -42,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		3D7979E417922A5D69B4714B /* Pods_FoursquareGroupProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoursquareGroupProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F6E0D7A23E2C2DA79D5F880 /* Pods-FoursquareGroupProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareGroupProject.debug.xcconfig"; path = "Target Support Files/Pods-FoursquareGroupProject/Pods-FoursquareGroupProject.debug.xcconfig"; sourceTree = "<group>"; };
 		4D1AF45E24009B1D00E42628 /* SaveCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCollectionView.swift; sourceTree = "<group>"; };
 		4DC9D0EC240093C200658EF7 /* ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
 		4DE63012240066B800A3781D /* FoursquareGroupProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoursquareGroupProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,14 +66,23 @@
 		4DE6304824006B5D00A3781D /* SaveCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SaveCollectionCell.swift; path = FoursquareGroupProject/Controllers/SaveCollectionCell.swift; sourceTree = SOURCE_ROOT; };
 		4DE6304C24006B9D00A3781D /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		4DE6304E24006CA000A3781D /* SearchVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVCCell.swift; sourceTree = "<group>"; };
+
+		71F43EB21C1E1D05AAB26251 /* Pods-FoursquareGroupProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareGroupProject.release.xcconfig"; path = "Target Support Files/Pods-FoursquareGroupProject/Pods-FoursquareGroupProject.release.xcconfig"; sourceTree = "<group>"; };
+		BD166085A87EECA30C352EC2 /* Pods-FoursquareGroupProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareGroupProjectTests.release.xcconfig"; path = "Target Support Files/Pods-FoursquareGroupProjectTests/Pods-FoursquareGroupProjectTests.release.xcconfig"; sourceTree = "<group>"; };
+		E004134554D40C45C768B829 /* Pods_FoursquareGroupProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoursquareGroupProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3EDD4AA7EB0E064ABA1AC53 /* Pods-FoursquareGroupProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareGroupProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-FoursquareGroupProjectTests/Pods-FoursquareGroupProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FFAF351E7AFFC902975F9B07 /* Pods_FoursquareGroupProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoursquareGroupProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+
 		52690FFD24046ABA00D354A7 /* FourSquareImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquareImage.swift; sourceTree = "<group>"; };
 		52690FFF2404783800D354A7 /* FourSquareDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquareDetail.swift; sourceTree = "<group>"; };
 		529616EF240463B60071B552 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
+
 		5A45E5667BFD94FCBB93E4E9 /* Pods_FoursquareGroupProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoursquareGroupProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81372156CCC61608A453DD3D /* Pods-FoursquareGroupProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareGroupProject.release.xcconfig"; path = "Target Support Files/Pods-FoursquareGroupProject/Pods-FoursquareGroupProject.release.xcconfig"; sourceTree = "<group>"; };
 		81B38AB766A3456746CAA24B /* Pods-FoursquareGroupProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareGroupProjectTests.release.xcconfig"; path = "Target Support Files/Pods-FoursquareGroupProjectTests/Pods-FoursquareGroupProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		99036B9B489EEA97534ABD69 /* Pods-FoursquareGroupProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareGroupProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-FoursquareGroupProjectTests/Pods-FoursquareGroupProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D0A3A0755AAC4B41D9325B29 /* Pods-FoursquareGroupProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareGroupProject.debug.xcconfig"; path = "Target Support Files/Pods-FoursquareGroupProject/Pods-FoursquareGroupProject.debug.xcconfig"; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +92,8 @@
 			files = (
 				4DE6303F240069AA00A3781D /* BuildFile in Frameworks */,
 				03F8536F4BE73413CEB7A3FA /* Pods_FoursquareGroupProject.framework in Frameworks */,
+				4DE6303F240069AA00A3781D /* ImageKit in Frameworks */,
+				EF721373E875C0E8F3AA8249 /* Pods_FoursquareGroupProject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,12 +210,33 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+
+		5B227CC4E753EBDD8EA11C8C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2F6E0D7A23E2C2DA79D5F880 /* Pods-FoursquareGroupProject.debug.xcconfig */,
+				71F43EB21C1E1D05AAB26251 /* Pods-FoursquareGroupProject.release.xcconfig */,
+				F3EDD4AA7EB0E064ABA1AC53 /* Pods-FoursquareGroupProjectTests.debug.xcconfig */,
+				BD166085A87EECA30C352EC2 /* Pods-FoursquareGroupProjectTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F5E3BC08C158F864C7D4ADA4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E004134554D40C45C768B829 /* Pods_FoursquareGroupProject.framework */,
+				FFAF351E7AFFC902975F9B07 /* Pods_FoursquareGroupProjectTests.framework */,
+			);
+			name = Frameworks;
+
 		529616EE240463AB0071B552 /* Secrets */ = {
 			isa = PBXGroup;
 			children = (
 				529616EF240463B60071B552 /* Secret.swift */,
 			);
 			path = Secrets;
+      
 			sourceTree = "<group>";
 		};
 		E5836507F7D6477F2FC9C6AF /* Frameworks */ = {
@@ -351,6 +388,7 @@
 			showEnvVarsInLog = 0;
 		};
 		C81BCFA4D9F63332C0E5DE94 /* [CP] Check Pods Manifest.lock */ = {
+
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -373,11 +411,6 @@
 			showEnvVarsInLog = 0;
 		};
 		D7E174999415D0B843A441C1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-FoursquareGroupProject/Pods-FoursquareGroupProject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -387,6 +420,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FoursquareGroupProject/Pods-FoursquareGroupProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A3CFAE5E56F9F5E3FDF9A242 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -564,7 +605,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M4Q46HX6W5;
+				DEVELOPMENT_TEAM = 26RHXP32FH;
 				INFOPLIST_FILE = FoursquareGroupProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -583,7 +624,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M4Q46HX6W5;
+				DEVELOPMENT_TEAM = 26RHXP32FH;
 				INFOPLIST_FILE = FoursquareGroupProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -51,6 +51,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setupMap()
         loadAnnotations()
     }
@@ -177,3 +178,4 @@ extension SearchViewController: MGLMapViewDelegate {
     isShowingNewAnnotations = false
    }
 }
+
