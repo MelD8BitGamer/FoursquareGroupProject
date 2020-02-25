@@ -7,3 +7,45 @@
 //
 
 import Foundation
+
+struct AllResults: Codable {
+    let response: Response
+}
+
+struct Response: Codable {
+    let venues: [Venue]
+    let geocode: Geocode
+}
+
+struct Geocode: Codable {
+    let feature: Feature
+}
+
+struct Feature: Codable {
+    let geometry: Geometry
+}
+
+struct Geometry: Codable {
+    let center: Center
+    let bounds: Bounds
+}
+
+struct Bounds: Codable {
+    let ne: Center
+    let sw: Center
+}
+
+struct Center: Codable {
+    let lat : Double
+    let lng: Double
+}
+
+struct Venue: Codable {
+    let id: String
+    let location: Location
+}
+
+struct Location: Codable {
+    let lat: Double
+    let lng: Double
+}
