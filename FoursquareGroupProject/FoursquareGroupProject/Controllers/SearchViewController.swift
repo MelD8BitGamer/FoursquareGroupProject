@@ -11,6 +11,7 @@ import Mapbox
 import MapboxCoreNavigation
 import MapboxDirections
 import MapboxNavigation
+import MapboxGeocoder
 
 struct TestLocation {
   let title: String
@@ -29,15 +30,33 @@ struct TestLocation {
 
 class SearchViewController: UIViewController {
 
+    let geocoder = Geocoder.shared
     var directionsRoute: Route?
     var mapView: NavigationMapView!
     var isShowingNewAnnotations = false
     var changed: Bool = false
     let url = URL(string: "mapbox://styles/howc/ck5gy6ex70k441iw1gqtnehf5")
     var annotations = [MGLPointAnnotation]()
+    var geocodingDataTask: URLSessionDataTask?
+    private let locationSession = CoreLocationSession()
+    private var venues = [Venue]()
     
     var currentCenterRegion = MGLCoordinateBounds() {
         didSet {
+        }
+    }
+    
+    private func getVenues(city: String, venue: String) {
+        FourSquareAPICLient.getResults(city: city, spot: venue) { [weak self] (result) in
+            switch result {
+            case .failure:
+                print("failed to get results")
+            case .success(let venues):
+                self?.venues = venues
+                DispatchQueue.main.async {
+                    self?.loadAnnotations()
+                }
+            }
         }
     }
     
@@ -64,10 +83,10 @@ class SearchViewController: UIViewController {
     
     func addAnnotation() -> [MGLPointAnnotation] {
         var annotations = [MGLPointAnnotation]()
-               for location in TestLocation.getLocations() {
+               for location in venues {
                    let annotation = MGLPointAnnotation()
-                   annotation.coordinate = location.coordinate
-                   annotation.title = location.title
+                annotation.coordinate = CLLocationCoordinate2D(latitude: location.location.lat, longitude: location.location.lng)
+                annotation.title = location.id
                    annotations.append(annotation)
                }
                isShowingNewAnnotations = true
@@ -101,6 +120,40 @@ class SearchViewController: UIViewController {
             changed.toggle()
         }
     }
+    
+//    @objc func currentLocation(_ sender: UIButton) {
+//        mapView.setCenter(mapView.userLocation?.coordinate, animated: true)
+//    }
+    
+    public func convertPlaceNameToCoordinate(addressString: String, completion: @escaping (Result< CLLocationCoordinate2D , Error>) -> Void) {
+      // coverting an address to a coordinate
+        let options = ForwardBatchGeocodeOptions(query: addressString)
+        options.locale = .autoupdatingCurrent
+        options.allowedScopes = .all
+        geocoder.geocode(options) { [unowned self] (placemarks, attribution, error) in
+            if let error = error {
+                print("geocoding error \(error)")
+                completion(.failure(error))
+            }
+            if let placemark = placemarks?.first, let location = placemark.location {
+            completion(.success(location.coordinate))
+        }
+        }
+      }
+    
+    private func convertedPlaceNameToCoordinate(_ placeName: String) {
+        convertPlaceNameToCoordinate(addressString: placeName) { (result) in
+            switch result {
+            case .failure(let error):
+                print("error: \(error)")
+            case .success(let coordinate):
+                print("coordinate: \(coordinate)")
+//                let region = CLCircularRegion(center: coordinate, radius: 1600, identifier: "newRegion")
+                self.mapView.setCenter(coordinate, zoomLevel: 7, animated: false)
+            }
+        }
+    }
+    
     
     func navigate(_ to: CLLocationCoordinate2D) {
            mapView.setUserTrackingMode(.none, animated: true, completionHandler: nil)
@@ -155,6 +208,12 @@ extension SearchViewController: MGLMapViewDelegate {
             navigate(annotation.coordinate)
         }
     }
+    
+    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+    let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, fromDistance: 4500, pitch: 15, heading: 180)
+    mapView.fly(to: camera, withDuration: 4,
+    peakAltitude: 3000, completionHandler: nil)
+    }
        
 //       func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
 //           guard let setDirection = directionsRoute else { return }
@@ -177,6 +236,23 @@ extension SearchViewController: MGLMapViewDelegate {
     }
     isShowingNewAnnotations = false
    }
+    
+    func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
+        geocodingDataTask?.cancel()
+    }
+    
+    func mapView(_ addressString: String, regionDidChangeAnimated animated: Bool) {
+        geocodingDataTask?.cancel()
+        let options = ForwardBatchGeocodeOptions(query: addressString)
+               options.allowedScopes = .all
+               geocoder.geocode(options) { [unowned self] (placemarks, attribution, error) in
+                   if let error = error {
+                       print("geocoding error \(error)")
+                   }
+                   if let placemark = placemarks?.first, let location = placemark.location {
+                    print(location.coordinate)
+               }
+               }
+    }
 }
-
 

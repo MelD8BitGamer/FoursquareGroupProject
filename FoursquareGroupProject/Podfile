@@ -8,6 +8,7 @@ target 'FoursquareGroupProject' do
   # Pods for FoursquareGroupProject
  pod 'Mapbox-iOS-SDK', '~> 5.5'
  pod 'MapboxNavigation', '~> 0.38.3'
+ pod 'MapboxGeocoder.swift', '~> 0.12'
 
   target 'FoursquareGroupProjectTests' do
     inherit! :search_paths

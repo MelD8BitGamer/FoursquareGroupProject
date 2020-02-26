@@ -16,7 +16,7 @@
 		4DE6301F240066BA00A3781D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DE6301E240066BA00A3781D /* Assets.xcassets */; };
 		4DE63022240066BA00A3781D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DE63020240066BA00A3781D /* LaunchScreen.storyboard */; };
 		4DE6302D240066BB00A3781D /* FoursquareGroupProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6302C240066BB00A3781D /* FoursquareGroupProjectTests.swift */; };
-		4DE6303F240069AA00A3781D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 4DE6303E240069AA00A3781D /* SwiftPackageProductDependency */; };
+		4DE6303F240069AA00A3781D /* ImageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4DE6303E240069AA00A3781D /* ImageKit */; };
 		4DE63041240069EE00A3781D /* FoursquareTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE63040240069EE00A3781D /* FoursquareTabBarController.swift */; };
 		4DE6304324006A1300A3781D /* FoursquareAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304224006A1300A3781D /* FoursquareAPIClient.swift */; };
 		4DE6304524006A5400A3781D /* FoursquareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE6304424006A5400A3781D /* FoursquareModel.swift */; };
@@ -28,6 +28,8 @@
 		526910002404783800D354A7 /* FourSquareDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52690FFF2404783800D354A7 /* FourSquareDetail.swift */; };
 		529616F0240463B60071B552 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529616EF240463B60071B552 /* Secret.swift */; };
 		7FDEFCD14737ECDBD5D2D51A /* Pods_FoursquareGroupProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 629ED136DFF8C15A4137559F /* Pods_FoursquareGroupProject.framework */; };
+		88194090240633A10096B2AD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8819408F240633A10096B2AD /* Extensions.swift */; };
+		881940922406C9FB0096B2AD /* LocationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881940912406C9FB0096B2AD /* LocationSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		6E7073E60D8456A030BCA2A3 /* Pods_FoursquareGroupProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoursquareGroupProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1467E81DBA1B5E3ED51ED0 /* Pods-FoursquareGroupProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareGroupProject.debug.xcconfig"; path = "Target Support Files/Pods-FoursquareGroupProject/Pods-FoursquareGroupProject.debug.xcconfig"; sourceTree = "<group>"; };
 		7F646E0F5A846ECA75CA013B /* Pods-FoursquareGroupProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareGroupProject.release.xcconfig"; path = "Target Support Files/Pods-FoursquareGroupProject/Pods-FoursquareGroupProject.release.xcconfig"; sourceTree = "<group>"; };
+		8819408F240633A10096B2AD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		881940912406C9FB0096B2AD /* LocationSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DE6303F240069AA00A3781D /* BuildFile in Frameworks */,
+				4DE6303F240069AA00A3781D /* ImageKit in Frameworks */,
 				7FDEFCD14737ECDBD5D2D51A /* Pods_FoursquareGroupProject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,6 +160,7 @@
 				4DE6304424006A5400A3781D /* FoursquareModel.swift */,
 				52690FFD24046ABA00D354A7 /* FourSquareImage.swift */,
 				52690FFF2404783800D354A7 /* FourSquareDetail.swift */,
+				881940912406C9FB0096B2AD /* LocationSession.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -164,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				4DC9D0EC240093C200658EF7 /* ShowAlert.swift */,
+				8819408F240633A10096B2AD /* Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -219,7 +225,6 @@
 				4CED13C4C3EFFB004C4B630C /* Pods-FoursquareGroupProjectTests.debug.xcconfig */,
 				4999B9CBBE7C11CB03912A68 /* Pods-FoursquareGroupProjectTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -242,7 +247,7 @@
 			);
 			name = FoursquareGroupProject;
 			packageProductDependencies = (
-				4DE6303E240069AA00A3781D /* SwiftPackageProductDependency */,
+				4DE6303E240069AA00A3781D /* ImageKit */,
 			);
 			productName = FoursquareGroupProject;
 			productReference = 4DE63012240066B800A3781D /* FoursquareGroupProject.app */;
@@ -296,7 +301,7 @@
 			);
 			mainGroup = 4DE63009240066B800A3781D;
 			packageReferences = (
-				4DE6303D240069AA00A3781D /* RemoteSwiftPackageReference */,
+				4DE6303D240069AA00A3781D /* XCRemoteSwiftPackageReference "ImageKit" */,
 			);
 			productRefGroup = 4DE63013240066B800A3781D /* Products */;
 			projectDirPath = "";
@@ -407,6 +412,8 @@
 				4D1AF45F24009B1D00E42628 /* SaveCollectionView.swift in Sources */,
 				4DE63018240066B800A3781D /* SceneDelegate.swift in Sources */,
 				529616F0240463B60071B552 /* Secret.swift in Sources */,
+				88194090240633A10096B2AD /* Extensions.swift in Sources */,
+				881940922406C9FB0096B2AD /* LocationSession.swift in Sources */,
 				4DC9D0ED240093C200658EF7 /* ShowAlert.swift in Sources */,
 				4DE6304924006B5D00A3781D /* SaveCollectionCell.swift in Sources */,
 				52690FFE24046ABA00D354A7 /* FourSquareImage.swift in Sources */,
@@ -675,7 +682,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4DE6303D240069AA00A3781D /* RemoteSwiftPackageReference */ = {
+		4DE6303D240069AA00A3781D /* XCRemoteSwiftPackageReference "ImageKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/alexpaul/ImageKit";
 			requirement = {
@@ -686,9 +693,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4DE6303E240069AA00A3781D /* SwiftPackageProductDependency */ = {
+		4DE6303E240069AA00A3781D /* ImageKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4DE6303D240069AA00A3781D /* RemoteSwiftPackageReference */;
+			package = 4DE6303D240069AA00A3781D /* XCRemoteSwiftPackageReference "ImageKit" */;
 			productName = ImageKit;
 		};
 /* End XCSwiftPackageProductDependency section */
