@@ -97,6 +97,11 @@ class DetailView: UIView {
     
     private func commonInit() {
         setUpScrollView()
+        setupCollectionView()
+        setupVenueName()
+        setupPriceRange()
+        setupVenueAddress()
+        setupRating()
     }
     
     private func setUpScrollView() {
@@ -126,20 +131,34 @@ class DetailView: UIView {
         venueName.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             venueName.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
-            venueName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            venueName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -90)
+            venueName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
         ])
     }
     
     private func setupPriceRange() {
-        
+        addSubview(priceRange)
+        priceRange.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            priceRange.leadingAnchor.constraint(equalTo: venueName.trailingAnchor, constant: 8),
+            priceRange.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
+        ])
     }
     
     private func setupVenueAddress() {
-        
+        addSubview(venueAdress)
+        venueAdress.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            venueAdress.topAnchor.constraint(equalTo: venueName.bottomAnchor, constant: 20),
+            venueAdress.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+        ])
     }
     
     private func setupRating() {
-        
+        addSubview(rating)
+        rating.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            rating.topAnchor.constraint(equalTo: venueAdress.bottomAnchor, constant: 20),
+            rating.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+        ])
     }
 }
