@@ -65,6 +65,7 @@ class DetailView: UIView {
     
     public lazy var menuButton: UIButton = {
         let button = UIButton()
+        button.addTarget(self, action: #selector(animateButtons), for: .touchUpInside)
         return button
     }()
     
@@ -96,12 +97,18 @@ class DetailView: UIView {
     }
     
     private func commonInit() {
+        blurEffect()
         setUpScrollView()
         setupCollectionView()
         setupVenueName()
         setupPriceRange()
         setupVenueAddress()
         setupRating()
+    }
+    
+    fileprivate func blurEffect() {
+        addSubview(visualEffectView)
+        visualEffectView.frame = frame
     }
     
     private func setUpScrollView() {
@@ -160,5 +167,9 @@ class DetailView: UIView {
             rating.topAnchor.constraint(equalTo: venueAdress.bottomAnchor, constant: 20),
             rating.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
         ])
+    }
+    
+    @objc private func animateButtons() {
+        
     }
 }
