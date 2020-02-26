@@ -7,18 +7,148 @@
 //
 
 import UIKit
-
-//private let reuseIdentifier = "Cell"
+import DataPersistence
+import NetworkHelper
 
 class SaveCollectionsVC: UIViewController {
-
+    
+    private var saveCollectionsView = SaveView()
+    private var dataPersistence: DataPersistence<Collection>
+    
+    private var favoriteCollection = [Collection]() {
+        didSet {
+            saveCollectionsView.collectionView.reloadData()
+            
+            
+            if favoriteCollection.isEmpty {
+                
+                // setup background view, in case there are no saved places
+                saveCollectionsView.collectionView.backgroundView = EmptyView(title: "Favorites", message: "There are currently no Favorited Collections. Start browsing and add to collection")
+            } else {
+                saveCollectionsView.collectionView.backgroundView = nil
+            }
+            
+            navigationItem.title = "Favorites(\(favoriteCollection.count))"
+        }
+    }
+    init(_ dataPersistence: DataPersistence<Collection>) {
+        self.dataPersistence = dataPersistence
+        super.init(nibName: nil, bundle: nil)
+        
+        self.dataPersistence.delegate = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        view = saveCollectionsView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
-       
+        
+        
+        saveCollectionsView.collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
+        saveCollectionsView.collectionView.delegate = self
+        saveCollectionsView.collectionView.dataSource = self
     }
-
     
-
+    private func getFavCollection() {
+        do {
+            favoriteCollection = try dataPersistence.loadItems()
+        } catch {
+            print("error while loading collections")
+        }
+    }
 }
+
+extension SaveCollectionsVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let maxSize: CGSize = UIScreen.main.bounds.size
+        let itemWidth: CGFloat = maxSize.width * 0.4
+        let itemHeight: CGFloat = maxSize.height * 0.2
+        return CGSize(width: itemWidth, height: itemHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 20)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        present(saveCollectionsView.createFoodCollection, animated: true)
+    }
+}
+
+extension SaveCollectionsVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return favoriteCollection.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? CollectionViewCell else {
+            fatalError("could not downcast to CollectionViewCell")}
+        cell.backgroundColor = #colorLiteral(red: 1, green: 0.4736866355, blue: 0.4620078206, alpha: 1)
+        cell.delegate = self
+        return cell
+    }
+    
+    
+}
+
+extension SaveCollectionsVC: CollectionCellDelegate {
+    func didSelectMoreButton(_ favoritesCell: CollectionViewCell, cell: String) {
+        print("")
+    }
+    
+    func didSelectMoreButton(_ favoritesCell: CollectionViewCell, cell: Collection) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let editAction = UIAlertAction(title: "Edit", style: .default) { (action) in
+            //change this when model comes in
+            self.editCollection(cell)
+        }
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+            //change this when model comes in
+            self.deleteCollection(cell)
+        }
+        // write a delete helper function
+        alertController.addAction(editAction)
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true)
+    }
+    
+    private func deleteCollection(_ collection: Collection) {
+        guard let index = favoriteCollection.firstIndex(of: collection) else {
+            return
+        }
+        do {
+            // deletes from documents directory
+            try dataPersistence.deleteItem(at: index)
+        } catch {
+            print("error deleting collection \(error)")
+        }
+    }
+    
+    private func editCollection(_ collection: Collection) {
+        guard let index = favoriteCollection.firstIndex(of: collection) else {
+            return
+        }
+        dataPersistence.update(collection, at: index)
+    }
+}
+
+extension SaveCollectionsVC: DataPersistenceDelegate {
+    func didSaveItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
+        
+    }
+    
+    func didDeleteItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
+        
+    }
+    
+    
+}
+

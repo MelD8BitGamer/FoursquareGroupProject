@@ -8,15 +8,15 @@
 
 import Foundation
 
-struct DetailResults: Codable {
+struct DetailResults: Codable & Equatable {
     let response: Response2
 }
 
-struct Response2: Codable {
+struct Response2: Codable & Equatable {
     let venue: VenueDetail
 }
 
-struct VenueDetail: Codable {
+struct VenueDetail: Codable & Equatable {
     let location: Location2
     let hours: Hours
     let name: String
@@ -24,27 +24,27 @@ struct VenueDetail: Codable {
     let price: Price
 }
 
-struct Contact: Codable {
+struct Contact: Codable & Equatable {
     let formattedPhone: String
 }
 
-struct Location2: Codable {
+struct Location2: Codable & Equatable {
     let formattedAddress: [String]
 }
 
-struct Price: Codable {
+struct Price: Codable & Equatable {
     let currency: String
 }
 
-struct Hours: Codable {
+struct Hours: Codable & Equatable {
     let timeframes: [Timeframe]
 }
 
-struct Timeframe: Codable {
+struct Timeframe: Codable & Equatable {
     let days: String
     let open: Open
 }
 
-struct Open: Codable {
+struct Open: Codable & Equatable {
     let renderedTime: String
 }

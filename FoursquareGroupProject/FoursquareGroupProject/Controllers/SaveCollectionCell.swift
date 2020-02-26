@@ -7,7 +7,137 @@
 //
 
 import UIKit
+import ImageKit
+import DataPersistence
 
-class SaveCollectionCell: UICollectionViewCell {
+protocol CollectionCellDelegate: AnyObject {
+    func didSelectMoreButton(_ favoritesCell: CollectionViewCell, cell: String)
+}
+
+class CollectionViewCell: UICollectionViewCell {
+    
+    weak var delegate: CollectionCellDelegate?
+    
+    public lazy var restaurantImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "startrek")
+        image.layer.cornerRadius = 15
+        image.contentMode = .scaleToFill
+        return image
+    }()
+    
+    public lazy var moreButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = .systemPink
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 10, weight: .black, scale: .large)
+        button.setImage(UIImage(systemName: "ellipsis", withConfiguration: imageConfig), for: .normal)
+        button.addTarget(self, action: #selector(moreButtonPressed(_:)), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    public lazy var headLabel : UILabel = {
+        let label = UILabel()
+        label.text = "This is a Title"
+        label.numberOfLines = 1
+        label.textAlignment = .left
+        label.layer.cornerRadius = 20
+        //label.backgroundColor = .systemGroupedBackground
+        label.font = UIFont(name: "Didot", size: 12)
+        return label
+    }()
+    
+    public lazy var descriptLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 3
+        label.font = UIFont(name: "Didot", size: 12)
+        label.text = "There are THIS many on our list"
+        
+        return label
+    }()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = 10
+        dropShadow(radius: 15, offsetX: 0, offsetY: 5, color: .gray)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: UIScreen.main.bounds)
+        commonInit()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        setUpImageViewConstraints()
+        setupMoreButtonConstraints()
+        layoutSubviews()
+        setUpHeadLabelConstraints()
+        setUpDescriptLabelConstraints()
+    }
+    
+    @objc private func moreButtonPressed(_ sender: UIButton) {
+        
+        delegate?.didSelectMoreButton(self, cell: "String")
+    }
+    
+    private func setUpImageViewConstraints() {
+        addSubview(restaurantImage)
+        restaurantImage.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            restaurantImage.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            restaurantImage.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.60),
+            restaurantImage.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.60)
+        ])
+    }
+    
+    private func setupMoreButtonConstraints() {
+        addSubview(moreButton)
+        moreButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            moreButton.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            moreButton.leadingAnchor.constraint(equalTo: restaurantImage.trailingAnchor, constant: 20),
+            moreButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+        ])
+    }
+    private func setUpHeadLabelConstraints() {
+        addSubview(headLabel)
+        headLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            headLabel.topAnchor.constraint(equalTo: restaurantImage.bottomAnchor, constant: 5),
+            headLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            headLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            headLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.05)
+        ])
+    }
+    
+    private func setUpDescriptLabelConstraints() {
+        addSubview(descriptLabel)
+        descriptLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            descriptLabel.topAnchor.constraint(equalTo: headLabel.bottomAnchor, constant: 2),
+            descriptLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            descriptLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            descriptLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5)
+        ])
+    }
     
 }
+extension UIView {
+    func dropShadow(radius: CGFloat, offsetX: CGFloat, offsetY: CGFloat, color: UIColor) {
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: layer.cornerRadius).cgPath
+        layer.shadowRadius = radius
+        layer.shadowOffset = CGSize(width: offsetX, height: offsetY)
+        layer.shadowOpacity = 1 // setting this property to 1 makes full relation on color's opacity
+        layer.shadowColor = color.cgColor
+    }
+}
+

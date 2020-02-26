@@ -42,10 +42,12 @@ struct Center: Codable {
 
 struct Venue: Codable {
     let id: String
+    let name: String
     let location: Location
 }
 
 struct Location: Codable {
     let lat: Double
     let lng: Double
+    let formattedAddress: [String]
 }
