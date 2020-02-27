@@ -14,7 +14,7 @@ struct AllResults: Codable {
 
 struct Response: Codable {
     let venues: [Venue]
-    let geocode: Geocode
+    let geocode: Geocode?
 }
 
 struct Geocode: Codable {
@@ -27,7 +27,7 @@ struct Feature: Codable {
 
 struct Geometry: Codable {
     let center: Center
-    let bounds: Bounds
+    let bounds: Bounds?
 }
 
 struct Bounds: Codable {

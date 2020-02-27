@@ -12,16 +12,28 @@ class SearchView: UIView {
     
     public lazy var citySearch: UISearchBar = {
        let sb = UISearchBar()
+        sb.backgroundImage = UIImage()
         sb.backgroundColor = .systemBackground
-        sb.placeholder = "Enter a city"
+        sb.layer.cornerRadius = 9 
+        sb.placeholder = "Search for venue"
        return sb
     }()
     
-    public lazy var spotSearch: UISearchBar = {
-       let sb = UISearchBar()
-        sb.backgroundColor = .systemBackground
-        sb.placeholder = "Search for venue"
-       return sb
+    public lazy var venueSearchTextField: UITextField = {
+       let tf = UITextField()
+        tf.backgroundColor = .systemBackground
+        tf.placeholder = "  Search for city"
+        tf.layer.cornerRadius = 9
+       return tf
+    }()
+    
+    public lazy var photoCV: UICollectionView = {
+      let layout = UICollectionViewFlowLayout()
+       layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: frame.width / 3, height: frame.height / 10)
+       let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+       cv.backgroundColor = .clear
+       return cv
     }()
     
     override init(frame: CGRect) {
@@ -37,6 +49,7 @@ class SearchView: UIView {
     private func commonInit() {
         setupSearch1()
         setupSearch2()
+        setupCV()
     }
     
     private func setupSearch1() {
@@ -50,12 +63,24 @@ class SearchView: UIView {
     }
     
     private func setupSearch2() {
-        addSubview(spotSearch)
-        spotSearch.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(venueSearchTextField)
+        venueSearchTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            spotSearch.topAnchor.constraint(equalTo: citySearch.bottomAnchor),
-            spotSearch.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            spotSearch.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0)
+            venueSearchTextField.topAnchor.constraint(equalTo: citySearch.bottomAnchor, constant: 5),
+            venueSearchTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            venueSearchTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            venueSearchTextField.heightAnchor.constraint(equalTo: citySearch.heightAnchor, multiplier: 0.70)
+        ])
+    }
+    
+    private func setupCV() {
+        addSubview(photoCV)
+        photoCV.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            photoCV.leadingAnchor.constraint(equalTo: leadingAnchor),
+            photoCV.trailingAnchor.constraint(equalTo: trailingAnchor),
+            photoCV.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -60),
+            photoCV.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.10)
         ])
     }
     
