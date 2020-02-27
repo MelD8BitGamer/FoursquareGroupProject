@@ -36,6 +36,7 @@ class SearchViewController: UIViewController {
     func setupCard() {
     visualEffectView = UIVisualEffectView()
     visualEffectView.frame = self.view.frame
+        visualEffectView.isUserInteractionEnabled = false
     self.view.addSubview(visualEffectView)
      
     cardViewController = TableViewController()
@@ -191,6 +192,7 @@ class SearchViewController: UIViewController {
         searchView.photoCV.register(SearchVCCell.self, forCellWithReuseIdentifier: "searchCell")
         searchView.photoCV.dataSource = self
         searchView.photoCV.delegate = self
+        setupCard()
     }
         
    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
