@@ -15,7 +15,7 @@ class FoursquareTabBarController: UITabBarController {
     
     
     lazy var searchViewController: SearchViewController = {
-        let vc = SearchViewController()
+        let vc = SearchViewController(dataPersistence: dataPersistence)
         vc.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass.circle"), selectedImage: UIImage(systemName: "magnifyingglass.circle.fill"))
         return vc
     }()
@@ -27,7 +27,7 @@ class FoursquareTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewControllers = [searchViewController, UINavigationController(rootViewController: collectionsViewController)]
+        viewControllers = [UINavigationController(rootViewController: searchViewController), UINavigationController(rootViewController: collectionsViewController)]
         
     }
     

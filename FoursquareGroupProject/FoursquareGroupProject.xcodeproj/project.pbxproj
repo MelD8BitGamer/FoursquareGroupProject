@@ -27,6 +27,7 @@
 		521384F8240611B6002BDD9D /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521384F7240611B6002BDD9D /* Secret.swift */; };
 		52690FFE24046ABA00D354A7 /* FourSquareImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52690FFD24046ABA00D354A7 /* FourSquareImage.swift */; };
 		526910002404783800D354A7 /* FourSquareDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52690FFF2404783800D354A7 /* FourSquareDetail.swift */; };
+		52B8B83F24076DA30078D0C6 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B8B83E24076DA30078D0C6 /* DetailViewController.swift */; };
 		52FBBAF92406D9A500717143 /* LocationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FBBAF82406D9A500717143 /* LocationSession.swift */; };
 		52FBBAFB2406E15600717143 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FBBAFA2406E15600717143 /* DetailView.swift */; };
 		52FBBAFD2406E20300717143 /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FBBAFC2406E20300717143 /* DetailCell.swift */; };
@@ -70,6 +71,7 @@
 		521384F7240611B6002BDD9D /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		52690FFD24046ABA00D354A7 /* FourSquareImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquareImage.swift; sourceTree = "<group>"; };
 		52690FFF2404783800D354A7 /* FourSquareDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquareDetail.swift; sourceTree = "<group>"; };
+		52B8B83E24076DA30078D0C6 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		52FBBAF82406D9A500717143 /* LocationSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSession.swift; sourceTree = "<group>"; };
 		52FBBAFA2406E15600717143 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		52FBBAFC2406E20300717143 /* DetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				4DE6304624006B3D00A3781D /* SaveCollectionsVC.swift */,
 				4DE63019240066B800A3781D /* SearchViewController.swift */,
 				4DE63040240069EE00A3781D /* FoursquareTabBarController.swift */,
+				52B8B83E24076DA30078D0C6 /* DetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				52FBBAFD2406E20300717143 /* DetailCell.swift in Sources */,
 				52FBBAFB2406E15600717143 /* DetailView.swift in Sources */,
 				4DE6304524006A5400A3781D /* FoursquareModel.swift in Sources */,
+				52B8B83F24076DA30078D0C6 /* DetailViewController.swift in Sources */,
 				4DE6304F24006CA000A3781D /* SearchVCCell.swift in Sources */,
 				4DE63041240069EE00A3781D /* FoursquareTabBarController.swift in Sources */,
 				526910002404783800D354A7 /* FourSquareDetail.swift in Sources */,

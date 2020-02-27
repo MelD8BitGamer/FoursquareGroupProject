@@ -10,9 +10,12 @@ import Foundation
 import NetworkHelper
 
 struct FourSquareAPICLient {
-    static func getResults(city: String, spot: String, completion: @escaping (Result<[Venue], AppError>) -> ()) {
+    static func getResults(city: String, venue: String, completion: @escaping (Result<[Venue], AppError>) -> ()) {
         
-        let endpointURL = "https://api.foursquare.com/v2/venues/search?client_id=\(SecretKey.clientID)&client_secret=\(SecretKey.clientSecret)&v=20210102&near=\(city)&intent=browse&radius=100&query=\(spot)&limit=10"
+        let queryCity = city.lowercased().addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let queryVenue = venue.lowercased().addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        
+        let endpointURL = "https://api.foursquare.com/v2/venues/search?client_id=\(SecretKey.clientID)&client_secret=\(SecretKey.clientSecret)&v=20210102&near=\(queryCity)&intent=browse&radius=1000&query=\(queryVenue)&limit=5"
         
         guard let url = URL(string: endpointURL) else {
             completion(.failure(.badURL(endpointURL)))
@@ -37,10 +40,36 @@ struct FourSquareAPICLient {
         }
     }
     
+    static func getPhotoInfo(id: String, completion: @escaping (Result<[Item], AppError>) -> ()) {
+        
+        let endpointURL = "https://api.foursquare.com/v2/venues/\(id)/photos?&client_id=\(SecretKey.clientID)&client_secret=\(SecretKey.clientSecret)&v=20210102"
+        
+        guard let url = URL(string: endpointURL) else {
+            completion(.failure(.badURL(endpointURL)))
+            return
+        }
+        
+        let request = URLRequest(url: url)
+        
+        NetworkHelper.shared.performDataTask(with: request) { (result) in
+            switch result {
+            case .failure(let appError):
+                completion(.failure(.networkClientError(appError)))
+            case .success(let data):
+                do {
+                    let allPhoto = try JSONDecoder().decode(APhoto.self, from: data)
+                    completion(.success(allPhoto.response.photos.items))
+                } catch {
+                    completion(.failure(.decodingError(error)))
+                }
+            }
+        }
+    }
+    
     static func getDetails(id: String, completion: @escaping(Result<VenueDetail, AppError>) -> ()) {
         
-        let endpointURL = "https://api.foursquare.com/v2/venues/\(id)?&client_id=\(SecretKey.clientID)&client_secret=\(SecretKey.clientSecret)&v=20210102"
-        
+        let endpointURL = "https://api.foursquare.com/v2/venues/\(id)?client_id=\(SecretKey.clientID)&client_secret=\(SecretKey.clientSecret)&v=20210102"
+                
         guard let url = URL(string: endpointURL) else {
             completion(.failure(.badURL(endpointURL)))
             return

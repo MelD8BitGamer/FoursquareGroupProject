@@ -21,7 +21,7 @@ struct Photos: Codable {
 }
 
 struct Item: Codable {
-    let itemPrefix: String
+    let prefix: String
     let suffix: String
     let width: Int 
 }

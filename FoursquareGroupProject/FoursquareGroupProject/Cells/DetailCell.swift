@@ -6,10 +6,9 @@
 //  Copyright © 2020 Melinda Diaz. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class DetailCollectionViewCell: UICollectionViewCell {
+class detailCell: UICollectionViewCell {
     
     public lazy var imageView: UIImageView = {
         let image = UIImageView()
@@ -17,5 +16,35 @@ class DetailCollectionViewCell: UICollectionViewCell {
         image.contentMode = .scaleAspectFill
         return image
     }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: UIScreen.main.bounds)
+        commonInit()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        setupImage()
+    }
+    
+    private func setupImage() {
+        addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
 }
+
+
+
+
+
 
