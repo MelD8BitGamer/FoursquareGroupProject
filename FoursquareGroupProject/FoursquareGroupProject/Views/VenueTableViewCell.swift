@@ -26,7 +26,7 @@ final class VenueTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var VenueAddress: UILabel = {
+    lazy var venueAddress: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.font = .boldSystemFont(ofSize: 16)
         descriptionLabel.textAlignment = .center
@@ -67,12 +67,13 @@ final class VenueTableViewCell: UITableViewCell {
     }
     
     private func venueAddressLabelConstraints() {
-        addSubview(VenueAddress)
-        VenueAddress.anchor(top: titleLabel.bottomAnchor, left: titleLabel.leftAnchor, right: titleLabel.rightAnchor, paddingTop: 8)
+        addSubview(venueAddress)
+        venueAddress.anchor(top: titleLabel.bottomAnchor, left: titleLabel.leftAnchor, right: titleLabel.rightAnchor, paddingTop: 8)
     }
     
     func configureCell(venue: Venue) {
-        
+        titleLabel.text = venue.name
+        venueAddress.text = venue.location.formattedAddress[0] + venue.location.formattedAddress[1] + venue.location.formattedAddress[2]
     }
     
 }

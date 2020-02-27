@@ -15,8 +15,10 @@ final class TableViewController: UIViewController {
                 venueTableView.tableView.reloadData()
             }
         }
+    
+    private var images = [UIImage]()
         
-        let venueTableView = tableViewView()
+    let venueTableView = tableViewView()
         
     override func loadView() {
         view = venueTableView
@@ -38,17 +40,18 @@ final class TableViewController: UIViewController {
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let selectedCell = venues[indexPath.row]
             if let cell = tableView.dequeueReusableCell(withIdentifier: "VenueTableViewCell", for: indexPath) as? VenueTableViewCell {
+                cell.venueImageView.image = images[indexPath.row]
                 cell.configureCell(venue: selectedCell)
                 return cell
             }
             return UITableViewCell()
         }
         
-//        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//            let selectedCell = venues[indexPath.row]
-//           
-//            
-//        }
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            let selectedCell = venues[indexPath.row]
+           
+            
+        }
     }
 
     
