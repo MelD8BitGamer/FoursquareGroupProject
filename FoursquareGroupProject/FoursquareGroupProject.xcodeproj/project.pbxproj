@@ -34,6 +34,10 @@
 		52FBBAFF2406E8AE00717143 /* SaveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FBBAFE2406E8AE00717143 /* SaveModel.swift */; };
 		52FBBB012406E90300717143 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FBBB002406E90300717143 /* EmptyView.swift */; };
 		7FDEFCD14737ECDBD5D2D51A /* Pods_FoursquareGroupProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 629ED136DFF8C15A4137559F /* Pods_FoursquareGroupProject.framework */; };
+		8847EFDD240770AA00A23983 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8847EFDC240770AA00A23983 /* TableViewController.swift */; };
+		8847EFDF2407711A00A23983 /* tableViewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8847EFDE2407711A00A23983 /* tableViewView.swift */; };
+		8847EFE12407716A00A23983 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8847EFE02407716A00A23983 /* Extensions.swift */; };
+		8847EFE32407720000A23983 /* VenueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8847EFE22407720000A23983 /* VenueTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +85,10 @@
 		6E7073E60D8456A030BCA2A3 /* Pods_FoursquareGroupProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoursquareGroupProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1467E81DBA1B5E3ED51ED0 /* Pods-FoursquareGroupProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareGroupProject.debug.xcconfig"; path = "Target Support Files/Pods-FoursquareGroupProject/Pods-FoursquareGroupProject.debug.xcconfig"; sourceTree = "<group>"; };
 		7F646E0F5A846ECA75CA013B /* Pods-FoursquareGroupProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareGroupProject.release.xcconfig"; path = "Target Support Files/Pods-FoursquareGroupProject/Pods-FoursquareGroupProject.release.xcconfig"; sourceTree = "<group>"; };
+		8847EFDC240770AA00A23983 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		8847EFDE2407711A00A23983 /* tableViewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tableViewView.swift; sourceTree = "<group>"; };
+		8847EFE02407716A00A23983 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		8847EFE22407720000A23983 /* VenueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,7 +166,11 @@
 				4DE6304624006B3D00A3781D /* SaveCollectionsVC.swift */,
 				4DE63019240066B800A3781D /* SearchViewController.swift */,
 				4DE63040240069EE00A3781D /* FoursquareTabBarController.swift */,
+
 				52B8B83E24076DA30078D0C6 /* DetailViewController.swift */,
+
+				8847EFDC240770AA00A23983 /* TableViewController.swift */,
+
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -179,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				4DC9D0EC240093C200658EF7 /* ShowAlert.swift */,
+				8847EFE02407716A00A23983 /* Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -197,6 +210,8 @@
 			isa = PBXGroup;
 			children = (
 				4DE6304C24006B9D00A3781D /* SearchView.swift */,
+				8847EFDE2407711A00A23983 /* tableViewView.swift */,
+				8847EFE22407720000A23983 /* VenueTableViewCell.swift */,
 				4D1AF45E24009B1D00E42628 /* SaveCollectionView.swift */,
 				52FBBAFA2406E15600717143 /* DetailView.swift */,
 				52FBBB002406E90300717143 /* EmptyView.swift */,
@@ -413,13 +428,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8847EFE12407716A00A23983 /* Extensions.swift in Sources */,
 				52FBBAFF2406E8AE00717143 /* SaveModel.swift in Sources */,
+				8847EFDD240770AA00A23983 /* TableViewController.swift in Sources */,
+				8847EFDF2407711A00A23983 /* tableViewView.swift in Sources */,
 				4DE6304D24006B9D00A3781D /* SearchView.swift in Sources */,
 				521384F8240611B6002BDD9D /* Secret.swift in Sources */,
 				52FBBAFD2406E20300717143 /* DetailCell.swift in Sources */,
 				52FBBAFB2406E15600717143 /* DetailView.swift in Sources */,
 				4DE6304524006A5400A3781D /* FoursquareModel.swift in Sources */,
+
 				52B8B83F24076DA30078D0C6 /* DetailViewController.swift in Sources */,
+
+				8847EFE32407720000A23983 /* VenueTableViewCell.swift in Sources */,
+
 				4DE6304F24006CA000A3781D /* SearchVCCell.swift in Sources */,
 				4DE63041240069EE00A3781D /* FoursquareTabBarController.swift in Sources */,
 				526910002404783800D354A7 /* FourSquareDetail.swift in Sources */,
@@ -587,7 +609,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 83DYP84L8W;
+				DEVELOPMENT_TEAM = 26RHXP32FH;
 				INFOPLIST_FILE = FoursquareGroupProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -606,7 +628,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 83DYP84L8W;
+				DEVELOPMENT_TEAM = 26RHXP32FH;
 				INFOPLIST_FILE = FoursquareGroupProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
