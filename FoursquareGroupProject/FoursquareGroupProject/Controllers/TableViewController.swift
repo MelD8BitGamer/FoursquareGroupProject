@@ -8,23 +8,48 @@
 
 import UIKit
 
-class TableViewController: UIViewController {
+final class TableViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    private var venues = [Venue]() {
+            didSet {
+                venueTableView.tableView.reloadData()
+            }
+        }
+        
+        let venueTableView = tableViewView()
+        
+    override func loadView() {
+        view = venueTableView
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            venueTableView.tableView.delegate = self
+            venueTableView.tableView.dataSource = self
+        }
+        
 }
+
+    extension TableViewController: UITableViewDelegate, UITableViewDataSource {
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            venues.count
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let selectedCell = venues[indexPath.row]
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "VenueTableViewCell", for: indexPath) as? VenueTableViewCell {
+                cell.configureCell(venue: selectedCell)
+                return cell
+            }
+            return UITableViewCell()
+        }
+        
+//        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//            let selectedCell = venues[indexPath.row]
+//           
+//            
+//        }
+    }
+
+    
+
