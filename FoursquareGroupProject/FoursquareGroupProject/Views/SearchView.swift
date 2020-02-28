@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class SearchView: UIView {
     
     public lazy var citySearch: UISearchBar = {

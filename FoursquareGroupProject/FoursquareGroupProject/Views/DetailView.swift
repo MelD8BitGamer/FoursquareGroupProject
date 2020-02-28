@@ -5,35 +5,33 @@
 //  Created by Tsering Lama on 2/26/20.
 //  Copyright © 2020 Melinda Diaz. All rights reserved.
 //
-
 import UIKit
 
 class detail: UIView {
 
     public lazy var scrollView: UIScrollView = {
         let SCV = UIScrollView()
-//        SCV.contentSize.height = 2000
         return SCV
     }()
     
     public lazy var contentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .green
+        view.backgroundColor = .white
         return view
     }()
     
-    public lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let collection = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collection.backgroundColor = .systemGroupedBackground
-        return collection
+    public lazy var imageView: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(systemName: "trash.fill")
+        image.contentMode = .scaleAspectFit
+        return image
     }()
     
     public lazy var venueName: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "HelveticaNeue-Bold", size: 54)
+        label.font = UIFont(name: "HelveticaNeue-Bold", size: 40)
         label.text = "Pursuit"
+        label.numberOfLines = 0
         return label
     }()
     
@@ -50,6 +48,15 @@ class detail: UIView {
         label.font = UIFont(name: "HelveticaNeue-Light", size: 16)
         label.textColor = .gray
         label.text = "47-10 Austell Pl"
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    public lazy var days: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "HelveticaNeue-Light", size: 16)
+        label.textColor = .gray
+        label.text = "Monday-Friday"
         return label
     }()
     
@@ -58,7 +65,7 @@ class detail: UIView {
         label.font = UIFont(name: "HelveticaNeue-Light", size: 16)
         label.textColor = .gray
         label.numberOfLines = 0
-        label.text = "Mon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmMon-Fri: 10am-6pm \nSat-Sun: 10am-5pmsafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuidesafeAreaLayoutGuide"
+        label.text = ""
         return label
     }()
     
@@ -84,9 +91,8 @@ class detail: UIView {
     
     public lazy var menuButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.setImage(UIImage(named: "Asset12"), for: .normal)
         button.addTarget(self, action: #selector(animateButtons), for: .touchUpInside)
-        button.backgroundColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
         button.frame = CGRect(x: 0, y: 0, width: button.frame.width / 3, height: 100)
         button.layer.cornerRadius = 41.2
         button.layer.shadowColor = UIColor.black.cgColor
@@ -98,29 +104,34 @@ class detail: UIView {
     
     public lazy var saveButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .orange
+        button.setImage(UIImage(named: "Asset11"), for: .normal)
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.4
         button.layer.shadowOffset = .zero
         button.layer.shadowRadius = 5
-        button.alpha = 1
+        button.alpha = 0
         return button
     }()
     
     public lazy var shareButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .orange
+        button.setImage(UIImage(named: "Asset10"), for: .normal)
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.4
         button.layer.shadowOffset = .zero
         button.layer.shadowRadius = 5
-        button.alpha = 1
+        button.alpha = 0
         return button
     }()
     
     public lazy var rateButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .orange
+        button.setImage(UIImage(named: "Asset9"), for: .normal)
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.4
+        button.layer.shadowOffset = .zero
+        button.layer.shadowRadius = 5
+        button.alpha = 0
         return button
     }()
     
@@ -143,10 +154,12 @@ class detail: UIView {
         setupVenueName()
         setupPriceRange()
         setupVenueAddress()
+        setupDays()
         setupHours()
         setupRating()
         blurEffect()
-//        setupShareButton()
+        setupRateButton()
+        setupShareButton()
         setupSaveButton()
         setupMenuButton()
         
@@ -183,13 +196,13 @@ class detail: UIView {
     }
     
     private func setupCollectionView() {
-        contentView.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2)
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2)
         ])
     }
     
@@ -197,7 +210,8 @@ class detail: UIView {
         contentView.addSubview(venueName)
         venueName.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            venueName.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
+            venueName.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5),
+            venueName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             venueName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
         ])
     }
@@ -207,7 +221,7 @@ class detail: UIView {
         priceRange.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             priceRange.leadingAnchor.constraint(equalTo: venueName.trailingAnchor, constant: 8),
-            priceRange.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
+            priceRange.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
         ])
     }
     
@@ -215,8 +229,19 @@ class detail: UIView {
         contentView.addSubview(venueAdress)
         venueAdress.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            venueAdress.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2),
             venueAdress.topAnchor.constraint(equalTo: venueName.bottomAnchor, constant: 20),
             venueAdress.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+        ])
+    }
+    
+    private func setupDays() {
+        contentView.addSubview(days)
+        days.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            days.topAnchor.constraint(equalTo: venueAdress.bottomAnchor, constant: 8),
+            days.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            days.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
         ])
     }
     
@@ -233,7 +258,8 @@ class detail: UIView {
         contentView.addSubview(hours)
         hours.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            hours.topAnchor.constraint(equalTo: venueAdress.bottomAnchor, constant: 20),
+            hours.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2),
+            hours.topAnchor.constraint(equalTo: days.bottomAnchor, constant: 20),
             hours.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             hours.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
@@ -243,7 +269,7 @@ class detail: UIView {
         addSubview(menuButton)
         menuButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            menuButton.heightAnchor.constraint(equalToConstant: 80),
+            menuButton.heightAnchor.constraint(equalToConstant: 75),
             menuButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 290),
             menuButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
             menuButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -40)
@@ -254,21 +280,34 @@ class detail: UIView {
         addSubview(saveButton)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            saveButton.heightAnchor.constraint(equalToConstant: 75),
             saveButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 290),
             saveButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
             saveButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -40)
         ])
     }
     
-//    private func setupShareButton() {
-//        addSubview(saveButton)
-//       saveButton.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            shareButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 290),
-//            shareButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
-//            shareButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -40)
-//        ])
-//   }
+    private func setupShareButton() {
+        addSubview(shareButton)
+       shareButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            shareButton.heightAnchor.constraint(equalToConstant: 75),
+            shareButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 290),
+            shareButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
+            shareButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -40)
+        ])
+   }
+    
+    private func setupRateButton() {
+         addSubview(rateButton)
+        rateButton.translatesAutoresizingMaskIntoConstraints = false
+         NSLayoutConstraint.activate([
+             rateButton.heightAnchor.constraint(equalToConstant: 75),
+             rateButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 290),
+             rateButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
+             rateButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -40)
+         ])
+    }
     
     @objc private func animateButtons() {
         if saveButton.alpha == 0 && shareButton.alpha == 0 {
@@ -284,7 +323,6 @@ class detail: UIView {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveLinear], animations: {
                 self.saveButton.transform = .identity
                 self.shareButton.transform = .identity
-                self.visualEffectView.effect = nil
                 self.visualEffectView.isHidden = true
             }, completion: nil)
             saveButton.alpha = 0

@@ -27,7 +27,7 @@ class FoursquareTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewControllers = [UINavigationController(rootViewController: searchViewController), UINavigationController(rootViewController: collectionsViewController)]
+        viewControllers = [searchViewController, UINavigationController(rootViewController: collectionsViewController)]
         
     }
     
