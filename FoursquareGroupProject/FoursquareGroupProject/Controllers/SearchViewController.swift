@@ -201,6 +201,11 @@ class SearchViewController: UIViewController {
     
     private var allVenues = [Venue]() {
         didSet {
+            if let source = mapView.style?.source(withIdentifier: "route-source") as? MGLShapeSource {
+
+                source.shape = nil
+            }
+            navigateButton.isHidden = true
             photoCV.reloadData()
             cardViewController.venues = allVenues
         }
@@ -212,11 +217,6 @@ class SearchViewController: UIViewController {
     var changed: Bool = false
     let url = URL(string: "mapbox://styles/howc/ck5gy6ex70k441iw1gqtnehf5")
     var annotations = [MGLPointAnnotation]()
-      
-    var currentCenterRegion = MGLCoordinateBounds() {
-        didSet {
-        }
-    }
     
     var currentCity = "central park"
     
@@ -367,6 +367,7 @@ class SearchViewController: UIViewController {
             let insets = UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50)
             let routeCam = self.mapView.cameraThatFitsCoordinateBounds(coordinateBounds, edgePadding: insets)
             self.mapView.setCamera(routeCam, animated: true)
+            self.navigateButton.isHidden = false
         })
         
     }
@@ -439,18 +440,8 @@ extension SearchViewController: MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
         if control.tag == 100 {
             navigate(annotation.coordinate, profileIdentifier: .automobileAvoidingTraffic)
-            if directionsRoute != nil {
-            navigateButton.isHidden = false
-         } else {
-            navigateButton.isHidden = true
-        }
         } else if control.tag == 101 {
             navigate(annotation.coordinate, profileIdentifier: .walking)
-            if directionsRoute != nil {
-            navigateButton.isHidden = false
-            } else {
-                navigateButton.isHidden = true
-            }
     }
         }
     
