@@ -93,7 +93,6 @@ class SearchViewController: UIViewController {
         cardViewController.view.clipsToBounds = true
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchViewController.handleCardTap(recognzier:)))
-        //tapGestureRecognizer.cancelsTouchesInView = false
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(SearchViewController.handleCardPan(recognizer:)))
         cardViewController.venueTableView.topView.addGestureRecognizer(tapGestureRecognizer)
         cardViewController.view.addGestureRecognizer(panGestureRecognizer)
@@ -257,10 +256,12 @@ class SearchViewController: UIViewController {
         button.setTitleColor(UIColor(red: 59/255, green: 178/255, blue: 208/255, alpha: 1), for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 25
-        button.layer.shadowOffset = CGSize(width: 0, height: 10)
+        button.layer.shadowOffset = CGSize(width: 0, height: 40)
         button.layer.shadowColor = UIColor.gray.cgColor
         button.layer.shadowRadius = 5
         button.layer.shadowOpacity = 0.4
+        button.layer.shouldRasterize = true
+        button.layer.rasterizationScale = UIScreen.main.scale
         button.tag = 100
         return button
     }
@@ -276,6 +277,8 @@ class SearchViewController: UIViewController {
         button.layer.shadowColor = UIColor.gray.cgColor
         button.layer.shadowRadius = 5
         button.layer.shadowOpacity = 0.4
+        button.layer.shouldRasterize = true
+        button.layer.rasterizationScale = UIScreen.main.scale
         button.tag = 101
         return button
     }
@@ -294,6 +297,8 @@ class SearchViewController: UIViewController {
         navigateButton.layer.shadowColor = UIColor.gray.cgColor
         navigateButton.layer.shadowRadius = 5
         navigateButton.layer.shadowOpacity = 0.4
+        navigateButton.layer.shouldRasterize = true
+        navigateButton.layer.rasterizationScale = UIScreen.main.scale
         navigateButton.addTarget(self, action: #selector(startNavigation(_:)), for: .touchUpInside)
         navigateButton.isHidden = true
         mapView.addSubview(navigateButton)
@@ -308,15 +313,17 @@ class SearchViewController: UIViewController {
     private func zoomToUser() {
         let zoomToUserButton = UIButton(frame: CGRect(x: 350, y: 520, width: 50, height: 50))
         //zoomToUserButton.setBackgroundImage(UIImage(systemName: "paperplane"), for: .normal)
-        zoomToUserButton.setImage(UIImage(systemName: "paperplane"), for: .normal)
+        zoomToUserButton.setImage(UIImage(systemName: "paperplane.fill"), for: .normal)
         zoomToUserButton.layer.cornerRadius = 25
-        zoomToUserButton.layer.masksToBounds = true
+        zoomToUserButton.layer.masksToBounds = false
         zoomToUserButton.tintColor = .blue
         zoomToUserButton.backgroundColor = .white
         zoomToUserButton.layer.shadowOffset = CGSize(width: 0, height: 10)
         zoomToUserButton.layer.shadowColor = UIColor.gray.cgColor
-        zoomToUserButton.layer.shadowRadius = 5
+        zoomToUserButton.layer.shadowRadius = 10
         zoomToUserButton.layer.shadowOpacity = 0.4
+        zoomToUserButton.layer.shouldRasterize = true
+        zoomToUserButton.layer.rasterizationScale = UIScreen.main.scale
         zoomToUserButton.addTarget(self, action: #selector(getCurrentUserLocation(_:)), for: .touchUpInside)
         mapView.addSubview(zoomToUserButton)
     }
@@ -329,13 +336,15 @@ class SearchViewController: UIViewController {
         let changeMapStyleButton = UIButton(frame: CGRect(x: 350, y: 590, width: 50, height: 50))
         changeMapStyleButton.setBackgroundImage(UIImage(named: "changeMap"), for: .normal)
         changeMapStyleButton.layer.cornerRadius = 15
-        changeMapStyleButton.layer.masksToBounds = true
+        changeMapStyleButton.layer.masksToBounds = false
         changeMapStyleButton.tintColor = .black
         changeMapStyleButton.backgroundColor = .green
         changeMapStyleButton.layer.shadowOffset = CGSize(width: 0, height: 10)
         changeMapStyleButton.layer.shadowColor = UIColor.gray.cgColor
-        changeMapStyleButton.layer.shadowRadius = 5
+        changeMapStyleButton.layer.shadowRadius = 10
         changeMapStyleButton.layer.shadowOpacity = 0.4
+        changeMapStyleButton.layer.shouldRasterize = true
+        changeMapStyleButton.layer.rasterizationScale = UIScreen.main.scale
         changeMapStyleButton.addTarget(self, action: #selector(change(_:)), for: .touchUpInside)
         mapView.addSubview(changeMapStyleButton)
     }
@@ -443,7 +452,7 @@ class SearchViewController: UIViewController {
     
 }
 
-extension SearchViewController: MGLMapViewDelegate {
+extension SearchViewController: MGLMapViewDelegate, NavigationViewControllerDelegate {
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         return true
     }
@@ -463,7 +472,7 @@ extension SearchViewController: MGLMapViewDelegate {
         }
         isShowingNewAnnotations = false
     }
-    
+ 
 }
 
 extension SearchViewController: UISearchBarDelegate {
