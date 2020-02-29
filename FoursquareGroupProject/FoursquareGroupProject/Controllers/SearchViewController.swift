@@ -305,6 +305,7 @@ class SearchViewController: UIViewController {
     }
     
     @objc func startNavigation(_ sender: UIButton) {
+        view.animateButtonView(sender)
         guard let setDirection = directionsRoute else { return }
         let navVC = NavigationViewController(for: setDirection)
         present(navVC, animated: true)
@@ -329,6 +330,7 @@ class SearchViewController: UIViewController {
     }
     
     @objc func getCurrentUserLocation(_ sender: UIButton) {
+        view.animateButtonView(sender)
         mapView.userTrackingMode = .follow
     }
     
@@ -350,6 +352,7 @@ class SearchViewController: UIViewController {
     }
     
     @objc func change(_ sender: UIButton) {
+        view.animateButtonView(sender)
         navigateButton.isHidden = true
         if changed == false {
             mapView.styleURL = MGLStyle.streetsStyleURL
