@@ -1,8 +1,8 @@
 //
-//  SaveCollectionCell.swift
+//  SaveCollectionViewCell.swift
 //  FoursquareGroupProject
 //
-//  Created by Melinda Diaz on 2/21/20.
+//  Created by Tsering Lama on 2/28/20.
 //  Copyright © 2020 Melinda Diaz. All rights reserved.
 //
 
@@ -11,12 +11,13 @@ import ImageKit
 import DataPersistence
 
 protocol CollectionCellDelegate: AnyObject {
-    func didSelectMoreButton(_ favoritesCell: CollectionViewCell, cell: String)
+  func didSelectMoreButton(_ favoritesCell: CollectionViewCell, cell: Collection )
 }
 
 class CollectionViewCell: UICollectionViewCell {
     
     weak var delegate: CollectionCellDelegate?
+    private var currentCollection: Collection!
     
     public lazy var restaurantImage: UIImageView = {
         let image = UIImageView()
@@ -29,7 +30,6 @@ class CollectionViewCell: UICollectionViewCell {
     public lazy var moreButton: UIButton = {
         let button = UIButton()
         button.tintColor = .systemPink
-        
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 10, weight: .black, scale: .large)
         button.setImage(UIImage(systemName: "ellipsis", withConfiguration: imageConfig), for: .normal)
         button.addTarget(self, action: #selector(moreButtonPressed(_:)), for: .touchUpInside)
@@ -82,8 +82,13 @@ class CollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func moreButtonPressed(_ sender: UIButton) {
-        
-        delegate?.didSelectMoreButton(self, cell: "String")
+       delegate?.didSelectMoreButton(self, cell: currentCollection)
+    }
+    
+    func configCell(_ collection: Collection) {
+        currentCollection = collection
+        headLabel.text = collection.name
+        descriptLabel.text = collection.description
     }
     
     private func setUpImageViewConstraints() {

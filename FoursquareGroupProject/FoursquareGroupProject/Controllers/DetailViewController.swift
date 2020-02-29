@@ -59,7 +59,7 @@ class DetailViewController: UIViewController {
                     let suffix = detail.bestPhoto?.suffix ?? ""
                     let photoURL = "\(prefix)original\(suffix)"
                     
-                    self?.detailView.imageView.getImage(with: photoURL) { (result) in
+                    self?.detailView.imageView.getImage(with: photoURL, writeTo: .cachesDirectory) { (result) in
                         switch result {
                         case .failure(_):
                             print("no detail image")

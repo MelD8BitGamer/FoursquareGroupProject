@@ -6,6 +6,7 @@
 //  Copyright © 2020 Melinda Diaz. All rights reserved.
 //
 import UIKit
+import DataPersistence
 
 class detail: UIView {
 
@@ -20,6 +21,20 @@ class detail: UIView {
         return view
     }()
     
+    public lazy var popUpView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray
+        return view
+    }()
+    
+    public lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let collection = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        collection.backgroundColor = .white
+        return collection
+    }()
+    
     public lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "trash.fill")
@@ -29,7 +44,7 @@ class detail: UIView {
     
     public lazy var venueName: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "HelveticaNeue-Bold", size: 40)
+        label.font = UIFont(name: "HelveticaNeue-Bold", size: 35)
         label.text = "Pursuit"
         label.numberOfLines = 0
         return label
@@ -93,8 +108,8 @@ class detail: UIView {
         let button = UIButton()
         button.setImage(UIImage(named: "Asset12"), for: .normal)
         button.addTarget(self, action: #selector(animateButtons), for: .touchUpInside)
-        button.frame = CGRect(x: 0, y: 0, width: button.frame.width / 3, height: 100)
-        button.layer.cornerRadius = 41.2
+        button.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
+        button.layer.cornerRadius = 25
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.4
         button.layer.shadowOffset = .zero
@@ -105,6 +120,9 @@ class detail: UIView {
     public lazy var saveButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Asset11"), for: .normal)
+        button.addTarget(self, action: #selector(saveVenue), for: .touchUpInside)
+        button.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
+        button.layer.cornerRadius = 25
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.4
         button.layer.shadowOffset = .zero
@@ -116,6 +134,8 @@ class detail: UIView {
     public lazy var shareButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Asset10"), for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
+        button.layer.cornerRadius = 25
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.4
         button.layer.shadowOffset = .zero
@@ -127,6 +147,8 @@ class detail: UIView {
     public lazy var rateButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Asset9"), for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
+        button.layer.cornerRadius = 25
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.4
         button.layer.shadowOffset = .zero
@@ -136,6 +158,8 @@ class detail: UIView {
     }()
     
     let visualEffectView = UIVisualEffectView(effect: nil)
+    
+//    let dataPersistence = DataPersistence<Venue>(filename: "savedVenue.plist")
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -150,7 +174,7 @@ class detail: UIView {
     private func commonInit() {
         setUpScrollView()
         setupContentView()
-        setupCollectionView()
+        setupImageView()
         setupVenueName()
         setupPriceRange()
         setupVenueAddress()
@@ -162,7 +186,8 @@ class detail: UIView {
         setupShareButton()
         setupSaveButton()
         setupMenuButton()
-        
+        setupPopUpView()
+        setupCollectionView()
     }
     
     fileprivate func blurEffect() {
@@ -195,7 +220,7 @@ class detail: UIView {
         ])
     }
     
-    private func setupCollectionView() {
+    private func setupImageView() {
         contentView.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -210,7 +235,6 @@ class detail: UIView {
         contentView.addSubview(venueName)
         venueName.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            venueName.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5),
             venueName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             venueName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
         ])
@@ -220,7 +244,7 @@ class detail: UIView {
         contentView.addSubview(priceRange)
         priceRange.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            priceRange.leadingAnchor.constraint(equalTo: venueName.trailingAnchor, constant: 8),
+            priceRange.leadingAnchor.constraint(equalTo: venueName.trailingAnchor, constant: 3),
             priceRange.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
         ])
     }
@@ -250,7 +274,8 @@ class detail: UIView {
         rating.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             rating.topAnchor.constraint(equalTo: hours.bottomAnchor, constant: 20),
-            rating.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+            rating.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            rating.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
@@ -260,8 +285,30 @@ class detail: UIView {
         NSLayoutConstraint.activate([
             hours.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2),
             hours.topAnchor.constraint(equalTo: days.bottomAnchor, constant: 20),
-            hours.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            hours.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            hours.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+        ])
+    }
+    
+    private func setupPopUpView() {
+        contentView.addSubview(popUpView)
+        popUpView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            popUpView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            popUpView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            popUpView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 1.5),
+            popUpView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2),
+            popUpView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 1000)
+        ])
+    }
+    
+    private func setupCollectionView() {
+        popUpView.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: popUpView.leadingAnchor),
+            collectionView.topAnchor.constraint(equalTo: popUpView.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: popUpView.bottomAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: popUpView.trailingAnchor)
         ])
     }
     
@@ -269,8 +316,8 @@ class detail: UIView {
         addSubview(menuButton)
         menuButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            menuButton.heightAnchor.constraint(equalToConstant: 75),
-            menuButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 290),
+            menuButton.heightAnchor.constraint(equalToConstant: 60),
+            menuButton.widthAnchor.constraint(equalToConstant: 60),
             menuButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
             menuButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -40)
         ])
@@ -280,8 +327,8 @@ class detail: UIView {
         addSubview(saveButton)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            saveButton.heightAnchor.constraint(equalToConstant: 75),
-            saveButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 290),
+            saveButton.heightAnchor.constraint(equalToConstant: 60),
+            saveButton.widthAnchor.constraint(equalToConstant: 60),
             saveButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
             saveButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -40)
         ])
@@ -291,8 +338,8 @@ class detail: UIView {
         addSubview(shareButton)
        shareButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            shareButton.heightAnchor.constraint(equalToConstant: 75),
-            shareButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 290),
+            shareButton.heightAnchor.constraint(equalToConstant: 60),
+            shareButton.widthAnchor.constraint(equalToConstant: 60),
             shareButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
             shareButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -40)
         ])
@@ -302,32 +349,68 @@ class detail: UIView {
          addSubview(rateButton)
         rateButton.translatesAutoresizingMaskIntoConstraints = false
          NSLayoutConstraint.activate([
-             rateButton.heightAnchor.constraint(equalToConstant: 75),
-             rateButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 290),
+             rateButton.heightAnchor.constraint(equalToConstant: 60),
+             rateButton.widthAnchor.constraint(equalToConstant: 60),
              rateButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
              rateButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -40)
          ])
     }
     
     @objc private func animateButtons() {
-        if saveButton.alpha == 0 && shareButton.alpha == 0 {
+        if saveButton.alpha == 0 && shareButton.alpha == 0 && rateButton.alpha == 0{
             visualEffectView.isHidden = false
             saveButton.alpha = 1
             shareButton.alpha = 1
+            rateButton.alpha = 1
             UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveLinear], animations: {
-                self.saveButton.transform = CGAffineTransform(translationX: 0, y: -100)
-                self.shareButton.transform = CGAffineTransform(translationX: 0, y: -200)
+                self.saveButton.transform = CGAffineTransform(translationX: 0, y: -70)
+                self.shareButton.transform = CGAffineTransform(translationX: 0, y: -145)
+                self.rateButton.transform = CGAffineTransform(translationX: 0, y: -225)
                 self.visualEffectView.effect = UIBlurEffect(style: .regular)
             }, completion: nil)
         } else {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: [.curveLinear], animations: {
                 self.saveButton.transform = .identity
                 self.shareButton.transform = .identity
+                self.rateButton.transform = .identity
                 self.visualEffectView.isHidden = true
             }, completion: nil)
             saveButton.alpha = 0
             shareButton.alpha = 0
+            rateButton.alpha = 0
         }
     }
-
+    
+    @objc private func saveVenue() {
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+            self.popUpView.transform = CGAffineTransform(translationX: 0, y: -900)
+        }, completion: nil)
+//        do {
+//
+//        } catch {
+//
+//        }
+    }
 }
+
+extension UIView: UICollectionViewDataSource {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailViewCell", for: indexPath)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let maxSize: CGSize = UIScreen.main.bounds.size
+        let spacingBetweenItems: CGFloat = 10
+        let numberOfItems: CGFloat = 1
+        let itemHeight:CGFloat = maxSize.height * 0.50
+        let totalSpacing: CGFloat = (2 * spacingBetweenItems) + (numberOfItems - 1 ) * spacingBetweenItems
+        let itemWidth: CGFloat = (maxSize.width - totalSpacing) / numberOfItems
+        return CGSize(width: itemWidth, height: itemHeight)
+    }
+}
+

@@ -18,34 +18,34 @@ class SearchViewController: UIViewController {
     var navigateButton: UIButton!
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
-       }
-
+    }
+    
     public lazy var photoCV: UICollectionView = {
-         let layout = UICollectionViewFlowLayout()
-          layout.scrollDirection = .horizontal
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: view.frame.width / 3, height: view.frame.height / 10)
-          let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-          cv.backgroundColor = .clear
-          return cv
-       }()
+        let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        cv.backgroundColor = .clear
+        return cv
+    }()
     
     private func setupCV() {
         mapView.addSubview(photoCV)
-           photoCV.translatesAutoresizingMaskIntoConstraints = false
-           NSLayoutConstraint.activate([
+        photoCV.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
             photoCV.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
             photoCV.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
             photoCV.bottomAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.bottomAnchor, constant: -60),
             photoCV.heightAnchor.constraint(equalTo: mapView.heightAnchor, multiplier: 0.10)
-           ])
-       }
+        ])
+    }
     
-   var venueSearchTextField: UITextField!
+    var venueSearchTextField: UITextField!
     private func configTextField() {
         venueSearchTextField = UITextField(frame: CGRect(x: 15, y: 100, width: view.bounds.width - 30, height: 50))
         venueSearchTextField.backgroundColor = UIColor.gray
-               venueSearchTextField.placeholder = "  Search for city"
-               venueSearchTextField.layer.cornerRadius = 9
+        venueSearchTextField.placeholder = "  Search for city"
+        venueSearchTextField.layer.cornerRadius = 9
         venueSearchTextField.setLeftPadding(10)
         venueSearchTextField.setRightPadding(10)
         mapView.addSubview(venueSearchTextField)
@@ -62,7 +62,7 @@ class SearchViewController: UIViewController {
     }
     var cardViewController: TableViewController!
     var visualEffectView: UIVisualEffectView!
-    
+    var allItems = [Item]()
     let cardHeight:CGFloat = 700
     let cardHandleAreaHeight:CGFloat = 105
     
@@ -188,7 +188,11 @@ class SearchViewController: UIViewController {
     
     private var dataPersistence: DataPersistence<Collection>
     
-    var allImages = [UIImage]()
+    //    var allImages = [UIImage]() {
+    //        didSet {
+    //            cardViewController.allImages = allImages
+    //        }
+    //    }
     
     init(dataPersistence: DataPersistence<Collection>) {
         self.dataPersistence = dataPersistence
@@ -202,12 +206,13 @@ class SearchViewController: UIViewController {
     private var allVenues = [Venue]() {
         didSet {
             if let source = mapView.style?.source(withIdentifier: "route-source") as? MGLShapeSource {
-
+                
                 source.shape = nil
             }
             navigateButton.isHidden = true
             photoCV.reloadData()
             cardViewController.venues = allVenues
+            //cardViewController.allImages = allImages
         }
     }
     
@@ -276,45 +281,45 @@ class SearchViewController: UIViewController {
     }
     
     private func navigateVC() {
-              navigateButton = UIButton(frame: CGRect(x: 350, y: 440, width: 50, height: 50))
-              //zoomToUserButton.setBackgroundImage(UIImage(systemName: "paperplane"), for: .normal)
+        navigateButton = UIButton(frame: CGRect(x: 350, y: 440, width: 50, height: 50))
+        //zoomToUserButton.setBackgroundImage(UIImage(systemName: "paperplane"), for: .normal)
         navigateButton.setTitle("GO", for: .normal)
         navigateButton.titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 14)
-              navigateButton.layer.cornerRadius = 25
-              navigateButton.layer.masksToBounds = true
+        navigateButton.layer.cornerRadius = 25
+        navigateButton.layer.masksToBounds = true
         navigateButton.setTitleColor(UIColor.black, for: .normal)
-              //navigateButton.tintColor = .blue
-              navigateButton.backgroundColor = .green
-              navigateButton.layer.shadowOffset = CGSize(width: 0, height: 10)
-              navigateButton.layer.shadowColor = UIColor.gray.cgColor
-              navigateButton.layer.shadowRadius = 5
-              navigateButton.layer.shadowOpacity = 0.4
-              navigateButton.addTarget(self, action: #selector(startNavigation(_:)), for: .touchUpInside)
+        //navigateButton.tintColor = .blue
+        navigateButton.backgroundColor = .green
+        navigateButton.layer.shadowOffset = CGSize(width: 0, height: 10)
+        navigateButton.layer.shadowColor = UIColor.gray.cgColor
+        navigateButton.layer.shadowRadius = 5
+        navigateButton.layer.shadowOpacity = 0.4
+        navigateButton.addTarget(self, action: #selector(startNavigation(_:)), for: .touchUpInside)
         navigateButton.isHidden = true
-              mapView.addSubview(navigateButton)
-          }
+        mapView.addSubview(navigateButton)
+    }
     
     @objc func startNavigation(_ sender: UIButton) {
         guard let setDirection = directionsRoute else { return }
-                 let navVC = NavigationViewController(for: setDirection)
-                  present(navVC, animated: true)
+        let navVC = NavigationViewController(for: setDirection)
+        present(navVC, animated: true)
     }
     
     private func zoomToUser() {
-           let zoomToUserButton = UIButton(frame: CGRect(x: 350, y: 520, width: 50, height: 50))
-           //zoomToUserButton.setBackgroundImage(UIImage(systemName: "paperplane"), for: .normal)
+        let zoomToUserButton = UIButton(frame: CGRect(x: 350, y: 520, width: 50, height: 50))
+        //zoomToUserButton.setBackgroundImage(UIImage(systemName: "paperplane"), for: .normal)
         zoomToUserButton.setImage(UIImage(systemName: "paperplane"), for: .normal)
-           zoomToUserButton.layer.cornerRadius = 25
-           zoomToUserButton.layer.masksToBounds = true
-           zoomToUserButton.tintColor = .blue
-           zoomToUserButton.backgroundColor = .white
-           zoomToUserButton.layer.shadowOffset = CGSize(width: 0, height: 10)
-           zoomToUserButton.layer.shadowColor = UIColor.gray.cgColor
-           zoomToUserButton.layer.shadowRadius = 5
-           zoomToUserButton.layer.shadowOpacity = 0.4
-           zoomToUserButton.addTarget(self, action: #selector(getCurrentUserLocation(_:)), for: .touchUpInside)
-           mapView.addSubview(zoomToUserButton)
-       }
+        zoomToUserButton.layer.cornerRadius = 25
+        zoomToUserButton.layer.masksToBounds = true
+        zoomToUserButton.tintColor = .blue
+        zoomToUserButton.backgroundColor = .white
+        zoomToUserButton.layer.shadowOffset = CGSize(width: 0, height: 10)
+        zoomToUserButton.layer.shadowColor = UIColor.gray.cgColor
+        zoomToUserButton.layer.shadowRadius = 5
+        zoomToUserButton.layer.shadowOpacity = 0.4
+        zoomToUserButton.addTarget(self, action: #selector(getCurrentUserLocation(_:)), for: .touchUpInside)
+        mapView.addSubview(zoomToUserButton)
+    }
     
     @objc func getCurrentUserLocation(_ sender: UIButton) {
         mapView.userTrackingMode = .follow
@@ -393,9 +398,15 @@ class SearchViewController: UIViewController {
         FourSquareAPICLient.getResults(city: city, venue: venue) { [weak self] (result) in
             switch result {
             case .failure(let appError):
-                print("no data: \(appError)")
+                DispatchQueue.main.async {
+                    print("no data: \(appError)")
+                    self?.showAlert(title: "No results", message: "Please check your searches")
+                }
             case .success(let venueData):
                 DispatchQueue.main.async {
+                    if venueData.count == 0 {
+                        self?.showAlert(title: "No results", message: "Please check your searches")
+                    }
                     self?.allVenues = venueData
                     dump(venueData)
                     self?.loadVenueAnnotations()
@@ -442,8 +453,8 @@ extension SearchViewController: MGLMapViewDelegate {
             navigate(annotation.coordinate, profileIdentifier: .automobileAvoidingTraffic)
         } else if control.tag == 101 {
             navigate(annotation.coordinate, profileIdentifier: .walking)
-    }
         }
+    }
     
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
         if isShowingNewAnnotations {
@@ -496,13 +507,11 @@ extension SearchViewController: UICollectionViewDataSource {
         }
         let aVenue = allVenues[indexPath.row]
         cell.configreCell(venue: aVenue)
-        var cellImageArray = [UIImage]()
-        cellImageArray.append(cell.imageView.image ?? UIImage(systemName: "person.fill")!)
-        allImages = cellImageArray
+        //cellImageArray.append(cell.imageView.image ?? UIImage(systemName: "person.fill")!)
+        //cellImageArray = allImages
         cell.backgroundColor = .clear
         return cell
     }
-    
 }
 
 extension SearchViewController: UICollectionViewDelegateFlowLayout {

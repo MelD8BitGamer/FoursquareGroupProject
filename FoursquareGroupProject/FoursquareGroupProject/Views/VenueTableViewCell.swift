@@ -8,6 +8,9 @@
 import UIKit
 
 final class VenueTableViewCell: UITableViewCell {
+    
+    var allItems = [Item]()
+    
     public lazy var venueImageView: UIImageView = {
         let imageV = UIImageView()
         imageV.clipsToBounds = true
@@ -62,7 +65,7 @@ final class VenueTableViewCell: UITableViewCell {
     
     private func titleLabelConstraints() {
         addSubview(titleLabel)
-//        titleLabel.anchor(top: topAnchor, left: venueImageView.rightAnchor, right: rightAnchor, paddingTop: 20, paddingLeft: 10, paddingRight: 8)
+        //        titleLabel.anchor(top: topAnchor, left: venueImageView.rightAnchor, right: rightAnchor, paddingTop: 20, paddingLeft: 10, paddingRight: 8)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: venueImageView.topAnchor),
@@ -73,7 +76,7 @@ final class VenueTableViewCell: UITableViewCell {
     
     private func venueAddressLabelConstraints() {
         addSubview(venueAddress)
-//        venueAddress.anchor(top: titleLabel.bottomAnchor, left: titleLabel.leftAnchor, right: titleLabel.rightAnchor, paddingTop: 8, paddingBottom: -8)
+        //        venueAddress.anchor(top: titleLabel.bottomAnchor, left: titleLabel.leftAnchor, right: titleLabel.rightAnchor, paddingTop: 8, paddingBottom: -8)
         venueAddress.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             venueAddress.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 1),
@@ -83,7 +86,36 @@ final class VenueTableViewCell: UITableViewCell {
     }
     
     func configureCell(venue: Venue) {
+        
         titleLabel.text = venue.name
         venueAddress.text = venue.location.formattedAddress.joined(separator: "")
+        
+        FourSquareAPICLient.getPhotoInfo(id: venue.id) { [weak self] (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let appError):
+                    print("couldnt load photos: \(appError)")
+                case .success(let items):
+                    self?.allItems = items
+                }
+            }
+            DispatchQueue.main.async {
+                let prefix = self?.allItems.first?.prefix ?? ""
+                let suffix = self?.allItems.first?.suffix ?? ""
+                let photoURL = "\(prefix)original\(suffix)"
+                self?.venueImageView.getImage(with: photoURL, writeTo: .cachesDirectory) { (result) in
+                    switch result {
+                    case .failure(_):
+                        DispatchQueue.main.async {
+                            self?.venueImageView.image = UIImage(systemName: "person.fill")
+                        }
+                    case .success(let photo):
+                        DispatchQueue.main.async {
+                            self?.venueImageView.image = photo
+                        }
+                    }
+                }
+            }
+        }
     }
 }

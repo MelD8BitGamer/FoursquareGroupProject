@@ -10,6 +10,7 @@ import Foundation
 
 struct Collection: Codable & Equatable {
     let name: String
-    let image: String?
-    let venues: [VenueDetail]?
+    let description: String
+    // let image: String?
+   // let venues: [VenueDetail]?
 }
