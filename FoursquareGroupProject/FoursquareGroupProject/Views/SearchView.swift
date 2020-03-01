@@ -98,7 +98,7 @@ final class SearchView: UIView {
         zoomToUserButton.layer.cornerRadius = 25
         zoomToUserButton.layer.borderColor = UIColor.clear.cgColor
         zoomToUserButton.layer.borderWidth = 1.5
-        zoomToUserButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        //zoomToUserButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         zoomToUserButton.layer.masksToBounds = true
         zoomToUserButton.clipsToBounds = false
         return zoomToUserButton
@@ -113,13 +113,13 @@ final class SearchView: UIView {
         changeMapStyleButton.backgroundColor = .green
         changeMapStyleButton.layer.shadowColor = UIColor.lightGray.cgColor
         changeMapStyleButton.layer.shadowPath = UIBezierPath(roundedRect: changeMapStyleButton.bounds, cornerRadius: 15).cgPath
-        changeMapStyleButton.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        changeMapStyleButton.layer.shadowOffset = CGSize(width: 4.0, height: 4.0)
         changeMapStyleButton.layer.shadowOpacity = 0.7
         changeMapStyleButton.layer.shadowRadius = 5
         changeMapStyleButton.layer.cornerRadius = 15
         changeMapStyleButton.layer.borderColor = UIColor.clear.cgColor
         changeMapStyleButton.layer.borderWidth = 1.5
-        changeMapStyleButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        //changeMapStyleButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         changeMapStyleButton.layer.masksToBounds = true
         changeMapStyleButton.clipsToBounds = false
         return changeMapStyleButton
