@@ -285,20 +285,23 @@ class SearchViewController: UIViewController {
     
     private func navigateVC() {
         navigateButton = UIButton(frame: CGRect(x: 350, y: 440, width: 50, height: 50))
-        //zoomToUserButton.setBackgroundImage(UIImage(systemName: "paperplane"), for: .normal)
         navigateButton.setTitle("GO", for: .normal)
-        navigateButton.titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 14)
+        navigateButton.titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
         navigateButton.layer.cornerRadius = 25
         navigateButton.layer.masksToBounds = true
         navigateButton.setTitleColor(UIColor.black, for: .normal)
-        //navigateButton.tintColor = .blue
         navigateButton.backgroundColor = .green
-        navigateButton.layer.shadowOffset = CGSize(width: 0, height: 10)
-        navigateButton.layer.shadowColor = UIColor.gray.cgColor
-        navigateButton.layer.shadowRadius = 5
-        navigateButton.layer.shadowOpacity = 0.4
-        navigateButton.layer.shouldRasterize = true
-        navigateButton.layer.rasterizationScale = UIScreen.main.scale
+         navigateButton.layer.shadowColor = UIColor.lightGray.cgColor
+               navigateButton.layer.shadowPath = UIBezierPath(roundedRect: navigateButton.bounds, cornerRadius: 25).cgPath
+               navigateButton.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+               navigateButton.layer.shadowOpacity = 0.7
+               navigateButton.layer.shadowRadius = 5
+               navigateButton.layer.cornerRadius = 25
+               navigateButton.layer.borderColor = UIColor.clear.cgColor
+               navigateButton.layer.borderWidth = 1.5
+               navigateButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+               navigateButton.layer.masksToBounds = true
+               navigateButton.clipsToBounds = false
         navigateButton.addTarget(self, action: #selector(startNavigation(_:)), for: .touchUpInside)
         navigateButton.isHidden = true
         mapView.addSubview(navigateButton)
@@ -313,18 +316,23 @@ class SearchViewController: UIViewController {
     
     private func zoomToUser() {
         let zoomToUserButton = UIButton(frame: CGRect(x: 350, y: 520, width: 50, height: 50))
-        //zoomToUserButton.setBackgroundImage(UIImage(systemName: "paperplane"), for: .normal)
         zoomToUserButton.setImage(UIImage(systemName: "paperplane.fill"), for: .normal)
         zoomToUserButton.layer.cornerRadius = 25
         zoomToUserButton.layer.masksToBounds = false
         zoomToUserButton.tintColor = .blue
         zoomToUserButton.backgroundColor = .white
-        zoomToUserButton.layer.shadowOffset = CGSize(width: 0, height: 10)
-        zoomToUserButton.layer.shadowColor = UIColor.gray.cgColor
-        zoomToUserButton.layer.shadowRadius = 10
-        zoomToUserButton.layer.shadowOpacity = 0.4
-        zoomToUserButton.layer.shouldRasterize = true
-        zoomToUserButton.layer.rasterizationScale = UIScreen.main.scale
+        //zoomToUserButton.backgroundColor = UIColor.clear
+        zoomToUserButton.layer.shadowColor = UIColor.lightGray.cgColor
+        zoomToUserButton.layer.shadowPath = UIBezierPath(roundedRect: zoomToUserButton.bounds, cornerRadius: 25).cgPath
+        zoomToUserButton.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        zoomToUserButton.layer.shadowOpacity = 0.7
+        zoomToUserButton.layer.shadowRadius = 5
+        zoomToUserButton.layer.cornerRadius = 25
+        zoomToUserButton.layer.borderColor = UIColor.clear.cgColor
+        zoomToUserButton.layer.borderWidth = 1.5
+        zoomToUserButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        zoomToUserButton.layer.masksToBounds = true
+        zoomToUserButton.clipsToBounds = false
         zoomToUserButton.addTarget(self, action: #selector(getCurrentUserLocation(_:)), for: .touchUpInside)
         mapView.addSubview(zoomToUserButton)
     }
@@ -341,12 +349,17 @@ class SearchViewController: UIViewController {
         changeMapStyleButton.layer.masksToBounds = false
         changeMapStyleButton.tintColor = .black
         changeMapStyleButton.backgroundColor = .green
-        changeMapStyleButton.layer.shadowOffset = CGSize(width: 0, height: 10)
-        changeMapStyleButton.layer.shadowColor = UIColor.gray.cgColor
-        changeMapStyleButton.layer.shadowRadius = 10
-        changeMapStyleButton.layer.shadowOpacity = 0.4
-        changeMapStyleButton.layer.shouldRasterize = true
-        changeMapStyleButton.layer.rasterizationScale = UIScreen.main.scale
+          changeMapStyleButton.layer.shadowColor = UIColor.lightGray.cgColor
+              changeMapStyleButton.layer.shadowPath = UIBezierPath(roundedRect: changeMapStyleButton.bounds, cornerRadius: 15).cgPath
+              changeMapStyleButton.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+              changeMapStyleButton.layer.shadowOpacity = 0.7
+              changeMapStyleButton.layer.shadowRadius = 5
+              changeMapStyleButton.layer.cornerRadius = 15
+              changeMapStyleButton.layer.borderColor = UIColor.clear.cgColor
+              changeMapStyleButton.layer.borderWidth = 1.5
+              changeMapStyleButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+              changeMapStyleButton.layer.masksToBounds = true
+              changeMapStyleButton.clipsToBounds = false
         changeMapStyleButton.addTarget(self, action: #selector(change(_:)), for: .touchUpInside)
         mapView.addSubview(changeMapStyleButton)
     }
