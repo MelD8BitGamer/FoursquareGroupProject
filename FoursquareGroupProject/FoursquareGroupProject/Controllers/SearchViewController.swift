@@ -13,72 +13,26 @@ import MapboxCoreNavigation
 import MapboxDirections
 import MapboxNavigation
 
-class SearchViewController: UIViewController {
+final class SearchViewController: UIViewController {
     
-    var navigateButton: UIButton!
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-    
-    public lazy var photoCV: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: view.frame.width / 3, height: view.frame.height / 10)
-        let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        cv.backgroundColor = .clear
-        return cv
-    }()
-    
-    private func setupCV() {
-        mapView.addSubview(photoCV)
-        photoCV.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            photoCV.leadingAnchor.constraint(equalTo: mapView.leadingAnchor),
-            photoCV.trailingAnchor.constraint(equalTo: mapView.trailingAnchor),
-            photoCV.bottomAnchor.constraint(equalTo: mapView.safeAreaLayoutGuide.bottomAnchor, constant: -60),
-            photoCV.heightAnchor.constraint(equalTo: mapView.heightAnchor, multiplier: 0.10)
-        ])
-    }
-    
-    var venueSearchTextField: UITextField!
-    private func configTextField() {
-        venueSearchTextField = UITextField(frame: CGRect(x: 15, y: 100, width: view.bounds.width - 30, height: 50))
-        venueSearchTextField.backgroundColor = UIColor.gray
-        venueSearchTextField.placeholder = "  Search for city"
-        venueSearchTextField.layer.cornerRadius = 9
-        venueSearchTextField.setLeftPadding(10)
-        venueSearchTextField.setRightPadding(10)
-        mapView.addSubview(venueSearchTextField)
-    }
-    
-    var citySearch: UISearchBar!
-    private func configSearchBar() {
-        citySearch = UISearchBar(frame: CGRect(x: 15, y: 50, width: view.bounds.width - 30, height: 50))
-        citySearch.backgroundImage = UIImage()
-        citySearch.backgroundColor = UIColor.gray
-        citySearch.layer.cornerRadius = 9
-        citySearch.placeholder = "Search for venue"
-        mapView.addSubview(citySearch)
-    }
-    var cardViewController: TableViewController!
-    var visualEffectView: UIVisualEffectView!
-    var allItems = [Item]()
-    let cardHeight:CGFloat = 700
-    let cardHandleAreaHeight:CGFloat = 105
-    
-    var cardVisible = false
-    var nextState: CardState {
+    private let searchView = SearchView()
+    private var cardViewController: TableViewController!
+    private var visualEffectView: UIVisualEffectView!
+    private var allItems = [Item]()
+    private let cardHandleAreaHeight:CGFloat = 105
+   private var cardVisible = false
+   private var nextState: CardState {
         return cardVisible ? .collapsed : .expanded
     }
     
-    var runningAnimations = [UIViewPropertyAnimator]()
-    var animationProgressWhenInterrupted:CGFloat = 0
-    enum CardState {
+   private var runningAnimations = [UIViewPropertyAnimator]()
+   private var animationProgressWhenInterrupted:CGFloat = 0
+   private enum CardState {
         case expanded
         case collapsed
     }
     
-    func setupCard() {
+   private func setupCard() {
         visualEffectView = UIVisualEffectView()
         visualEffectView.frame = self.view.frame
         visualEffectView.isUserInteractionEnabled = false
@@ -88,7 +42,7 @@ class SearchViewController: UIViewController {
         self.addChild(cardViewController)
         self.view.addSubview(cardViewController.view)
         
-        cardViewController.view.frame = CGRect(x: 0, y: self.view.frame.height - cardHandleAreaHeight, width: self.view.bounds.width, height: cardHeight)
+    cardViewController.view.frame = CGRect(x: 0, y: self.view.frame.height - cardHandleAreaHeight, width: self.view.bounds.width, height: (view.frame.height / 4) * 3.5)
         
         cardViewController.view.clipsToBounds = true
         
@@ -107,6 +61,7 @@ class SearchViewController: UIViewController {
             break
         }
     }
+    
     @objc
     func handleCardPan (recognizer:UIPanGestureRecognizer) {
         switch recognizer.state {
@@ -114,7 +69,7 @@ class SearchViewController: UIViewController {
             startInteractiveTransition(state: nextState, duration: 0.9)
         case .changed:
             let translation = recognizer.translation(in: self.cardViewController.view)
-            var fractionComplete = translation.y / cardHeight
+            var fractionComplete = translation.y / (view.frame.height / 4) * 3.5
             fractionComplete = cardVisible ? fractionComplete : -fractionComplete
             updateInteractiveTransition(fractionCompleted: fractionComplete)
         case .ended:
@@ -123,15 +78,16 @@ class SearchViewController: UIViewController {
             break
         }
     }
-    func animateTransitionIfNeeded (state:CardState, duration:TimeInterval) {
+    
+    private func animateTransitionIfNeeded (state:CardState, duration:TimeInterval) {
         if runningAnimations.isEmpty {
             let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
-                    self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight
-                    self.mapView.isUserInteractionEnabled = false
+                    self.cardViewController.view.frame.origin.y = self.view.frame.height - (self.view.frame.height / 4) * 3.5
+                    self.searchView.mapView.isUserInteractionEnabled = false
                 case .collapsed:
-                    self.mapView.isUserInteractionEnabled = true
+                    self.searchView.mapView.isUserInteractionEnabled = true
                     self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight
                 }
             }
@@ -165,7 +121,8 @@ class SearchViewController: UIViewController {
             runningAnimations.append(blurAnimator)
         }
     }
-    func startInteractiveTransition(state:CardState, duration:TimeInterval) {
+    
+   private func startInteractiveTransition(state:CardState, duration:TimeInterval) {
         if runningAnimations.isEmpty {
             animateTransitionIfNeeded(state: state, duration: duration)
         }
@@ -174,12 +131,14 @@ class SearchViewController: UIViewController {
             animationProgressWhenInterrupted = animator.fractionComplete
         }
     }
-    func updateInteractiveTransition(fractionCompleted:CGFloat) {
+    
+   private func updateInteractiveTransition(fractionCompleted:CGFloat) {
         for animator in runningAnimations {
             animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
         }
     }
-    func continueInteractiveTransition (){
+    
+   private func continueInteractiveTransition (){
         for animator in runningAnimations {
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
         }
@@ -204,50 +163,40 @@ class SearchViewController: UIViewController {
     
     private var allVenues = [Venue]() {
         didSet {
-            if let source = mapView.style?.source(withIdentifier: "route-source") as? MGLShapeSource {
+            if let source = searchView.mapView.style?.source(withIdentifier: "route-source") as? MGLShapeSource {
                 
                 source.shape = nil
             }
-            navigateButton.isHidden = true
-            photoCV.reloadData()
+            searchView.navigateVC.isHidden = true
+            searchView.photoCV.reloadData()
             cardViewController.venues = allVenues
             //cardViewController.allImages = allImages
         }
     }
     
-    var directionsRoute: Route?
-    var mapView: NavigationMapView!
-    var isShowingNewAnnotations = false
-    var changed: Bool = false
-    let url = URL(string: "mapbox://styles/howc/ck5gy6ex70k441iw1gqtnehf5")
-    var annotations = [MGLPointAnnotation]()
+   private var directionsRoute: Route?
+    //var isShowingNewAnnotations = false
+   private var changed: Bool = false
+    //let url = URL(string: "mapbox://styles/howc/ck5gy6ex70k441iw1gqtnehf5")
+   private var annotations = [MGLPointAnnotation]()
+   private var currentCity = "central park"
     
-    var currentCity = "central park"
-    
-    private func setupMap() {
-        mapView = NavigationMapView(frame: view.bounds, styleURL: url)
-        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(mapView)
-        mapView.delegate = self
-        mapView.showsUserLocation = true
-        mapView.setUserTrackingMode(.follow, animated: true, completionHandler: nil)
+    override func loadView() {
+        view = searchView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMap()
-        configSearchBar()
-        configTextField()
-        setupCV()
-        citySearch.delegate = self
-        venueSearchTextField.delegate = self
-        photoCV.register(SearchVCCell.self, forCellWithReuseIdentifier: "searchCell")
-        photoCV.dataSource = self
-        photoCV.delegate = self
+        searchView.mapView.delegate = self
+        searchView.venueSearch.delegate = self
+        searchView.citySearch.delegate = self
+        searchView.photoCV.register(SearchVCCell.self, forCellWithReuseIdentifier: "searchCell")
+        searchView.photoCV.dataSource = self
+        searchView.photoCV.delegate = self
         setupCard()
-        configChangeMapButton()
-        zoomToUser()
-        navigateVC()
+        searchView.navigateVC.addTarget(self, action: #selector(startNavigation(_:)), for: .touchUpInside)
+        searchView.zoomToUser.addTarget(self, action: #selector(getCurrentUserLocation(_:)), for: .touchUpInside)
+        searchView.changeMapButton.addTarget(self, action: #selector(change(_:)), for: .touchUpInside)
     }
     
     func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
@@ -283,109 +232,40 @@ class SearchViewController: UIViewController {
         return button
     }
     
-    private func navigateVC() {
-        navigateButton = UIButton(frame: CGRect(x: 350, y: 440, width: 50, height: 50))
-        navigateButton.setTitle("GO", for: .normal)
-        navigateButton.titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
-        navigateButton.layer.cornerRadius = 25
-        navigateButton.layer.masksToBounds = true
-        navigateButton.setTitleColor(UIColor.black, for: .normal)
-        navigateButton.backgroundColor = .green
-         navigateButton.layer.shadowColor = UIColor.lightGray.cgColor
-               navigateButton.layer.shadowPath = UIBezierPath(roundedRect: navigateButton.bounds, cornerRadius: 25).cgPath
-               navigateButton.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-               navigateButton.layer.shadowOpacity = 0.7
-               navigateButton.layer.shadowRadius = 5
-               navigateButton.layer.cornerRadius = 25
-               navigateButton.layer.borderColor = UIColor.clear.cgColor
-               navigateButton.layer.borderWidth = 1.5
-               navigateButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-               navigateButton.layer.masksToBounds = true
-               navigateButton.clipsToBounds = false
-        navigateButton.addTarget(self, action: #selector(startNavigation(_:)), for: .touchUpInside)
-        navigateButton.isHidden = true
-        mapView.addSubview(navigateButton)
-    }
-    
     @objc func startNavigation(_ sender: UIButton) {
         view.animateButtonView(sender)
         guard let setDirection = directionsRoute else { return }
         let navVC = NavigationViewController(for: setDirection)
         present(navVC, animated: true)
     }
-    
-    private func zoomToUser() {
-        let zoomToUserButton = UIButton(frame: CGRect(x: 350, y: 520, width: 50, height: 50))
-        zoomToUserButton.setImage(UIImage(systemName: "paperplane.fill"), for: .normal)
-        zoomToUserButton.layer.cornerRadius = 25
-        zoomToUserButton.layer.masksToBounds = false
-        zoomToUserButton.tintColor = .blue
-        zoomToUserButton.backgroundColor = .white
-        //zoomToUserButton.backgroundColor = UIColor.clear
-        zoomToUserButton.layer.shadowColor = UIColor.lightGray.cgColor
-        zoomToUserButton.layer.shadowPath = UIBezierPath(roundedRect: zoomToUserButton.bounds, cornerRadius: 25).cgPath
-        zoomToUserButton.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-        zoomToUserButton.layer.shadowOpacity = 0.7
-        zoomToUserButton.layer.shadowRadius = 5
-        zoomToUserButton.layer.cornerRadius = 25
-        zoomToUserButton.layer.borderColor = UIColor.clear.cgColor
-        zoomToUserButton.layer.borderWidth = 1.5
-        zoomToUserButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-        zoomToUserButton.layer.masksToBounds = true
-        zoomToUserButton.clipsToBounds = false
-        zoomToUserButton.addTarget(self, action: #selector(getCurrentUserLocation(_:)), for: .touchUpInside)
-        mapView.addSubview(zoomToUserButton)
-    }
-    
+
     @objc func getCurrentUserLocation(_ sender: UIButton) {
         view.animateButtonView(sender)
-        mapView.userTrackingMode = .follow
-    }
-    
-    private func configChangeMapButton() {
-        let changeMapStyleButton = UIButton(frame: CGRect(x: 350, y: 590, width: 50, height: 50))
-        changeMapStyleButton.setBackgroundImage(UIImage(named: "changeMap"), for: .normal)
-        changeMapStyleButton.layer.cornerRadius = 15
-        changeMapStyleButton.layer.masksToBounds = false
-        changeMapStyleButton.tintColor = .black
-        changeMapStyleButton.backgroundColor = .green
-          changeMapStyleButton.layer.shadowColor = UIColor.lightGray.cgColor
-              changeMapStyleButton.layer.shadowPath = UIBezierPath(roundedRect: changeMapStyleButton.bounds, cornerRadius: 15).cgPath
-              changeMapStyleButton.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-              changeMapStyleButton.layer.shadowOpacity = 0.7
-              changeMapStyleButton.layer.shadowRadius = 5
-              changeMapStyleButton.layer.cornerRadius = 15
-              changeMapStyleButton.layer.borderColor = UIColor.clear.cgColor
-              changeMapStyleButton.layer.borderWidth = 1.5
-              changeMapStyleButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-              changeMapStyleButton.layer.masksToBounds = true
-              changeMapStyleButton.clipsToBounds = false
-        changeMapStyleButton.addTarget(self, action: #selector(change(_:)), for: .touchUpInside)
-        mapView.addSubview(changeMapStyleButton)
+        searchView.mapView.userTrackingMode = .follow
     }
     
     @objc func change(_ sender: UIButton) {
         view.animateButtonView(sender)
-        navigateButton.isHidden = true
+        searchView.navigateVC.isHidden = true
         if changed == false {
-            mapView.styleURL = MGLStyle.streetsStyleURL
+            searchView.mapView.styleURL = MGLStyle.streetsStyleURL
             changed.toggle()
         } else {
-            mapView.styleURL = URL(string: "mapbox://styles/howc/ck5gy6ex70k441iw1gqtnehf5")
+            searchView.mapView.styleURL = searchView.url
             changed.toggle()
         }
     }
     
-    func navigate(_ to: CLLocationCoordinate2D, profileIdentifier: MBDirectionsProfileIdentifier?) {
-        mapView.setUserTrackingMode(.none, animated: true, completionHandler: nil)
-        calculateRoute(from: mapView.userLocation!.coordinate, to: to, profileIdentifier: profileIdentifier) { (route, error) in
+   private func navigate(_ to: CLLocationCoordinate2D, profileIdentifier: MBDirectionsProfileIdentifier?) {
+        searchView.mapView.setUserTrackingMode(.none, animated: true, completionHandler: nil)
+        calculateRoute(from: searchView.mapView.userLocation!.coordinate, to: to, profileIdentifier: profileIdentifier) { (route, error) in
             if error != nil {
                 print("error getting route")
             }
         }
     }
     
-    func calculateRoute(from originCoord: CLLocationCoordinate2D, to destinationCoord: CLLocationCoordinate2D, profileIdentifier: MBDirectionsProfileIdentifier?, completion: @escaping (Route?,Error?) -> Void) {
+   private func calculateRoute(from originCoord: CLLocationCoordinate2D, to destinationCoord: CLLocationCoordinate2D, profileIdentifier: MBDirectionsProfileIdentifier?, completion: @escaping (Route?,Error?) -> Void) {
         let origin = Waypoint(coordinate: originCoord, coordinateAccuracy: -1, name: "Start")
         let destination = Waypoint(coordinate: destinationCoord, coordinateAccuracy: -1, name: "Finish")
         let options = NavigationRouteOptions(waypoints: [origin, destination], profileIdentifier: profileIdentifier)
@@ -395,18 +275,18 @@ class SearchViewController: UIViewController {
             self.drawRoute(route: directionRoute)
             let coordinateBounds = MGLCoordinateBounds(sw: destinationCoord, ne: originCoord)
             let insets = UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50)
-            let routeCam = self.mapView.cameraThatFitsCoordinateBounds(coordinateBounds, edgePadding: insets)
-            self.mapView.setCamera(routeCam, animated: true)
-            self.navigateButton.isHidden = false
+            let routeCam = self.searchView.mapView.cameraThatFitsCoordinateBounds(coordinateBounds, edgePadding: insets)
+            self.searchView.mapView.setCamera(routeCam, animated: true)
+            self.searchView.navigateVC.isHidden = false
         })
         
     }
     
-    func drawRoute(route: Route) {
+   private func drawRoute(route: Route) {
         guard route.coordinateCount > 0 else { return }
         var routeCoordinates = route.coordinates!
         let polyLine = MGLPolylineFeature(coordinates: &routeCoordinates, count: route.coordinateCount)
-        if let source = mapView.style?.source(withIdentifier: "route-source") as? MGLShapeSource {
+        if let source = searchView.mapView.style?.source(withIdentifier: "route-source") as? MGLShapeSource {
             source.shape = polyLine
         } else {
             let source = MGLShapeSource(identifier: "route-source", features: [polyLine], options: nil)
@@ -414,12 +294,12 @@ class SearchViewController: UIViewController {
             lineStyle.lineColor = NSExpression(forConstantValue: UIColor.green)
             lineStyle.lineWidth = NSExpression(forConstantValue: 4.0)
             lineStyle.lineCap = NSExpression(forConstantValue: "round")
-            mapView.style?.addSource(source)
-            mapView.style?.addLayer(lineStyle)
+            searchView.mapView.style?.addSource(source)
+            searchView.mapView.style?.addLayer(lineStyle)
         }
     }
     
-    func getData(city: String, venue: String) {
+   private func getData(city: String, venue: String) {
         FourSquareAPICLient.getResults(city: city, venue: venue) { [weak self] (result) in
             switch result {
             case .failure(let appError):
@@ -440,16 +320,16 @@ class SearchViewController: UIViewController {
         }
     }
     
-    func loadVenueAnnotations() {
+   private func loadVenueAnnotations() {
         let annotations = addVenueAnnotation()
-        mapView.addAnnotations(annotations)
-        mapView.showAnnotations(annotations, animated: true)
+        searchView.mapView.addAnnotations(annotations)
+        searchView.mapView.showAnnotations(annotations, animated: true)
     }
     
-    func addVenueAnnotation() -> [MGLPointAnnotation] {
+   private func addVenueAnnotation() -> [MGLPointAnnotation] {
         annotations.removeAll()
-        if let mapAnnotations = mapView.annotations {
-            mapView.removeAnnotations(mapAnnotations)
+        if let mapAnnotations = searchView.mapView.annotations {
+            searchView.mapView.removeAnnotations(mapAnnotations)
         }
         var getAnnotations = [MGLPointAnnotation]()
         for venue in allVenues {
@@ -463,7 +343,6 @@ class SearchViewController: UIViewController {
         }
         self.annotations = getAnnotations
         return annotations
-        
     }
     
 }
@@ -482,12 +361,9 @@ extension SearchViewController: MGLMapViewDelegate, NavigationViewControllerDele
     }
     
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
-        if isShowingNewAnnotations {
             let annotations = addVenueAnnotation()
-            mapView.addAnnotations(annotations)
+            searchView.mapView.addAnnotations(annotations)
         }
-        isShowingNewAnnotations = false
-    }
  
 }
 
