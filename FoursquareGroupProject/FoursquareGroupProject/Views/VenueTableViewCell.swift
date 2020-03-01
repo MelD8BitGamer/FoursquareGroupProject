@@ -31,7 +31,7 @@ final class VenueTableViewCell: UITableViewCell {
     
     lazy var venueAddress: UILabel = {
         let descriptionLabel = UILabel()
-        descriptionLabel.font = .boldSystemFont(ofSize: 15)
+        descriptionLabel.font = .systemFont(ofSize: 14)
         descriptionLabel.textAlignment = .center
         descriptionLabel.adjustsFontSizeToFitWidth = true
         descriptionLabel.numberOfLines = 0
@@ -70,7 +70,7 @@ final class VenueTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: venueImageView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: venueImageView.trailingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 20)
+            titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8)
         ])
     }
     
@@ -81,7 +81,7 @@ final class VenueTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             venueAddress.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 1),
             venueAddress.leadingAnchor.constraint(equalTo: venueImageView.trailingAnchor, constant: 8),
-            venueAddress.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 8)
+            venueAddress.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8)
         ])
     }
     

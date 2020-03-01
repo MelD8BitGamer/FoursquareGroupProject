@@ -20,32 +20,28 @@ final class SearchViewController: UIViewController {
     private var visualEffectView: UIVisualEffectView!
     private var allItems = [Item]()
     private let cardHandleAreaHeight:CGFloat = 105
-   private var cardVisible = false
-   private var nextState: CardState {
+    private var cardVisible = false
+    private var nextState: CardState {
         return cardVisible ? .collapsed : .expanded
     }
     
-   private var runningAnimations = [UIViewPropertyAnimator]()
-   private var animationProgressWhenInterrupted:CGFloat = 0
-   private enum CardState {
+    private var runningAnimations = [UIViewPropertyAnimator]()
+    private var animationProgressWhenInterrupted:CGFloat = 0
+    private enum CardState {
         case expanded
         case collapsed
     }
     
-   private func setupCard() {
+    private func setupCard() {
         visualEffectView = UIVisualEffectView()
         visualEffectView.frame = self.view.frame
         visualEffectView.isUserInteractionEnabled = false
         self.view.addSubview(visualEffectView)
-        
         cardViewController = TableViewController(dataPersistence)
         self.addChild(cardViewController)
         self.view.addSubview(cardViewController.view)
-        
-    cardViewController.view.frame = CGRect(x: 0, y: self.view.frame.height - cardHandleAreaHeight, width: self.view.bounds.width, height: (view.frame.height / 4) * 3.5)
-        
+        cardViewController.view.frame = CGRect(x: 0, y: self.view.frame.height - cardHandleAreaHeight, width: self.view.bounds.width, height: (view.frame.height / 4) * 3.5)
         cardViewController.view.clipsToBounds = true
-        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchViewController.handleCardTap(recognzier:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(SearchViewController.handleCardPan(recognizer:)))
         cardViewController.venueTableView.topView.addGestureRecognizer(tapGestureRecognizer)
@@ -53,7 +49,7 @@ final class SearchViewController: UIViewController {
     }
     
     @objc
-    func handleCardTap(recognzier:UITapGestureRecognizer) {
+   private func handleCardTap(recognzier:UITapGestureRecognizer) {
         switch recognzier.state {
         case .ended:
             animateTransitionIfNeeded(state: nextState, duration: 0.9)
@@ -63,7 +59,7 @@ final class SearchViewController: UIViewController {
     }
     
     @objc
-    func handleCardPan (recognizer:UIPanGestureRecognizer) {
+    private func handleCardPan (recognizer:UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
             startInteractiveTransition(state: nextState, duration: 0.9)
@@ -97,18 +93,6 @@ final class SearchViewController: UIViewController {
             }
             frameAnimator.startAnimation()
             runningAnimations.append(frameAnimator)
-            let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
-                switch state {
-                case .expanded:
-                    self.cardViewController.view.layer.cornerRadius = 20
-                    self.cardViewController.view.layer.masksToBounds = true
-                case .collapsed:
-                    self.cardViewController.view.layer.cornerRadius = 20
-                    self.cardViewController.view.layer.masksToBounds = true
-                }
-            }
-            cornerRadiusAnimator.startAnimation()
-            runningAnimations.append(cornerRadiusAnimator)
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
@@ -122,7 +106,7 @@ final class SearchViewController: UIViewController {
         }
     }
     
-   private func startInteractiveTransition(state:CardState, duration:TimeInterval) {
+    private func startInteractiveTransition(state:CardState, duration:TimeInterval) {
         if runningAnimations.isEmpty {
             animateTransitionIfNeeded(state: state, duration: duration)
         }
@@ -132,13 +116,13 @@ final class SearchViewController: UIViewController {
         }
     }
     
-   private func updateInteractiveTransition(fractionCompleted:CGFloat) {
+    private func updateInteractiveTransition(fractionCompleted:CGFloat) {
         for animator in runningAnimations {
             animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
         }
     }
     
-   private func continueInteractiveTransition (){
+    private func continueInteractiveTransition (){
         for animator in runningAnimations {
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
         }
@@ -164,7 +148,6 @@ final class SearchViewController: UIViewController {
     private var allVenues = [Venue]() {
         didSet {
             if let source = searchView.mapView.style?.source(withIdentifier: "route-source") as? MGLShapeSource {
-                
                 source.shape = nil
             }
             searchView.navigateVC.isHidden = true
@@ -174,12 +157,11 @@ final class SearchViewController: UIViewController {
         }
     }
     
-   private var directionsRoute: Route?
+    private var directionsRoute: Route?
     //var isShowingNewAnnotations = false
-   private var changed: Bool = false
-    //let url = URL(string: "mapbox://styles/howc/ck5gy6ex70k441iw1gqtnehf5")
-   private var annotations = [MGLPointAnnotation]()
-   private var currentCity = "central park"
+    private var changed: Bool = false
+    private var annotations = [MGLPointAnnotation]()
+    private var currentCity = "central park"
     
     override func loadView() {
         view = searchView
@@ -202,14 +184,9 @@ final class SearchViewController: UIViewController {
     func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         button.setBackgroundImage(UIImage(named: "car"), for: .normal)
-        button.setTitleColor(UIColor(red: 59/255, green: 178/255, blue: 208/255, alpha: 1), for: .normal)
+        //button.setTitleColor(UIColor(red: 59/255, green: 178/255, blue: 208/255, alpha: 1), for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 25
-        button.layer.shadowOffset = CGSize(width: 0, height: 40)
-        button.layer.shadowColor = UIColor.gray.cgColor
-        button.layer.shadowRadius = 5
-        button.layer.shadowOpacity = 0.4
-        button.layer.shouldRasterize = true
         button.layer.rasterizationScale = UIScreen.main.scale
         button.tag = 100
         return button
@@ -218,15 +195,9 @@ final class SearchViewController: UIViewController {
     func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         button.setBackgroundImage(UIImage(named: "walking"), for: .normal)
-        button.setTitleColor(UIColor(red: 59/255, green: 178/255, blue: 208/255, alpha: 1), for: .normal)
+        //button.setTitleColor(UIColor(red: 59/255, green: 178/255, blue: 208/255, alpha: 1), for: .normal)
         button.backgroundColor = .white
-        button.titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 12)
         button.layer.cornerRadius = 25
-        button.layer.shadowOffset = CGSize(width: 0, height: 10)
-        button.layer.shadowColor = UIColor.gray.cgColor
-        button.layer.shadowRadius = 5
-        button.layer.shadowOpacity = 0.4
-        button.layer.shouldRasterize = true
         button.layer.rasterizationScale = UIScreen.main.scale
         button.tag = 101
         return button
@@ -238,9 +209,11 @@ final class SearchViewController: UIViewController {
         let navVC = NavigationViewController(for: setDirection)
         present(navVC, animated: true)
     }
-
+    
     @objc func getCurrentUserLocation(_ sender: UIButton) {
         view.animateButtonView(sender)
+        searchView.venueSearch.resignFirstResponder()
+        searchView.citySearch.resignFirstResponder()
         searchView.mapView.userTrackingMode = .follow
     }
     
@@ -256,7 +229,7 @@ final class SearchViewController: UIViewController {
         }
     }
     
-   private func navigate(_ to: CLLocationCoordinate2D, profileIdentifier: MBDirectionsProfileIdentifier?) {
+    private func navigate(_ to: CLLocationCoordinate2D, profileIdentifier: MBDirectionsProfileIdentifier?) {
         searchView.mapView.setUserTrackingMode(.none, animated: true, completionHandler: nil)
         calculateRoute(from: searchView.mapView.userLocation!.coordinate, to: to, profileIdentifier: profileIdentifier) { (route, error) in
             if error != nil {
@@ -265,7 +238,7 @@ final class SearchViewController: UIViewController {
         }
     }
     
-   private func calculateRoute(from originCoord: CLLocationCoordinate2D, to destinationCoord: CLLocationCoordinate2D, profileIdentifier: MBDirectionsProfileIdentifier?, completion: @escaping (Route?,Error?) -> Void) {
+    private func calculateRoute(from originCoord: CLLocationCoordinate2D, to destinationCoord: CLLocationCoordinate2D, profileIdentifier: MBDirectionsProfileIdentifier?, completion: @escaping (Route?,Error?) -> Void) {
         let origin = Waypoint(coordinate: originCoord, coordinateAccuracy: -1, name: "Start")
         let destination = Waypoint(coordinate: destinationCoord, coordinateAccuracy: -1, name: "Finish")
         let options = NavigationRouteOptions(waypoints: [origin, destination], profileIdentifier: profileIdentifier)
@@ -282,7 +255,7 @@ final class SearchViewController: UIViewController {
         
     }
     
-   private func drawRoute(route: Route) {
+    private func drawRoute(route: Route) {
         guard route.coordinateCount > 0 else { return }
         var routeCoordinates = route.coordinates!
         let polyLine = MGLPolylineFeature(coordinates: &routeCoordinates, count: route.coordinateCount)
@@ -299,7 +272,7 @@ final class SearchViewController: UIViewController {
         }
     }
     
-   private func getData(city: String, venue: String) {
+    private func getData(city: String, venue: String) {
         FourSquareAPICLient.getResults(city: city, venue: venue) { [weak self] (result) in
             switch result {
             case .failure(let appError):
@@ -320,13 +293,13 @@ final class SearchViewController: UIViewController {
         }
     }
     
-   private func loadVenueAnnotations() {
+    private func loadVenueAnnotations() {
         let annotations = addVenueAnnotation()
         searchView.mapView.addAnnotations(annotations)
         searchView.mapView.showAnnotations(annotations, animated: true)
     }
     
-   private func addVenueAnnotation() -> [MGLPointAnnotation] {
+    private func addVenueAnnotation() -> [MGLPointAnnotation] {
         annotations.removeAll()
         if let mapAnnotations = searchView.mapView.annotations {
             searchView.mapView.removeAnnotations(mapAnnotations)
@@ -347,7 +320,7 @@ final class SearchViewController: UIViewController {
     
 }
 
-extension SearchViewController: MGLMapViewDelegate, NavigationViewControllerDelegate {
+extension SearchViewController: MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         return true
     }
@@ -361,10 +334,9 @@ extension SearchViewController: MGLMapViewDelegate, NavigationViewControllerDele
     }
     
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
-            let annotations = addVenueAnnotation()
-            searchView.mapView.addAnnotations(annotations)
-        }
- 
+        let annotations = addVenueAnnotation()
+        searchView.mapView.addAnnotations(annotations)
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {

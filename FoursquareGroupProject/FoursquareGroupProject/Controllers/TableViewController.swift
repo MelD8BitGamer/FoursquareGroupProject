@@ -31,7 +31,7 @@ final class TableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .clear
         venueTableView.tableView.delegate = self
         venueTableView.tableView.dataSource = self
     }

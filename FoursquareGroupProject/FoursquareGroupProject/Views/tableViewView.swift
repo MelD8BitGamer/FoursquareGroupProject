@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 final class tableViewView: UIView {
     
     lazy var tableView: UITableView = {
@@ -25,7 +26,7 @@ final class tableViewView: UIView {
     }()
     
     
-    private func buttonConstraints() {
+    private func setupTopView() {
         addSubview(topView)
         topView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, height: 25)
     }
@@ -37,10 +38,9 @@ final class tableViewView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
-        backgroundColor = .blue
         layer.cornerRadius = 20
         layer.masksToBounds = true
-        buttonConstraints()
+        setupTopView()
         tableViewConstraints()
         tableView.register(VenueTableViewCell.self, forCellReuseIdentifier: "VenueTableViewCell")
         
