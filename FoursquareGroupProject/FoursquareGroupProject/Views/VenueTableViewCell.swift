@@ -65,7 +65,6 @@ final class VenueTableViewCell: UITableViewCell {
     
     private func titleLabelConstraints() {
         addSubview(titleLabel)
-        //        titleLabel.anchor(top: topAnchor, left: venueImageView.rightAnchor, right: rightAnchor, paddingTop: 20, paddingLeft: 10, paddingRight: 8)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: venueImageView.topAnchor),
@@ -76,7 +75,6 @@ final class VenueTableViewCell: UITableViewCell {
     
     private func venueAddressLabelConstraints() {
         addSubview(venueAddress)
-        //        venueAddress.anchor(top: titleLabel.bottomAnchor, left: titleLabel.leftAnchor, right: titleLabel.rightAnchor, paddingTop: 8, paddingBottom: -8)
         venueAddress.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             venueAddress.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 1),
@@ -86,10 +84,8 @@ final class VenueTableViewCell: UITableViewCell {
     }
     
     func configureCell(venue: Venue) {
-        
         titleLabel.text = venue.name
         venueAddress.text = venue.location.formattedAddress.joined(separator: "")
-        
         FourSquareAPICLient.getPhotoInfo(id: venue.id) { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result {

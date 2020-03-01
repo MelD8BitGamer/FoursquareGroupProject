@@ -158,7 +158,6 @@ final class SearchViewController: UIViewController {
     }
     
     private var directionsRoute: Route?
-    //var isShowingNewAnnotations = false
     private var changed: Bool = false
     private var annotations = [MGLPointAnnotation]()
     private var currentCity = "central park"
@@ -184,7 +183,6 @@ final class SearchViewController: UIViewController {
     func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         button.setBackgroundImage(UIImage(named: "car"), for: .normal)
-        //button.setTitleColor(UIColor(red: 59/255, green: 178/255, blue: 208/255, alpha: 1), for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 25
         button.layer.rasterizationScale = UIScreen.main.scale
@@ -195,7 +193,6 @@ final class SearchViewController: UIViewController {
     func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         button.setBackgroundImage(UIImage(named: "walking"), for: .normal)
-        //button.setTitleColor(UIColor(red: 59/255, green: 178/255, blue: 208/255, alpha: 1), for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 25
         button.layer.rasterizationScale = UIScreen.main.scale
