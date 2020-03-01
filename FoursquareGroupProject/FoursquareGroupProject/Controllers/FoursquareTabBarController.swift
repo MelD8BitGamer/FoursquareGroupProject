@@ -11,23 +11,24 @@ import DataPersistence
 
 class FoursquareTabBarController: UITabBarController {
     
-    private let dataPersistence = DataPersistence<Collection>(filename: "SavedCollection")
+    private let dataPersistence = DataPersistence<VenueDetail>(filename: "SavedCollection.plist")
+    private let collectionPersistence = DataPersistence<Collection>(filename: "Collection.plist")
     
     
     lazy var searchViewController: SearchViewController = {
-        let vc = SearchViewController(dataPersistence: dataPersistence)
+        let vc = SearchViewController(dataPersistence: collectionPersistence)
         vc.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass.circle"), selectedImage: UIImage(systemName: "magnifyingglass.circle.fill"))
         return vc
     }()
     lazy var collectionsViewController: SaveCollectionsVC = {
-        let vc = SaveCollectionsVC(dataPersistence)
+        let vc = SaveCollectionsVC(dataPersistence, collectionPersistence: collectionPersistence)
         vc.tabBarItem = UITabBarItem(title: "Collections", image: UIImage(systemName: "star"), selectedImage: UIImage(systemName: "star.fill"))
         return vc
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewControllers = [UINavigationController(rootViewController: searchViewController), UINavigationController(rootViewController: collectionsViewController)]
+        viewControllers = [searchViewController, UINavigationController(rootViewController: collectionsViewController)]
         
     }
     

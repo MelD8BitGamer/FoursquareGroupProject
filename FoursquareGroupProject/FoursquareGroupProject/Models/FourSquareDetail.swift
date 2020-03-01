@@ -22,6 +22,7 @@ struct VenueDetail: Codable & Equatable {
     let name: String?
     let contact: Contact?
     let price: Price?
+    let bestPhoto: BestPhoto?
 }
 
 struct Contact: Codable & Equatable {
@@ -47,4 +48,9 @@ struct Timeframe: Codable & Equatable {
 
 struct Open: Codable & Equatable {
     let renderedTime: String?
+}
+
+struct BestPhoto: Codable & Equatable {
+    let prefix: String?
+    let suffix: String?
 }

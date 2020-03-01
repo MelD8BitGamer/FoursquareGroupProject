@@ -2,7 +2,7 @@
 //  SaveCollectionsVC.swift
 //  FoursquareGroupProject
 //
-//  Created by Melinda Diaz on 2/21/20.
+//  Created by Tsering Lama on 2/28/20.
 //  Copyright © 2020 Melinda Diaz. All rights reserved.
 //
 
@@ -13,28 +13,34 @@ import NetworkHelper
 class SaveCollectionsVC: UIViewController {
     
     private var saveCollectionsView = SaveView()
-    private var dataPersistence: DataPersistence<Collection>
     
-    private var favoriteCollection = [Collection]() {
+    private var createCollection: Collection?
+    private var dataPersistence: DataPersistence<VenueDetail>
+    private var collectionPersistence: DataPersistence<Collection>
+    
+    private var allTheCollections = [Collection](){
         didSet {
             saveCollectionsView.collectionView.reloadData()
             
             
-            if favoriteCollection.isEmpty {
-                
-                // setup background view, in case there are no saved places
-                saveCollectionsView.collectionView.backgroundView = EmptyView(title: "Favorites", message: "There are currently no Favorited Collections. Start browsing and add to collection")
-            } else {
-                saveCollectionsView.collectionView.backgroundView = nil
-            }
-            
-            navigationItem.title = "Favorites(\(favoriteCollection.count))"
+//            if allTheCollections.isEmpty {
+//
+//                // setup background view, in case there are no saved places
+////                saveCollectionsView.collectionView.backgroundView = EmptyView(title: "Favorites", message: "There are currently no Favorited Collections. Start browsing and add to collection")
+////                saveCollectionsView.createListButton.addTarget(self, action: #selector(createANewFavoriteCollectionPressed(_:)), for: .touchUpInside)
+//            } else {
+//                saveCollectionsView.collectionView.backgroundView = nil
+//            }
+            navigationItem.title = "Favorites(\(allTheCollections.count))"
         }
     }
-    init(_ dataPersistence: DataPersistence<Collection>) {
+    
+    init(_ dataPersistence: DataPersistence<VenueDetail>, collectionPersistence: DataPersistence<Collection>) {
         self.dataPersistence = dataPersistence
+        self.collectionPersistence = collectionPersistence
         super.init(nibName: nil, bundle: nil)
         
+        self.collectionPersistence.delegate = self
         self.dataPersistence.delegate = self
     }
     
@@ -44,20 +50,48 @@ class SaveCollectionsVC: UIViewController {
     
     override func loadView() {
         view = saveCollectionsView
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         saveCollectionsView.collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         saveCollectionsView.collectionView.delegate = self
         saveCollectionsView.collectionView.dataSource = self
+        saveCollectionsView.createListButton.addTarget(self, action: #selector(createANewFavoriteCollectionPressed(_:)), for: .touchUpInside)
+        getFavCollection()
+//        view.backgroundColor = .systemBlue
+        
+    }
+    //    public func blur() {
+    //        if !UIAccessibility.isReduceTransparencyEnabled {
+    //            view.backgroundColor = .clear
+    //
+    //            let blurEffect = UIBlurEffect(style: .dark)
+    //            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+    //            //always fill the view
+    //            blurEffectView.frame = self.view.bounds
+    //            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    //
+    //            view.addSubview(blurEffectView)
+    //        } else {
+    //            view.backgroundColor = .black
+    //        }
+    //    }
+    
+    @objc func createANewFavoriteCollectionPressed(_ sender: UIButton) {
+        let createVC = CreateNewVC(dataPersistence, collectionPersistence: collectionPersistence)
+        createVC.modalPresentationStyle = .overCurrentContext
+        createVC.modalTransitionStyle = .crossDissolve
+        navigationController?.pushViewController(createVC, animated: true)
+        print("button pressed")
+        // blur()
+        
     }
     
     private func getFavCollection() {
         do {
-            favoriteCollection = try dataPersistence.loadItems()
+            allTheCollections = try collectionPersistence.loadItems()
         } catch {
             print("error while loading collections")
         }
@@ -77,43 +111,38 @@ extension SaveCollectionsVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        present(saveCollectionsView.createFoodCollection, animated: true)
+        let tableView = DetailTableViewController()
+        present(tableView, animated: true)
     }
 }
 
 extension SaveCollectionsVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favoriteCollection.count
+        return allTheCollections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let saved = allTheCollections[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? CollectionViewCell else {
             fatalError("could not downcast to CollectionViewCell")}
         cell.backgroundColor = #colorLiteral(red: 1, green: 0.4736866355, blue: 0.4620078206, alpha: 1)
         cell.delegate = self
+        cell.configCell(saved)
         return cell
     }
-    
-    
 }
 
 extension SaveCollectionsVC: CollectionCellDelegate {
-    func didSelectMoreButton(_ favoritesCell: CollectionViewCell, cell: String) {
-        print("")
-    }
     
     func didSelectMoreButton(_ favoritesCell: CollectionViewCell, cell: Collection) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        let editAction = UIAlertAction(title: "Edit", style: .default) { (action) in
-            //change this when model comes in
+        let editAction = UIAlertAction(title: "Edit Collection", style: .default) { (action) in
             self.editCollection(cell)
         }
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-            //change this when model comes in
+        let deleteAction = UIAlertAction(title: "Delete Collection", style: .destructive) { (action) in
             self.deleteCollection(cell)
         }
-        // write a delete helper function
         alertController.addAction(editAction)
         alertController.addAction(deleteAction)
         alertController.addAction(cancelAction)
@@ -121,31 +150,44 @@ extension SaveCollectionsVC: CollectionCellDelegate {
     }
     
     private func deleteCollection(_ collection: Collection) {
-        guard let index = favoriteCollection.firstIndex(of: collection) else {
+        guard let index = allTheCollections.firstIndex(of: collection) else {
             return
         }
         do {
             // deletes from documents directory
-            try dataPersistence.deleteItem(at: index)
+            try collectionPersistence.deleteItem(at: index)
         } catch {
+            showAlert(title: "Deleted", message: "This collection is now deleted")
             print("error deleting collection \(error)")
         }
     }
     
     private func editCollection(_ collection: Collection) {
-        guard let index = favoriteCollection.firstIndex(of: collection) else {
+        guard let index = allTheCollections.firstIndex(of: collection) else {
             return
         }
-        dataPersistence.update(collection, at: index)
+        collectionPersistence.update(collection, at: index)
     }
 }
 
 extension SaveCollectionsVC: DataPersistenceDelegate {
     func didSaveItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
         
+        do {
+            allTheCollections = try collectionPersistence.loadItems()
+            
+        } catch {
+            showAlert(title: "Error", message: "Could not load items\(error)")
+        }
     }
     
     func didDeleteItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
+        do {
+            allTheCollections = try collectionPersistence.loadItems()
+            
+        } catch {
+            showAlert(title: "Error", message: "Could not load items\(error)")
+        }
         
     }
     

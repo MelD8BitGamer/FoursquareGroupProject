@@ -13,6 +13,7 @@ class SearchVCCell: UICollectionViewCell {
     
     var allItems = [Item]()
     
+    
     public lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "turtoise")
@@ -59,7 +60,7 @@ class SearchVCCell: UICollectionViewCell {
                 let prefix = self?.allItems.first?.prefix ?? ""
                 let suffix = self?.allItems.first?.suffix ?? ""
                 let photoURL = "\(prefix)original\(suffix)"
-                self?.imageView.getImage(with: photoURL) { (result) in
+                self?.imageView.getImage(with: photoURL, writeTo: .cachesDirectory) { (result) in
                     switch result {
                     case .failure(_):
                         DispatchQueue.main.async {
@@ -68,6 +69,7 @@ class SearchVCCell: UICollectionViewCell {
                     case .success(let photo):
                         DispatchQueue.main.async {
                             self?.imageView.image = photo
+                            
                         }
                     }
                 }

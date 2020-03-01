@@ -5,15 +5,18 @@
 //  Created by Howard Chang on 2/26/20.
 //  Copyright © 2020 Melinda Diaz. All rights reserved.
 //
-
 import UIKit
 
 final class VenueTableViewCell: UITableViewCell {
-
+    
+    var allItems = [Item]()
+    
     public lazy var venueImageView: UIImageView = {
         let imageV = UIImageView()
         imageV.clipsToBounds = true
         imageV.layer.cornerRadius = 10
+        imageV.contentMode = .scaleToFill
+        imageV.image = UIImage(systemName: "person.fill")
         return imageV
     }()
     
@@ -28,7 +31,7 @@ final class VenueTableViewCell: UITableViewCell {
     
     lazy var venueAddress: UILabel = {
         let descriptionLabel = UILabel()
-        descriptionLabel.font = .boldSystemFont(ofSize: 16)
+        descriptionLabel.font = .systemFont(ofSize: 14)
         descriptionLabel.textAlignment = .center
         descriptionLabel.adjustsFontSizeToFitWidth = true
         descriptionLabel.numberOfLines = 0
@@ -44,9 +47,8 @@ final class VenueTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
     private func commonInit() {
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         venueImageViewConstraints()
         titleLabelConstraints()
         venueAddressLabelConstraints()
@@ -63,17 +65,53 @@ final class VenueTableViewCell: UITableViewCell {
     
     private func titleLabelConstraints() {
         addSubview(titleLabel)
-        titleLabel.anchor(top: topAnchor, left: venueImageView.rightAnchor, right: rightAnchor, paddingTop: 20, paddingLeft: 10, paddingRight: 8)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: venueImageView.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: venueImageView.trailingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8)
+        ])
     }
     
     private func venueAddressLabelConstraints() {
         addSubview(venueAddress)
-        venueAddress.anchor(top: titleLabel.bottomAnchor, left: titleLabel.leftAnchor, right: titleLabel.rightAnchor, paddingTop: 8)
+        venueAddress.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            venueAddress.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 1),
+            venueAddress.leadingAnchor.constraint(equalTo: venueImageView.trailingAnchor, constant: 8),
+            venueAddress.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8)
+        ])
     }
     
     func configureCell(venue: Venue) {
         titleLabel.text = venue.name
-        venueAddress.text = venue.location.formattedAddress[0] + venue.location.formattedAddress[1] + venue.location.formattedAddress[2]
+        venueAddress.text = venue.location.formattedAddress.joined(separator: "")
+        FourSquareAPICLient.getPhotoInfo(id: venue.id) { [weak self] (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let appError):
+                    print("couldnt load photos: \(appError)")
+                case .success(let items):
+                    self?.allItems = items
+                }
+            }
+            DispatchQueue.main.async {
+                let prefix = self?.allItems.first?.prefix ?? ""
+                let suffix = self?.allItems.first?.suffix ?? ""
+                let photoURL = "\(prefix)original\(suffix)"
+                self?.venueImageView.getImage(with: photoURL, writeTo: .cachesDirectory) { (result) in
+                    switch result {
+                    case .failure(_):
+                        DispatchQueue.main.async {
+                            self?.venueImageView.image = UIImage(systemName: "person.fill")
+                        }
+                    case .success(let photo):
+                        DispatchQueue.main.async {
+                            self?.venueImageView.image = photo
+                        }
+                    }
+                }
+            }
+        }
     }
-    
 }

@@ -31,6 +31,14 @@ class EmptyView: UIView {
         return label
     }()
     
+    public lazy var createListButton: UIButton = {
+           let button = UIButton()
+           button.setImage(UIImage(named: "addDatabase"), for: .normal)
+        button.backgroundColor = .systemRed
+           // button.addTarget(self, action: #selector(createFoodButtonPressed(_:)), for: .touchUpInside)
+           return button
+       }()
+    
     init(title:String, message: String) {
         super.init(frame: UIScreen.main.bounds)
         titleLabel.text = title
@@ -46,6 +54,7 @@ class EmptyView: UIView {
     private func commonInit() {
         setUpMessegeLabelConstraints()
         setUpTitleLabelConstraints()
+        setUpCreateListButtonConstraints()
     }
     
     private func setUpMessegeLabelConstraints() {
@@ -70,6 +79,16 @@ class EmptyView: UIView {
             
         ])
     }
+    private func setUpCreateListButtonConstraints() {
+         addSubview(createListButton)
+         createListButton.translatesAutoresizingMaskIntoConstraints = false
+         
+         NSLayoutConstraint.activate([
+             createListButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
+             createListButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+             createListButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 300)
+         ])
+     }
 
 
 }
