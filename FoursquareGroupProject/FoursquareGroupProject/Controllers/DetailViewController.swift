@@ -8,8 +8,14 @@
 
 import UIKit
 import DataPersistence
+
+protocol detailViewControllerDelegate: class {
+    func didSave(_ detailVC: DetailViewController)
+}
+
 class DetailViewController: UIViewController {
     
+    weak var delegate: detailViewControllerDelegate?
     private var detailView = detail()
     private var dataPersistence: DataPersistence<Collection>
     private var venue: Venue
@@ -135,6 +141,7 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
                    self.detailView.popUpView.transform = CGAffineTransform(translationX: 0, y: 900)
                }, completion: nil)
+        delegate?.didSave(self)
 }
     
 }

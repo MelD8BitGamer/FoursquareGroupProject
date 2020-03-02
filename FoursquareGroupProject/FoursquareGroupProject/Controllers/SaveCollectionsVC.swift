@@ -181,6 +181,13 @@ extension SaveCollectionsVC: DataPersistenceDelegate {
     
 }
 
+extension SaveCollectionsVC: detailViewControllerDelegate {
+    func didSave(_ detailVC: DetailViewController) {
+        getFavCollection()
+    }
+    
+    
+}
             
             
 //            if allTheCollections.isEmpty {
