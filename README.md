@@ -15,5 +15,5 @@ Our team worked together to create mock FourSquare app allows users to search fo
 
 * https://github.com/bcecilio
 * https://github.com/melindadiaz
-* https://github.com/tersinglamanyc
+* https://github.com/tseringlamanyc
 * https://github.com/howardC56
