@@ -17,7 +17,8 @@ class CreateNewView: UIView {
     
     public lazy var createView: UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 1, green: 0.4736866355, blue: 0.4620078206, alpha: 1)
+        //MARK: Previous color was awful
+        view.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         view.layer.cornerRadius = 9
         return view
     }()
@@ -28,7 +29,9 @@ class CreateNewView: UIView {
         textField.placeholder = "Name of Collection: Ex:Coffee"
         textField.layer.cornerRadius = 7
         textField.textAlignment = .center
-        textField.backgroundColor = .systemTeal
+        //MARK: Previous color was awful
+        textField.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+       // textField.backgroundColor =textField.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         return textField
     }()
     public lazy var descriptionTF: UITextField = {
@@ -37,18 +40,29 @@ class CreateNewView: UIView {
         textField.placeholder = "Description Ex: Where I go for coffee "
         textField.layer.cornerRadius = 7
         textField.textAlignment = .center
-        textField.backgroundColor = .systemTeal
+         //MARK: Previous color was awful
+        textField.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         return textField
     }()
     public lazy var createButton: UIButton = {
         let button = UIButton()
         button.setTitle("Create", for: .normal)
         button.layer.cornerRadius = 9
-        button.backgroundColor = .systemTeal
+         //MARK: Previous color was awful
+        
+       //button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
        // button.addTarget(self, action: #selector(createButtonPressed(_:)), for: .touchUpInside)
         return button
     }()
     
+      //Mark: This is a better background than the one before
+    public lazy var mybackgroundColor: UIImageView = {
+           var view = UIImageView()
+           view.backgroundColor = #colorLiteral(red: 1, green: 0.4736866355, blue: 0.4620078206, alpha: 1)
+           view = UIImageView(image: UIImage(named: "food"))
+           view.alpha = 0.4
+           return view
+       }()
    // let visualEffectsView = UIVisualEffectView(effect: nil)
     
     override init(frame: CGRect) {
@@ -63,7 +77,8 @@ class CreateNewView: UIView {
     }
     
     private func commonInit() {
-       
+          //Mark: This is the background constraints
+       setUpBackgroundConstraints()
         setUpViewConstraints()
         setUpNameOfCollectionTFConstraints()
         setUpDescriptionTFConstraints()
@@ -121,5 +136,17 @@ class CreateNewView: UIView {
             createButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
     }
+    //Mark: This is a better background than the one before
+    private func setUpBackgroundConstraints() {
+         addSubview(mybackgroundColor)
+         mybackgroundColor.translatesAutoresizingMaskIntoConstraints = false
+         
+         NSLayoutConstraint.activate([
+             mybackgroundColor.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
+             mybackgroundColor.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+             mybackgroundColor.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+             mybackgroundColor.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+         ])
+     }
 }
 

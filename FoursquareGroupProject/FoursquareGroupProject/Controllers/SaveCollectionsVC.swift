@@ -23,14 +23,14 @@ class SaveCollectionsVC: UIViewController {
             saveCollectionsView.collectionView.reloadData()
             
             
-//            if allTheCollections.isEmpty {
-//
-//                // setup background view, in case there are no saved places
-////                saveCollectionsView.collectionView.backgroundView = EmptyView(title: "Favorites", message: "There are currently no Favorited Collections. Start browsing and add to collection")
-////                saveCollectionsView.createListButton.addTarget(self, action: #selector(createANewFavoriteCollectionPressed(_:)), for: .touchUpInside)
-//            } else {
-//                saveCollectionsView.collectionView.backgroundView = nil
-//            }
+            //            if allTheCollections.isEmpty {
+            //
+            //                // setup background view, in case there are no saved places
+            ////                saveCollectionsView.collectionView.backgroundView = EmptyView(title: "Favorites", message: "There are currently no Favorited Collections. Start browsing and add to collection")
+            ////                saveCollectionsView.createListButton.addTarget(self, action: #selector(createANewFavoriteCollectionPressed(_:)), for: .touchUpInside)
+            //            } else {
+            //                saveCollectionsView.collectionView.backgroundView = nil
+            //            }
             navigationItem.title = "Favorites(\(allTheCollections.count))"
         }
     }
@@ -60,7 +60,7 @@ class SaveCollectionsVC: UIViewController {
         saveCollectionsView.collectionView.dataSource = self
         saveCollectionsView.createListButton.addTarget(self, action: #selector(createANewFavoriteCollectionPressed(_:)), for: .touchUpInside)
         getFavCollection()
-//        view.backgroundColor = .systemBlue
+        //        view.backgroundColor = .systemBlue
         
     }
     //    public func blur() {
@@ -125,7 +125,8 @@ extension SaveCollectionsVC: UICollectionViewDataSource {
         let saved = allTheCollections[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? CollectionViewCell else {
             fatalError("could not downcast to CollectionViewCell")}
-        cell.backgroundColor = #colorLiteral(red: 1, green: 0.4736866355, blue: 0.4620078206, alpha: 1)
+        //MARK: The previous color was horrible
+        cell.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         cell.delegate = self
         cell.configCell(saved)
         return cell
@@ -140,10 +141,16 @@ extension SaveCollectionsVC: CollectionCellDelegate {
         let editAction = UIAlertAction(title: "Edit Collection", style: .default) { (action) in
             self.editCollection(cell)
         }
+        //MARK:This adds an option to go to the tableview so they can add more to their collection
+        let addMoreToCollection = UIAlertAction(title: "Add more to this collection", style: .default) { (action) in
+            self.addToThisCollection()
+        }
         let deleteAction = UIAlertAction(title: "Delete Collection", style: .destructive) { (action) in
             self.deleteCollection(cell)
         }
         alertController.addAction(editAction)
+        //MARK:
+        alertController.addAction(addMoreToCollection)
         alertController.addAction(deleteAction)
         alertController.addAction(cancelAction)
         present(alertController, animated: true)
@@ -167,7 +174,21 @@ extension SaveCollectionsVC: CollectionCellDelegate {
             return
         }
         collectionPersistence.update(collection, at: index)
+        //MARK:This is a new function that gets them to the detailtableviewVC so they can edit the collection
+            let tableViewVC = DetailTableViewController()
+            tableViewVC.modalPresentationStyle = .overCurrentContext
+            tableViewVC.modalTransitionStyle = .crossDissolve
+            navigationController?.pushViewController(tableViewVC, animated: true)
+      
     }
+    //MARK:This is a new function that gets them to the tableviewVC so they can add a new favorite to the collection
+    private func addToThisCollection() {
+        let tableViewVC = TableViewController(collectionPersistence)
+        tableViewVC.modalPresentationStyle = .overCurrentContext
+        tableViewVC.modalTransitionStyle = .crossDissolve
+        navigationController?.pushViewController(tableViewVC, animated: true)
+    }
+    
 }
 
 extension SaveCollectionsVC: DataPersistenceDelegate {

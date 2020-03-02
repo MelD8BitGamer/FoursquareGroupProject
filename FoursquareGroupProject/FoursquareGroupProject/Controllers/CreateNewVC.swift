@@ -50,7 +50,8 @@ class CreateNewVC: UIViewController {
                  } else {
             do {
            try collectionPersistence.createItem(createdCollection)
-                showAlert(title: "Success", message: "You created A Collection now start adding stuff")
+                //MARK: The wording was off
+                showAlert(title: "Success", message: "You created a new collection. Now you can add venues to this list")
             } catch {
                 showAlert(title: "Error", message: "Cannot create anything")
             }

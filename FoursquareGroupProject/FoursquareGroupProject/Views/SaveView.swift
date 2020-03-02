@@ -31,7 +31,7 @@ class SaveView: UIView {
     public lazy var mybackgroundColor: UIImageView = {
         var view = UIImageView()
         view.backgroundColor = #colorLiteral(red: 1, green: 0.4736866355, blue: 0.4620078206, alpha: 1)
-        view = UIImageView(image: UIImage(named: "Food"))
+        view = UIImageView(image: UIImage(named: "food"))
         view.alpha = 0.4
         return view
     }()
