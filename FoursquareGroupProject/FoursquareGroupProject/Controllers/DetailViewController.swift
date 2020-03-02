@@ -15,7 +15,13 @@ class DetailViewController: UIViewController {
     private var dataPersistence: DataPersistence<Collection>
     
     private var venue: Venue
-        
+    
+    public var allCollections = [Collection]() {
+        didSet {
+            detailView.collectionView.reloadData()
+        }
+    }
+    
     init(_ dataPersistence: DataPersistence<Collection>, venue: Venue) {
         self.dataPersistence = dataPersistence
         self.venue = venue
@@ -32,7 +38,39 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        detailView.collectionView.dataSource = self
+        detailView.collectionView.delegate = self
+        detailView.collectionView.register(AddCell.self, forCellWithReuseIdentifier: "addCell")
         getDetails()
+        getFavCollection()
+        detailView.saveButton.addTarget(self, action: #selector(saveVenue), for: .touchUpInside)
+    }
+    
+    private func getFavCollection() {
+        do {
+            allCollections = try dataPersistence.loadItems()
+        } catch {
+            print("error while loading collections")
+        }
+    }
+    
+    @objc private func saveVenue() {
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+            self.detailView.popUpView.transform = CGAffineTransform(translationX: 0, y: -900)
+        }, completion: nil)
+        
+    }
+    
+    private func addVenue(collection: Collection) {
+        guard let index = allCollections.firstIndex(of: collection) else {
+            return
+        }
+        let newVenue = Collection(name: venue.name, description: venue.id)
+        do {
+            try dataPersistence.update(newVenue, at: index)
+        } catch {
+            print("couldnt save")
+        }
     }
     
     private func getDetails() {
@@ -72,5 +110,36 @@ class DetailViewController: UIViewController {
                 }
             }
         }
+    }
+}
+
+extension DetailViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return allCollections.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addCell", for: indexPath) as? AddCell else {
+            fatalError()
+        }
+        let aCollection = allCollections[indexPath.row]
+        cell.collectionLabel.text = aCollection.name
+        cell.backgroundColor = .systemBlue
+        return cell
+    }
+    
+    
+}
+
+extension DetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let maxSize: CGSize = UIScreen.main.bounds.size
+        let itemWidth: CGFloat = maxSize.width * 0.6
+        let itemHeight: CGFloat = maxSize.height * 0.2
+        return CGSize(width: itemWidth, height: itemHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
 }

@@ -18,19 +18,9 @@ class SaveCollectionsVC: UIViewController {
     private var dataPersistence: DataPersistence<VenueDetail>
     private var collectionPersistence: DataPersistence<Collection>
     
-    private var allTheCollections = [Collection](){
+    private var allTheCollections = [[Collection]](){
         didSet {
             saveCollectionsView.collectionView.reloadData()
-            
-            
-//            if allTheCollections.isEmpty {
-//
-//                // setup background view, in case there are no saved places
-////                saveCollectionsView.collectionView.backgroundView = EmptyView(title: "Favorites", message: "There are currently no Favorited Collections. Start browsing and add to collection")
-////                saveCollectionsView.createListButton.addTarget(self, action: #selector(createANewFavoriteCollectionPressed(_:)), for: .touchUpInside)
-//            } else {
-//                saveCollectionsView.collectionView.backgroundView = nil
-//            }
             navigationItem.title = "Favorites(\(allTheCollections.count))"
         }
     }
@@ -91,7 +81,7 @@ class SaveCollectionsVC: UIViewController {
     
     private func getFavCollection() {
         do {
-            allTheCollections = try collectionPersistence.loadItems()
+            allTheCollections = [try collectionPersistence.loadItems()]
         } catch {
             print("error while loading collections")
         }
@@ -122,7 +112,7 @@ extension SaveCollectionsVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let saved = allTheCollections[indexPath.row]
+        let saved = allTheCollections[indexPath.row][indexPath.section]
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? CollectionViewCell else {
             fatalError("could not downcast to CollectionViewCell")}
         cell.backgroundColor = #colorLiteral(red: 1, green: 0.4736866355, blue: 0.4620078206, alpha: 1)
@@ -150,7 +140,7 @@ extension SaveCollectionsVC: CollectionCellDelegate {
     }
     
     private func deleteCollection(_ collection: Collection) {
-        guard let index = allTheCollections.firstIndex(of: collection) else {
+        guard let index = allTheCollections.firstIndex(of: [collection]) else {
             return
         }
         do {
@@ -163,7 +153,7 @@ extension SaveCollectionsVC: CollectionCellDelegate {
     }
     
     private func editCollection(_ collection: Collection) {
-        guard let index = allTheCollections.firstIndex(of: collection) else {
+        guard let index = allTheCollections.firstIndex(of: [collection]) else {
             return
         }
         collectionPersistence.update(collection, at: index)
@@ -174,7 +164,7 @@ extension SaveCollectionsVC: DataPersistenceDelegate {
     func didSaveItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
         
         do {
-            allTheCollections = try collectionPersistence.loadItems()
+            allTheCollections = [try collectionPersistence.loadItems()]
             
         } catch {
             showAlert(title: "Error", message: "Could not load items\(error)")
@@ -183,7 +173,7 @@ extension SaveCollectionsVC: DataPersistenceDelegate {
     
     func didDeleteItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
         do {
-            allTheCollections = try collectionPersistence.loadItems()
+            allTheCollections = [try collectionPersistence.loadItems()]
             
         } catch {
             showAlert(title: "Error", message: "Could not load items\(error)")
@@ -193,4 +183,15 @@ extension SaveCollectionsVC: DataPersistenceDelegate {
     
     
 }
+
+            
+            
+//            if allTheCollections.isEmpty {
+//
+//                // setup background view, in case there are no saved places
+////                saveCollectionsView.collectionView.backgroundView = EmptyView(title: "Favorites", message: "There are currently no Favorited Collections. Start browsing and add to collection")
+////                saveCollectionsView.createListButton.addTarget(self, action: #selector(createANewFavoriteCollectionPressed(_:)), for: .touchUpInside)
+//            } else {
+//                saveCollectionsView.collectionView.backgroundView = nil
+//            }
 
