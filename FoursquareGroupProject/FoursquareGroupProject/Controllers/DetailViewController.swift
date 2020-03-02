@@ -61,17 +61,17 @@ class DetailViewController: UIViewController {
         
     }
     
-    private func addVenue(collection: Collection) {
-        guard let index = allCollections.firstIndex(of: collection) else {
-            return
-        }
-        let newVenue = Collection(name: venue.name, description: venue.id)
-        do {
-            try dataPersistence.update(newVenue, at: index)
-        } catch {
-            print("couldnt save")
-        }
-    }
+//    private func addVenue(collection: Collection) {
+//        guard let index = allCollections.firstIndex(of: collection) else {
+//            return
+//        }
+//        let newVenue = Collection(name: venue.name, description: venue.id, venue: [])
+//        do {
+//            try dataPersistence.update(newVenue, at: index)
+//        } catch {
+//            print("couldnt save")
+//        }
+//    }
     
     private func getDetails() {
         FourSquareAPICLient.getDetails(id: venue.id) { [weak self] (result) in
@@ -142,4 +142,17 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var selected = allCollections[indexPath.row]
+        print(selected)
+        selected.venue.append(venue)
+        print(selected.venue)
+        do {
+        let range = try dataPersistence.update(selected, at: indexPath.row)
+            print(range)
+        } catch {
+            print("error updating")
+        }
+}
 }

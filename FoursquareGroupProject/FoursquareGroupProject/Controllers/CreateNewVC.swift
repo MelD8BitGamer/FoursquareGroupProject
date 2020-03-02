@@ -43,7 +43,7 @@ class CreateNewVC: UIViewController {
     }
     
         @objc public func createButtonPressed(_ sender: UIButton) {
-            createdCollection = Collection(name: textFieldString, description: textFieldDescription)
+            createdCollection = Collection(name: textFieldString, description: textFieldDescription, venue: [])
             //TODO: if the collection name has already been made
             if collectionPersistence.hasItemBeenSaved(createdCollection) {
                      showAlert(title: "Wait!!", message: "This collection has already been saved to your favorites")

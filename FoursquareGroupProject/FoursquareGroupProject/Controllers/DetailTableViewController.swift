@@ -13,11 +13,29 @@ class DetailTableViewController: UIViewController {
 
     private var collectionPersistence: DataPersistence<Collection>!
     private var dataPersistence: DataPersistence<VenueDetail>!
+    private var currentCollection: Collection!
     
     public var venues = [Venue]() {
         didSet{
             tableView.tableView.reloadData()
         }
+    }
+   
+    private func loadVenue() {
+       // guard let currentVenues = currentCollection.venue else { return }
+        venues = currentCollection.venue
+        print(currentCollection)
+    }
+    
+    init(_ dataPersistence: DataPersistence<VenueDetail>, collectionPersistence: DataPersistence<Collection>, collection: Collection) {
+           self.dataPersistence = dataPersistence
+           self.collectionPersistence = collectionPersistence
+           self.currentCollection = collection
+           super.init(nibName: nil, bundle: nil)
+       }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private let tableView = DetailTableView2()
@@ -30,7 +48,10 @@ class DetailTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
-        
+        tableView.tableView.delegate = self
+        tableView.tableView.dataSource = self
+        loadVenue()
+        print(venues)
     }
 }
 

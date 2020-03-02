@@ -13,6 +13,7 @@ class DetailTableViewCell: UITableViewCell {
     public lazy var venueNameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
+        label.text = "test"
         label.textAlignment = .left
         label.font = .boldSystemFont(ofSize: 18)
         
@@ -22,13 +23,14 @@ class DetailTableViewCell: UITableViewCell {
     public lazy var venueAddressLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
+        label.text = "address"
         label.font = .boldSystemFont(ofSize: 15)
         label.textAlignment = .left
         return label
     }()
     
    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-      super .init(style: style, reuseIdentifier: reuseIdentifier)
+      super.init(style: style, reuseIdentifier: reuseIdentifier)
       commonInit()
     }
      
@@ -39,6 +41,7 @@ class DetailTableViewCell: UITableViewCell {
     private func commonInit() {
         venueNameLabelConstraints()
         venueAddressLabelConstraints()
+        backgroundColor = .systemBackground
     }
     
     private func venueNameLabelConstraints() {
@@ -48,7 +51,7 @@ class DetailTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             venueNameLabel.topAnchor.constraint(equalTo:topAnchor),
             venueNameLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            venueNameLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 20)
+            venueNameLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
     }
     
@@ -59,7 +62,7 @@ class DetailTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             venueAddressLabel.topAnchor.constraint(equalTo: venueNameLabel.bottomAnchor, constant: 1),
             venueAddressLabel.leadingAnchor.constraint(equalTo:leadingAnchor, constant: 8),
-            venueAddressLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 8)
+            venueAddressLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
         ])
         
 }

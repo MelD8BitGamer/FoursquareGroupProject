@@ -28,6 +28,7 @@ class DetailTableView2: UIView {
         
         private func commonInit() {
             setUpTableViewConstraints()
+            tableView.register(DetailTableViewCell.self, forCellReuseIdentifier: "DetailTableViewCell")
         }
     
     private func setUpTableViewConstraints() {
