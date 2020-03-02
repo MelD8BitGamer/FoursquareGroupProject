@@ -89,9 +89,10 @@ class SaveView: UIView {
         createListButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            createListButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
-            createListButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            createListButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 300)
+            createListButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            createListButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            createListButton.widthAnchor.constraint(equalToConstant: 70),
+            createListButton.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
     private func setUpBackgroundConstraints() {

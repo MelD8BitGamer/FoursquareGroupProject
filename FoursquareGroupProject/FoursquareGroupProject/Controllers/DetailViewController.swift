@@ -49,6 +49,20 @@ class DetailViewController: UIViewController {
         detailView.saveButton.addTarget(self, action: #selector(saveVenue), for: .touchUpInside)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            let touch: UITouch? = touches.first
+    //        detailView.popUpView.isHidden = false
+    //        detailView.saveButton.isHidden = false
+    //        detailView.visualEffectView.isHidden = false
+            if touch?.view != detailView.popUpView {
+                detailView.popUpView.isHidden = true
+    //            detailView.saveButton.isHidden = true
+                detailView.visualEffectView.isHidden = true
+            } else {
+                detailView.popUpView.isHidden = false
+            }
+        }
+    
     private func getFavCollection() {
         do {
             allCollections = try dataPersistence.loadItems()

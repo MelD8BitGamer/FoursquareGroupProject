@@ -54,6 +54,7 @@ class detail: UIView {
         let label = UILabel()
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 35)
         label.text = "Pursuit"
+        label.textColor = .black
         label.numberOfLines = 0
         return label
     }()
@@ -254,7 +255,8 @@ class detail: UIView {
         venueName.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             venueName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-            venueName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+            venueName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            venueName.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
         ])
     }
     
@@ -263,7 +265,7 @@ class detail: UIView {
         priceRange.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             priceRange.leadingAnchor.constraint(equalTo: venueName.trailingAnchor, constant: 3),
-            priceRange.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            priceRange.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20)
         ])
     }
     

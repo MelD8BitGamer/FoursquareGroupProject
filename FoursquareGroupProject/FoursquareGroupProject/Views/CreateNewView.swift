@@ -17,36 +17,46 @@ class CreateNewView: UIView {
     
     public lazy var createView: UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 1, green: 0.4736866355, blue: 0.4620078206, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         view.layer.cornerRadius = 9
         return view
     }()
     
     public lazy var nameOfCollectionTF: UITextField = {
         let textField = UITextField()
-        textField.font = UIFont.preferredFont(forTextStyle: .headline)
         textField.placeholder = "Name of Collection: Ex:Coffee"
         textField.layer.cornerRadius = 7
         textField.textAlignment = .center
-        textField.backgroundColor = .systemTeal
+        textField.textColor = .black
+        textField.backgroundColor = .white
+        textField.attributedPlaceholder = NSAttributedString(string: "Name of Collection: Ex:Coffee", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         return textField
     }()
     public lazy var descriptionTF: UITextField = {
         let textField = UITextField()
-        textField.font = UIFont.preferredFont(forTextStyle: .headline)
         textField.placeholder = "Description Ex: Where I go for coffee "
         textField.layer.cornerRadius = 7
+        textField.textColor = .black
         textField.textAlignment = .center
-        textField.backgroundColor = .systemTeal
+        textField.attributedPlaceholder = NSAttributedString(string: "Description Ex: Where I go for coffee", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        textField.backgroundColor = .white
         return textField
     }()
     public lazy var createButton: UIButton = {
         let button = UIButton()
         button.setTitle("Create", for: .normal)
         button.layer.cornerRadius = 9
-        button.backgroundColor = .systemTeal
+        button.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
        // button.addTarget(self, action: #selector(createButtonPressed(_:)), for: .touchUpInside)
         return button
+    }()
+    
+    public lazy var mybackgroundColor: UIImageView = {
+        var view = UIImageView()
+        view.backgroundColor = #colorLiteral(red: 1, green: 0.4736866355, blue: 0.4620078206, alpha: 1)
+        view = UIImageView(image: UIImage(named: "food"))
+        view.alpha = 0.4
+        return view
     }()
     
    // let visualEffectsView = UIVisualEffectView(effect: nil)
@@ -68,6 +78,7 @@ class CreateNewView: UIView {
         setUpNameOfCollectionTFConstraints()
         setUpDescriptionTFConstraints()
         setUpCreateButtonConstraints()
+        //setUpBackgroundConstraints()
         // blurEffect()
         
     }
@@ -121,5 +132,18 @@ class CreateNewView: UIView {
             createButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
     }
-}
+    
+      private func setUpBackgroundConstraints() {
+             addSubview(mybackgroundColor)
+             mybackgroundColor.translatesAutoresizingMaskIntoConstraints = false
+             
+             NSLayoutConstraint.activate([
+                 mybackgroundColor.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
+                 mybackgroundColor.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+                 mybackgroundColor.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+                 mybackgroundColor.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+             ])
+         }
+    }
+
 

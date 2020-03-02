@@ -112,7 +112,7 @@ extension SaveCollectionsVC: UICollectionViewDataSource {
         let saved = allTheCollections[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? CollectionViewCell else {
             fatalError("could not downcast to CollectionViewCell")}
-        cell.backgroundColor = #colorLiteral(red: 1, green: 0.4736866355, blue: 0.4620078206, alpha: 1)
+        cell.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         cell.delegate = self
         cell.configCell(saved)
         return cell
@@ -154,6 +154,10 @@ extension SaveCollectionsVC: CollectionCellDelegate {
             return
         }
         collectionPersistence.update(collection, at: index)
+        let tableViewVC = DetailTableViewController(collectionPersistence, collection: allTheCollections[index])
+        tableViewVC.modalPresentationStyle = .overCurrentContext
+        tableViewVC.modalTransitionStyle = .crossDissolve
+        navigationController?.pushViewController(tableViewVC, animated: true)
     }
 }
 
