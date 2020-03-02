@@ -31,7 +31,7 @@ class detail: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collection.backgroundColor = .white
+        collection.backgroundColor = .systemBackground
         return collection
     }()
     
@@ -120,7 +120,6 @@ class detail: UIView {
     public lazy var saveButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Asset11"), for: .normal)
-        button.addTarget(self, action: #selector(saveVenue), for: .touchUpInside)
         button.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
         button.layer.cornerRadius = 25
         button.layer.shadowColor = UIColor.black.cgColor
@@ -155,6 +154,11 @@ class detail: UIView {
         button.layer.shadowRadius = 5
         button.alpha = 0
         return button
+    }()
+    
+    public lazy var addTableView: UITableView = {
+       let tv = UITableView()
+        return tv
     }()
     
     let visualEffectView = UIVisualEffectView(effect: nil)
@@ -382,14 +386,8 @@ class detail: UIView {
     }
     
     @objc private func saveVenue() {
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
-            self.popUpView.transform = CGAffineTransform(translationX: 0, y: -900)
-        }, completion: nil)
-//        do {
-//
-//        } catch {
-//
-//        }
+       
+           
     }
 }
 

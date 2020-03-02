@@ -10,7 +10,6 @@ import UIKit
 
 class DetailTableView2: UIView {
 
-    
     public lazy var tableView: UITableView = {
        let tb = UITableView()
         tb.backgroundColor = .systemGroupedBackground
