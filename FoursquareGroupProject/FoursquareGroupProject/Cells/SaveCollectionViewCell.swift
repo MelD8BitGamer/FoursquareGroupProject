@@ -21,9 +21,9 @@ class CollectionViewCell: UICollectionViewCell {
     
     public lazy var restaurantImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "startrek")
+        image.image = UIImage(systemName: "folder.fill")
         image.layer.cornerRadius = 15
-        image.contentMode = .scaleToFill
+        image.contentMode = .scaleAspectFit
         return image
     }()
     
@@ -33,7 +33,7 @@ class CollectionViewCell: UICollectionViewCell {
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 10, weight: .black, scale: .large)
         button.setImage(UIImage(systemName: "ellipsis", withConfiguration: imageConfig), for: .normal)
         button.addTarget(self, action: #selector(moreButtonPressed(_:)), for: .touchUpInside)
-        
+        button.tintColor = .white
         return button
     }()
     
@@ -41,17 +41,17 @@ class CollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "This is a Title"
         label.numberOfLines = 1
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.layer.cornerRadius = 20
         //label.backgroundColor = .systemGroupedBackground
-        label.font = UIFont(name: "Didot", size: 12)
+        label.font = UIFont(name: "HelveticaNeue-Bold", size: 12)
         return label
     }()
     
     public lazy var descriptLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 3
-        label.font = UIFont(name: "Didot", size: 12)
+        label.font = UIFont(name: "HelveticaNeue-Bold", size: 12)
         label.text = "There are THIS many on our list"
         
         return label
@@ -78,7 +78,7 @@ class CollectionViewCell: UICollectionViewCell {
         setupMoreButtonConstraints()
         layoutSubviews()
         setUpHeadLabelConstraints()
-        setUpDescriptLabelConstraints()
+//        setUpDescriptLabelConstraints()
     }
     
     @objc private func moreButtonPressed(_ sender: UIButton) {
@@ -95,9 +95,10 @@ class CollectionViewCell: UICollectionViewCell {
         addSubview(restaurantImage)
         restaurantImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            restaurantImage.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            restaurantImage.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.60),
-            restaurantImage.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.60)
+            restaurantImage.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            restaurantImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            restaurantImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            restaurantImage.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
     
@@ -106,8 +107,7 @@ class CollectionViewCell: UICollectionViewCell {
         moreButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            moreButton.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            moreButton.leadingAnchor.constraint(equalTo: restaurantImage.trailingAnchor, constant: 20),
+            moreButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             moreButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
     }
@@ -116,10 +116,9 @@ class CollectionViewCell: UICollectionViewCell {
         headLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            headLabel.topAnchor.constraint(equalTo: restaurantImage.bottomAnchor, constant: 5),
+            headLabel.topAnchor.constraint(equalTo: restaurantImage.bottomAnchor, constant: 10),
             headLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            headLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            headLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.05)
+            headLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5)
         ])
     }
     
