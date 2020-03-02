@@ -56,7 +56,7 @@ final class SearchView: UIView {
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: frame.width / 3, height: frame.height / 10)
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        cv.backgroundColor = .clear
+        cv.backgroundColor = .white
         return cv
     }()
     
