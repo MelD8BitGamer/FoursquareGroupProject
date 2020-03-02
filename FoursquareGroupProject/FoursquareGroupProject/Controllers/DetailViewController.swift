@@ -132,6 +132,9 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
         var selected = allCollections[indexPath.row]
         selected.venue.append(venue)
         try dataPersistence.update(selected, at: indexPath.row)
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                   self.detailView.popUpView.transform = CGAffineTransform(translationX: 0, y: 900)
+               }, completion: nil)
 }
     
 }
