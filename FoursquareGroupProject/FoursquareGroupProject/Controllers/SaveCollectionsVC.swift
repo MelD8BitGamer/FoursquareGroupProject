@@ -103,7 +103,6 @@ extension SaveCollectionsVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedCollection = allTheCollections[indexPath.row]
         let detailVC = DetailTableViewController(dataPersistence, collectionPersistence: collectionPersistence, collection: selectedCollection)
-        print(selectedCollection)
         present(detailVC, animated: true)
     }
 }

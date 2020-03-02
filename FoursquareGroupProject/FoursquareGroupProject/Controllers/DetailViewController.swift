@@ -145,14 +145,8 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var selected = allCollections[indexPath.row]
-        print(selected)
         selected.venue.append(venue)
-        print(selected.venue)
-        do {
-        let range = try dataPersistence.update(selected, at: indexPath.row)
-            print(range)
-        } catch {
-            print("error updating")
-        }
+        try dataPersistence.update(selected, at: indexPath.row)
 }
+    
 }

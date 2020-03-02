@@ -22,9 +22,7 @@ class DetailTableViewController: UIViewController {
     }
    
     private func loadVenue() {
-       // guard let currentVenues = currentCollection.venue else { return }
         venues = currentCollection.venue
-        print(currentCollection)
     }
     
     init(_ dataPersistence: DataPersistence<VenueDetail>, collectionPersistence: DataPersistence<Collection>, collection: Collection) {
@@ -51,7 +49,6 @@ class DetailTableViewController: UIViewController {
         tableView.tableView.delegate = self
         tableView.tableView.dataSource = self
         loadVenue()
-        print(venues)
     }
 }
 
