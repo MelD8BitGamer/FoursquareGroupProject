@@ -15,7 +15,6 @@ class SaveCollectionsVC: UIViewController {
     private var saveCollectionsView = SaveView()
     
     private var createCollection: Collection?
-    private var dataPersistence: DataPersistence<VenueDetail>
     private var collectionPersistence: DataPersistence<Collection>
     
     private var allTheCollections = [Collection](){
@@ -25,13 +24,10 @@ class SaveCollectionsVC: UIViewController {
         }
     }
     
-    init(_ dataPersistence: DataPersistence<VenueDetail>, collectionPersistence: DataPersistence<Collection>) {
-        self.dataPersistence = dataPersistence
+    init(_ collectionPersistence: DataPersistence<Collection>) {
         self.collectionPersistence = collectionPersistence
         super.init(nibName: nil, bundle: nil)
-        
         self.collectionPersistence.delegate = self
-        self.dataPersistence.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -70,7 +66,7 @@ class SaveCollectionsVC: UIViewController {
     //    }
     
     @objc func createANewFavoriteCollectionPressed(_ sender: UIButton) {
-        let createVC = CreateNewVC(dataPersistence, collectionPersistence: collectionPersistence)
+        let createVC = CreateNewVC(collectionPersistence: collectionPersistence)
         createVC.modalPresentationStyle = .overCurrentContext
         createVC.modalTransitionStyle = .crossDissolve
         navigationController?.pushViewController(createVC, animated: true)
@@ -102,7 +98,7 @@ extension SaveCollectionsVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedCollection = allTheCollections[indexPath.row]
-        let detailVC = DetailTableViewController(dataPersistence, collectionPersistence: collectionPersistence, collection: selectedCollection)
+        let detailVC = DetailTableViewController(collectionPersistence, collection: selectedCollection)
         present(detailVC, animated: true)
     }
 }

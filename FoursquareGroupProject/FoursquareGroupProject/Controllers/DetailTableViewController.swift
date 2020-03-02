@@ -12,7 +12,6 @@ import DataPersistence
 class DetailTableViewController: UIViewController {
 
     private var collectionPersistence: DataPersistence<Collection>!
-    private var dataPersistence: DataPersistence<VenueDetail>!
     private var currentCollection: Collection!
     
     public var venues = [Venue]() {
@@ -25,8 +24,7 @@ class DetailTableViewController: UIViewController {
         venues = currentCollection.venue
     }
     
-    init(_ dataPersistence: DataPersistence<VenueDetail>, collectionPersistence: DataPersistence<Collection>, collection: Collection) {
-           self.dataPersistence = dataPersistence
+    init(_ collectionPersistence: DataPersistence<Collection>, collection: Collection) {
            self.collectionPersistence = collectionPersistence
            self.currentCollection = collection
            super.init(nibName: nil, bundle: nil)

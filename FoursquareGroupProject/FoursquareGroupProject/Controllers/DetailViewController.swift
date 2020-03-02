@@ -11,11 +11,8 @@ import DataPersistence
 class DetailViewController: UIViewController {
     
     private var detailView = detail()
-    
     private var dataPersistence: DataPersistence<Collection>
-    
     private var venue: Venue
-    
     public var allCollections = [Collection]() {
         didSet {
             detailView.collectionView.reloadData()
@@ -60,18 +57,6 @@ class DetailViewController: UIViewController {
         }, completion: nil)
         
     }
-    
-//    private func addVenue(collection: Collection) {
-//        guard let index = allCollections.firstIndex(of: collection) else {
-//            return
-//        }
-//        let newVenue = Collection(name: venue.name, description: venue.id, venue: [])
-//        do {
-//            try dataPersistence.update(newVenue, at: index)
-//        } catch {
-//            print("couldnt save")
-//        }
-//    }
     
     private func getDetails() {
         FourSquareAPICLient.getDetails(id: venue.id) { [weak self] (result) in
