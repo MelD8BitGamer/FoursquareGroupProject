@@ -1,5 +1,4 @@
 # FoursquareGroupProject
-Mock Four Square Project
 
 ## Description:
 
