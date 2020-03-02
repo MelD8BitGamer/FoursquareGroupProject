@@ -12,6 +12,7 @@ class DetailTableView2: UIView {
 
     public lazy var tableView: UITableView = {
        let tb = UITableView()
+        tb.rowHeight = 100
         tb.backgroundColor = .systemGroupedBackground
         return tb
     }()
@@ -28,6 +29,7 @@ class DetailTableView2: UIView {
         
         private func commonInit() {
             setUpTableViewConstraints()
+            tableView.register(DetailTableViewCell.self, forCellReuseIdentifier: "DetailTableViewCell")
         }
     
     private func setUpTableViewConstraints() {

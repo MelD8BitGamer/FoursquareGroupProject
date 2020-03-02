@@ -11,7 +11,6 @@ import DataPersistence
 
 class FoursquareTabBarController: UITabBarController {
     
-    private let dataPersistence = DataPersistence<VenueDetail>(filename: "SavedCollection.plist")
     private let collectionPersistence = DataPersistence<Collection>(filename: "Collection.plist")
     
     
@@ -21,7 +20,7 @@ class FoursquareTabBarController: UITabBarController {
         return vc
     }()
     lazy var collectionsViewController: SaveCollectionsVC = {
-        let vc = SaveCollectionsVC(dataPersistence, collectionPersistence: collectionPersistence)
+        let vc = SaveCollectionsVC(collectionPersistence)
         vc.tabBarItem = UITabBarItem(title: "Collections", image: UIImage(systemName: "star"), selectedImage: UIImage(systemName: "star.fill"))
         return vc
     }()

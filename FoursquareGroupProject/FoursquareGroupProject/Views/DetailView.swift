@@ -10,9 +10,16 @@ import DataPersistence
 
 class detail: UIView {
 
-    public lazy var scrollView: UIScrollView = {
-        let SCV = UIScrollView()
-        return SCV
+//    public lazy var scrollView: UIScrollView = {
+//        let SCV = UIScrollView()
+//        return SCV
+//    }()
+//
+    public lazy var viewBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        view.layer.cornerRadius = 7
+        return view
     }()
     
     public lazy var contentView: UIView = {
@@ -24,6 +31,7 @@ class detail: UIView {
     public lazy var popUpView: UIView = {
         let view = UIView()
         view.backgroundColor = .gray
+        view.layer.cornerRadius = 10
         return view
     }()
     
@@ -31,7 +39,7 @@ class detail: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collection.backgroundColor = .systemBackground
+        collection.backgroundColor = .white
         return collection
     }()
     
@@ -120,6 +128,7 @@ class detail: UIView {
     public lazy var saveButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Asset11"), for: .normal)
+        button.addTarget(self, action: #selector(saveVenue), for: .touchUpInside)
         button.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
         button.layer.cornerRadius = 25
         button.layer.shadowColor = UIColor.black.cgColor
@@ -156,14 +165,7 @@ class detail: UIView {
         return button
     }()
     
-    public lazy var addTableView: UITableView = {
-       let tv = UITableView()
-        return tv
-    }()
-    
     let visualEffectView = UIVisualEffectView(effect: nil)
-    
-//    let dataPersistence = DataPersistence<Venue>(filename: "savedVenue.plist")
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -176,8 +178,9 @@ class detail: UIView {
     }
     
     private func commonInit() {
-        setUpScrollView()
+//        setUpScrollView()
         setupContentView()
+        setupViewbar()
         setupImageView()
         setupVenueName()
         setupPriceRange()
@@ -186,8 +189,8 @@ class detail: UIView {
         setupHours()
         setupRating()
         blurEffect()
-        setupRateButton()
-        setupShareButton()
+//        setupRateButton()
+//        setupShareButton()
         setupSaveButton()
         setupMenuButton()
         setupPopUpView()
@@ -200,27 +203,38 @@ class detail: UIView {
         visualEffectView.isHidden = true
     }
     
-    private func setUpScrollView() {
-        addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
+//    private func setUpScrollView() {
+//        addSubview(scrollView)
+//        scrollView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+//            scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+//            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//            scrollView.heightAnchor.constraint(equalToConstant: self.bounds.height),
+//            scrollView.widthAnchor.constraint(equalToConstant: self.bounds.width)
+//        ])
+//    }
+    
+    private func setupContentView() {
+        addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            scrollView.heightAnchor.constraint(equalToConstant: self.bounds.height),
-            scrollView.widthAnchor.constraint(equalToConstant: self.bounds.width)
+            contentView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
     
-    private func setupContentView() {
-        scrollView.addSubview(contentView)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
+    private func setupViewbar() {
+        contentView.addSubview(viewBar)
+        viewBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
+            viewBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15),
+            viewBar.centerXAnchor.constraint(equalTo: centerXAnchor),
+            viewBar.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.02),
+            viewBar.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.3)
         ])
     }
     
@@ -228,7 +242,7 @@ class detail: UIView {
         contentView.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.topAnchor.constraint(equalTo: viewBar.topAnchor, constant: 20),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             imageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2)
@@ -386,29 +400,28 @@ class detail: UIView {
     }
     
     @objc private func saveVenue() {
-       
-           
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+            self.popUpView.transform = CGAffineTransform(translationX: 0, y: -900)
+        }, completion: nil)
     }
 }
-
-extension UIView: UICollectionViewDataSource {
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailViewCell", for: indexPath)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let maxSize: CGSize = UIScreen.main.bounds.size
-        let spacingBetweenItems: CGFloat = 10
-        let numberOfItems: CGFloat = 1
-        let itemHeight:CGFloat = maxSize.height * 0.50
-        let totalSpacing: CGFloat = (2 * spacingBetweenItems) + (numberOfItems - 1 ) * spacingBetweenItems
-        let itemWidth: CGFloat = (maxSize.width - totalSpacing) / numberOfItems
-        return CGSize(width: itemWidth, height: itemHeight)
-    }
-}
-
+//
+//extension UIView: UICollectionViewDataSource {
+//    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return 10
+//    }
+//
+//    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailViewCell", for: indexPath)
+//        return cell
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let maxSize: CGSize = UIScreen.main.bounds.size
+//        let spacingBetweenItems: CGFloat = 10
+//        let numberOfItems: CGFloat = 1
+//        let itemHeight:CGFloat = maxSize.height * 0.50
+//        let totalSpacing: CGFloat = (2 * spacingBetweenItems) + (numberOfItems - 1 ) * spacingBetweenItems
+//        let itemWidth: CGFloat = (maxSize.width - totalSpacing) / numberOfItems
+//        return CGSize(width: itemWidth, height: itemHeight)
+//    }

@@ -8,14 +8,17 @@
 
 import UIKit
 import DataPersistence
+
+protocol detailViewControllerDelegate: class {
+    func didSave(_ detailVC: DetailViewController)
+}
+
 class DetailViewController: UIViewController {
     
+    weak var delegate: detailViewControllerDelegate?
     private var detailView = detail()
-    
     private var dataPersistence: DataPersistence<Collection>
-    
     private var venue: Venue
-    
     public var allCollections = [Collection]() {
         didSet {
             detailView.collectionView.reloadData()
@@ -59,18 +62,6 @@ class DetailViewController: UIViewController {
             self.detailView.popUpView.transform = CGAffineTransform(translationX: 0, y: -900)
         }, completion: nil)
         
-    }
-    
-    private func addVenue(collection: Collection) {
-        guard let index = allCollections.firstIndex(of: collection) else {
-            return
-        }
-        let newVenue = Collection(name: venue.name, description: venue.id)
-        do {
-            try dataPersistence.update(newVenue, at: index)
-        } catch {
-            print("couldnt save")
-        }
     }
     
     private func getDetails() {
@@ -142,4 +133,15 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var selected = allCollections[indexPath.row]
+        selected.venue.append(venue)
+        try dataPersistence.update(selected, at: indexPath.row)
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
+                   self.detailView.popUpView.transform = CGAffineTransform(translationX: 0, y: 900)
+               }, completion: nil)
+        delegate?.didSave(self)
+}
+    
 }

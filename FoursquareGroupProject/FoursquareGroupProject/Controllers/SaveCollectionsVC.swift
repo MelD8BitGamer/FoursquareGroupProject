@@ -15,23 +15,19 @@ class SaveCollectionsVC: UIViewController {
     private var saveCollectionsView = SaveView()
     
     private var createCollection: Collection?
-    private var dataPersistence: DataPersistence<VenueDetail>
     private var collectionPersistence: DataPersistence<Collection>
     
-    private var allTheCollections = [[Collection]](){
+    private var allTheCollections = [Collection](){
         didSet {
             saveCollectionsView.collectionView.reloadData()
             navigationItem.title = "Favorites(\(allTheCollections.count))"
         }
     }
     
-    init(_ dataPersistence: DataPersistence<VenueDetail>, collectionPersistence: DataPersistence<Collection>) {
-        self.dataPersistence = dataPersistence
+    init(_ collectionPersistence: DataPersistence<Collection>) {
         self.collectionPersistence = collectionPersistence
         super.init(nibName: nil, bundle: nil)
-        
         self.collectionPersistence.delegate = self
-        self.dataPersistence.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -70,7 +66,7 @@ class SaveCollectionsVC: UIViewController {
     //    }
     
     @objc func createANewFavoriteCollectionPressed(_ sender: UIButton) {
-        let createVC = CreateNewVC(dataPersistence, collectionPersistence: collectionPersistence)
+        let createVC = CreateNewVC(collectionPersistence: collectionPersistence)
         createVC.modalPresentationStyle = .overCurrentContext
         createVC.modalTransitionStyle = .crossDissolve
         navigationController?.pushViewController(createVC, animated: true)
@@ -81,7 +77,7 @@ class SaveCollectionsVC: UIViewController {
     
     private func getFavCollection() {
         do {
-            allTheCollections = [try collectionPersistence.loadItems()]
+            allTheCollections = try collectionPersistence.loadItems()
         } catch {
             print("error while loading collections")
         }
@@ -101,8 +97,9 @@ extension SaveCollectionsVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let tableView = DetailTableViewController()
-        present(tableView, animated: true)
+        let selectedCollection = allTheCollections[indexPath.row]
+        let detailVC = DetailTableViewController(collectionPersistence, collection: selectedCollection)
+        present(detailVC, animated: true)
     }
 }
 
@@ -112,7 +109,7 @@ extension SaveCollectionsVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let saved = allTheCollections[indexPath.row][indexPath.section]
+        let saved = allTheCollections[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as? CollectionViewCell else {
             fatalError("could not downcast to CollectionViewCell")}
         cell.backgroundColor = #colorLiteral(red: 1, green: 0.4736866355, blue: 0.4620078206, alpha: 1)
@@ -140,7 +137,7 @@ extension SaveCollectionsVC: CollectionCellDelegate {
     }
     
     private func deleteCollection(_ collection: Collection) {
-        guard let index = allTheCollections.firstIndex(of: [collection]) else {
+        guard let index = allTheCollections.firstIndex(of: collection) else {
             return
         }
         do {
@@ -153,7 +150,7 @@ extension SaveCollectionsVC: CollectionCellDelegate {
     }
     
     private func editCollection(_ collection: Collection) {
-        guard let index = allTheCollections.firstIndex(of: [collection]) else {
+        guard let index = allTheCollections.firstIndex(of: collection) else {
             return
         }
         collectionPersistence.update(collection, at: index)
@@ -164,7 +161,7 @@ extension SaveCollectionsVC: DataPersistenceDelegate {
     func didSaveItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
         
         do {
-            allTheCollections = [try collectionPersistence.loadItems()]
+            allTheCollections = try collectionPersistence.loadItems()
             
         } catch {
             showAlert(title: "Error", message: "Could not load items\(error)")
@@ -173,7 +170,7 @@ extension SaveCollectionsVC: DataPersistenceDelegate {
     
     func didDeleteItem<T>(_ persistenceHelper: DataPersistence<T>, item: T) where T : Decodable, T : Encodable, T : Equatable {
         do {
-            allTheCollections = [try collectionPersistence.loadItems()]
+            allTheCollections = try collectionPersistence.loadItems()
             
         } catch {
             showAlert(title: "Error", message: "Could not load items\(error)")
@@ -184,6 +181,13 @@ extension SaveCollectionsVC: DataPersistenceDelegate {
     
 }
 
+extension SaveCollectionsVC: detailViewControllerDelegate {
+    func didSave(_ detailVC: DetailViewController) {
+        getFavCollection()
+    }
+    
+    
+}
             
             
 //            if allTheCollections.isEmpty {

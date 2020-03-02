@@ -11,4 +11,5 @@ import Foundation
 struct Collection: Codable & Equatable {
     let name: String
     let description: String
+    var venue: [Venue]
 }

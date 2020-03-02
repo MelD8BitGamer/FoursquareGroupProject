@@ -12,7 +12,6 @@ import DataPersistence
 class CreateNewVC: UIViewController {
     var textFieldString = ""
     var textFieldDescription = ""
-    public var dataPersistence: DataPersistence<VenueDetail>!
     public var collectionPersistence: DataPersistence<Collection>!
     let createdView = CreateNewView()
 
@@ -20,7 +19,6 @@ class CreateNewVC: UIViewController {
    
     override func loadView() {
         view = createdView
-        
     }
     
     override func viewDidLoad() {
@@ -28,14 +26,11 @@ class CreateNewVC: UIViewController {
         view.backgroundColor = .clear
         createdView.nameOfCollectionTF.delegate = self
         createdView.createButton.addTarget(self, action: #selector(createButtonPressed(_:)), for: .touchUpInside)
-    
     }
     
-    init(_ dataPersistence: DataPersistence<VenueDetail>, collectionPersistence: DataPersistence<Collection>) {
-           self.dataPersistence = dataPersistence
+    init(collectionPersistence: DataPersistence<Collection>) {
            self.collectionPersistence = collectionPersistence
            super.init(nibName: nil, bundle: nil)
-
        }
     
     required init?(coder: NSCoder) {
@@ -43,7 +38,7 @@ class CreateNewVC: UIViewController {
     }
     
         @objc public func createButtonPressed(_ sender: UIButton) {
-            createdCollection = Collection(name: textFieldString, description: textFieldDescription)
+            createdCollection = Collection(name: textFieldString, description: textFieldDescription, venue: [])
             //TODO: if the collection name has already been made
             if collectionPersistence.hasItemBeenSaved(createdCollection) {
                      showAlert(title: "Wait!!", message: "This collection has already been saved to your favorites")
