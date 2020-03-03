@@ -2,7 +2,7 @@
 
 ## Description:
 
-Our team worked together to create mock FourSquare app allows users to search for restaurants/venues/activities in different locations. (Pretty much like the actual foursquare app).
+Our team worked together to create mock FourSquare app allows users to search for, navigate to, save restaurants/venues/activities in different locations. (Pretty much like the actual foursquare app).
 
 ## Screenshots
 
