@@ -6,6 +6,11 @@ Our team worked together to create mock FourSquare app allows users to search fo
 
 ## Screenshots
 
+![homescreen](FourSquareGroupProject/NewAssets/Screen Shot 2020-03-02 at 5.24.03 PM.png)
+![collectionscreen](FourSquareGroupProject/NewAssets/Screen Shot 2020-03-03 at 7.13.07 PM.png)
+![tableviewscreen](FourSquareGroupProject/NewAssets/Screen Shot 2020-03-03 at 7.13.38 PM.png)
+![detailviewscreen](FourSquareGroupProject/NewAssets/Screen Shot 2020-03-03 at 7.12.33 PM.png)
+
 ## Code Snippet
 
 Child View Controller (TableView)
@@ -43,6 +48,8 @@ Toggle Map
 ```
 
 ## GIF
+
+![](FourSquareGroupProject/NewAssets/gif1.gif)
 
 ## Collaboraters 
 
