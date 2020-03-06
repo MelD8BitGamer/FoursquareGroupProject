@@ -49,7 +49,7 @@ Toggle Map
 
 ## GIF
 
-![](FourSquareGroupProject/NewAssets/gif1.gif)
+![](FoursquareGroupProject/NewAssets/gif1.gif)
 
 ## Collaboraters 
 
