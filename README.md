@@ -6,7 +6,10 @@ Our team worked together to create mock FourSquare app allows users to search fo
 
 ## Screenshots
 
-
+![homescreen](FoursquareGroupProject/NewAssets/homescreen.png)
+![detailscreen](FoursquareGroupProject/NewAssets/detailview.png)
+![favoritescreen](FoursquareGroupProject/NewAssets/collectionview.png)
+![tableviewscreen](FoursquareGroupProject/NewAssets/tableview.png)
 
 ## Code Snippet
 
