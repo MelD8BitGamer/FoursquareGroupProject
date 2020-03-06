@@ -24,6 +24,7 @@ class SaveView: UIView {
     public lazy var createListButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "addDatabase"), for: .normal)
+        button.contentMode = .scaleAspectFit
         // button.addTarget(self, action: #selector(createFoodButtonPressed(_:)), for: .touchUpInside)
         return button
     }()

@@ -50,18 +50,18 @@ class DetailViewController: UIViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            let touch: UITouch? = touches.first
-    //        detailView.popUpView.isHidden = false
-    //        detailView.saveButton.isHidden = false
-    //        detailView.visualEffectView.isHidden = false
-            if touch?.view != detailView.popUpView {
-                detailView.popUpView.isHidden = true
-    //            detailView.saveButton.isHidden = true
-                detailView.visualEffectView.isHidden = true
-            } else {
-                detailView.popUpView.isHidden = false
-            }
+        let touch: UITouch? = touches.first
+        //        detailView.popUpView.isHidden = false
+        //        detailView.saveButton.isHidden = false
+        //        detailView.visualEffectView.isHidden = false
+        if touch?.view != detailView.popUpView {
+            detailView.popUpView.isHidden = true
+            //            detailView.saveButton.isHidden = true
+            detailView.visualEffectView.isHidden = true
+        } else {
+            detailView.popUpView.isHidden = false
         }
+    }
     
     private func getFavCollection() {
         do {
@@ -153,9 +153,10 @@ extension DetailViewController: UICollectionViewDelegateFlowLayout {
         selected.venue.append(venue)
         try dataPersistence.update(selected, at: indexPath.row)
         UIView.animate(withDuration: 0.3, delay: 0.0, options: [.curveEaseInOut], animations: {
-                   self.detailView.popUpView.transform = CGAffineTransform(translationX: 0, y: 900)
-               }, completion: nil)
+            self.detailView.popUpView.transform = CGAffineTransform(translationX: 0, y: 900)
+        }, completion: nil)
         delegate?.didSave(self)
-}
+    }
     
 }
+

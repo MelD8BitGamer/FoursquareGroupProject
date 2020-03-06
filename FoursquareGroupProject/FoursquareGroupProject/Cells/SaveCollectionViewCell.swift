@@ -29,7 +29,7 @@ class CollectionViewCell: UICollectionViewCell {
     
     public lazy var moreButton: UIButton = {
         let button = UIButton()
-        button.tintColor = .systemPink
+        button.tintColor = .white
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 10, weight: .black, scale: .large)
         button.setImage(UIImage(systemName: "ellipsis", withConfiguration: imageConfig), for: .normal)
         button.addTarget(self, action: #selector(moreButtonPressed(_:)), for: .touchUpInside)
@@ -45,6 +45,7 @@ class CollectionViewCell: UICollectionViewCell {
         label.layer.cornerRadius = 20
         //label.backgroundColor = .systemGroupedBackground
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 12)
+        label.font = UIFont(name: "HelveticaNeue-Medium", size: 12)
         return label
     }()
     
@@ -52,6 +53,7 @@ class CollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 3
         label.font = UIFont(name: "HelveticaNeue-Bold", size: 12)
+        label.font = UIFont(name: "HelveticaNeue", size: 12)
         label.text = "There are THIS many on our list"
         
         return label
@@ -119,6 +121,7 @@ class CollectionViewCell: UICollectionViewCell {
             headLabel.topAnchor.constraint(equalTo: restaurantImage.bottomAnchor, constant: 10),
             headLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             headLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5)
+//            headLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.05)
         ])
     }
     

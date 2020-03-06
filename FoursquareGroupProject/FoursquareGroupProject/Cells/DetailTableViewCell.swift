@@ -46,10 +46,9 @@ class DetailTableViewCell: UITableViewCell {
     
     private func venueNameLabelConstraints() {
         addSubview(venueNameLabel)
-        //        titleLabel.anchor(top: topAnchor, left: venueImageView.rightAnchor, right: rightAnchor, paddingTop: 20, paddingLeft: 10, paddingRight: 8)
         venueNameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            venueNameLabel.topAnchor.constraint(equalTo:topAnchor),
+            venueNameLabel.topAnchor.constraint(equalTo:topAnchor, constant: 15),
             venueNameLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
             venueNameLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
@@ -57,12 +56,11 @@ class DetailTableViewCell: UITableViewCell {
     
     private func venueAddressLabelConstraints() {
         addSubview(venueAddressLabel)
-        //        venueAddress.anchor(top: titleLabel.bottomAnchor, left: titleLabel.leftAnchor, right: titleLabel.rightAnchor, paddingTop: 8, paddingBottom: -8)
         venueAddressLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            venueAddressLabel.topAnchor.constraint(equalTo: venueNameLabel.bottomAnchor, constant: 1),
-            venueAddressLabel.leadingAnchor.constraint(equalTo:leadingAnchor, constant: 8),
-            venueAddressLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            venueAddressLabel.topAnchor.constraint(equalTo: venueNameLabel.bottomAnchor, constant: 10),
+            venueAddressLabel.leadingAnchor.constraint(equalTo:leadingAnchor, constant: 20),
+            venueAddressLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
         
 }

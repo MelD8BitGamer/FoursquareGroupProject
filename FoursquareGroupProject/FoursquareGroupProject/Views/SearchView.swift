@@ -44,7 +44,7 @@ final class SearchView: UIView {
         tf.setRightPadding(10)
         tf.layer.masksToBounds = true
         tf.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        tf.font = UIFont(name: "AvenirNext-Regular", size: 15)
+        tf.font = UIFont(name: "HelveticaNeue", size: 15)
         tf.layer.cornerRadius = 15
         tf.backgroundColor = .systemBackground
         tf.placeholder = "  Search for city"
@@ -63,7 +63,7 @@ final class SearchView: UIView {
     public lazy var navigateVC: UIButton = {
         let navigateButton = UIButton(frame: CGRect(x: 350, y: 440, width: 50, height: 50))
         navigateButton.setTitle("GO", for: .normal)
-        navigateButton.titleLabel?.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
+        navigateButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Semibold", size: 15)
         navigateButton.layer.cornerRadius = 25
         navigateButton.layer.masksToBounds = true
         navigateButton.setTitleColor(UIColor.black, for: .normal)

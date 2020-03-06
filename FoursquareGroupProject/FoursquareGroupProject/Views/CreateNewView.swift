@@ -30,11 +30,18 @@ class CreateNewView: UIView {
         textField.textColor = .black
         textField.backgroundColor = .white
         textField.attributedPlaceholder = NSAttributedString(string: "Name of Collection: Ex:Coffee", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        textField.font = UIFont.preferredFont(forTextStyle: .headline)
+        textField.placeholder = "Name of Collection: (ex: Coffee, Pizza)"
+        textField.layer.cornerRadius = 7
+        textField.textAlignment = .center
+        textField.backgroundColor = .white
         return textField
     }()
     public lazy var descriptionTF: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Description Ex: Where I go for coffee "
+        textField.font = UIFont.preferredFont(forTextStyle: .headline)
+        textField.placeholder = "Description: (ex: Where I go for coffee)"
         textField.layer.cornerRadius = 7
         textField.textColor = .black
         textField.textAlignment = .center

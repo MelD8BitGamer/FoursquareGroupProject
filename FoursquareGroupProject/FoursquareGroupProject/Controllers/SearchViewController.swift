@@ -351,6 +351,7 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton = false
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes([NSAttributedString.Key.backgroundColor: UIColor.red], for: .normal)
     }
 }
 
@@ -363,6 +364,10 @@ extension SearchViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         currentCity = textField.text ?? "New York"
         return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.searchView.endEditing(true)
     }
 }
 

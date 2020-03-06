@@ -15,7 +15,7 @@ final class VenueTableViewCell: UITableViewCell {
         let imageV = UIImageView()
         imageV.clipsToBounds = true
         imageV.layer.cornerRadius = 10
-        imageV.contentMode = .scaleToFill
+        imageV.contentMode = .scaleAspectFit
         imageV.image = UIImage(systemName: "person.fill")
         return imageV
     }()

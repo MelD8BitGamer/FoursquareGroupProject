@@ -45,7 +45,7 @@ class detail: UIView {
     
     public lazy var imageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "trash.fill")
+        image.image = UIImage(systemName: "photo.fill")
         image.contentMode = .scaleAspectFit
         return image
     }()
@@ -407,23 +407,3 @@ class detail: UIView {
         }, completion: nil)
     }
 }
-//
-//extension UIView: UICollectionViewDataSource {
-//    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 10
-//    }
-//
-//    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailViewCell", for: indexPath)
-//        return cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let maxSize: CGSize = UIScreen.main.bounds.size
-//        let spacingBetweenItems: CGFloat = 10
-//        let numberOfItems: CGFloat = 1
-//        let itemHeight:CGFloat = maxSize.height * 0.50
-//        let totalSpacing: CGFloat = (2 * spacingBetweenItems) + (numberOfItems - 1 ) * spacingBetweenItems
-//        let itemWidth: CGFloat = (maxSize.width - totalSpacing) / numberOfItems
-//        return CGSize(width: itemWidth, height: itemHeight)
-//    }
